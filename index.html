@@ -637,8 +637,8 @@ const articlesData = [
         year: 2023,
         authors: "Slinkard et al.",
         journal: "J Feline Med Surg",
-        summaryUrl: "Abdomen/Imaging features of renal ectopia and fusion in 13 cats/summary.html",
-        noteUrl: "Abdomen/Imaging features of renal ectopia and fusion in 13 cats/note.html"
+        summaryUrl: "feline_renal_fusion.html",
+        noteUrl: "貓腎臟異位與融合13例影像特徵.html"
     },
     // ── 製作中（2–39）────────────────────────────
     { id: 2,  title: "文獻 02（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
@@ -940,8 +940,7 @@ function updateStats() {
     document.getElementById('statSummary').textContent = withSummary;
     document.getElementById('statNote').textContent    = withNote;
     // Last updated = newest non-pending
-    const years = articlesData.filter(a => a.year).map(a => a.year);
-    document.getElementById('lastUpdate').textContent = years.length ? Math.max(...years) : '—';
+    document.getElementById('lastUpdate').textContent = new Date().getFullYear();
 }
 
 function renderArticles() {
