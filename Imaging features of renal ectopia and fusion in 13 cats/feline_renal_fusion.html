@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貓腎臟異位與融合 — 影像學深層分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf6f7;
+    --bg2: #faeef0;
+    --bg3: #fce7eb;
+    --surface: #ffffff;
+    --surface2: #faeef0;
+    --border: #e6c8cc;
+    --accent1: #a3626c;
+    --accent2: #825159;
+    --accent3: #ddb5bb;
+    --warm: #e09f7d;
+    --warm2: #c67d5e;
+    --green: #7ca87d;
+    --red: #c96a6a;
+    --purple: #a881af;
+    --text: #4a4a4a;
+    --text2: #75474d;
+    --text3: #825159;
+    --glow: rgba(163,98,108,0.15);
+    --glow2: rgba(224,159,125,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #faeef0; }
+  ::-webkit-scrollbar-thumb { background: #ddb5bb; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d1a3aa; }
+
+  /* ─── PROGRESS ─── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent1), var(--warm));
+    z-index: 999;
+    width: 0;
+    transition: width 0.1s;
+  }
+
+  /* ─── BANNER ─── */
+  .banner-wrapper {
+    background-color: var(--accent3);
+    width: 100%;
+    padding: 14px 24px;
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 20;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(163,98,108,0.1);
+    animation: fadeIn 0.8s ease both;
+  }
+  .banner-wrapper img {
+    width: 80%;
+    max-width: 900px;
+    height: auto;
+    display: inline-block;
+    border-radius: 6px;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 160px 24px 60px;
+  }
+  #hero-canvas {
+    position: absolute;
+    inset: 0; z-index: 0;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 1200px;
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent1);
+    border: 1px solid rgba(163,98,108,0.3);
+    background: rgba(255,255,255,0.6);
+    display: inline-block;
+    padding: 6px 18px; border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(28px, 5.5vw, 68px);
+    font-weight: 900; line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    color: var(--text2);
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-title .tib {
+    color: var(--accent1); position: relative;
+  }
+  .hero-title .tib::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent1), transparent);
+  }
+  .hero-subtitle {
+    font-size: clamp(13px, 1.8vw, 17px);
+    color: var(--text);
+    max-width: 640px;
+    line-height: 1.8;
+    margin: 0 auto 48px;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .hero-stats {
+    display: flex; gap: 32px;
+    justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+  .hero-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.75);
+    padding: 16px 28px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px; font-weight: 700;
+    color: var(--accent1); line-height: 1; display: block;
+  }
+  .hero-stat .label {
+    font-size: 11px; color: var(--text3);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-top: 4px; font-weight: 600;
+  }
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%); z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    color: var(--text3); font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+  .scroll-arrow {
+    width: 20px; height: 30px;
+    border: 1px solid var(--text3); border-radius: 10px; position: relative;
+  }
+  .scroll-arrow::after {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--text3); border-radius: 50%;
+    position: absolute; top: 6px; left: 50%;
+    transform: translateX(-50%);
+    animation: scrollDot 1.5s infinite;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,246,247,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center;
+    justify-content: center;
+    height: 56px; overflow-x: auto; gap: 0;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  @media (max-width: 900px) { nav { justify-content: flex-start; } }
+  .nav-item {
+    padding: 0 16px; height: 100%;
+    display: flex; align-items: center;
+    font-size: 12.5px; letter-spacing: 0.5px;
+    color: var(--text3); cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s; flex-shrink: 0; font-weight: 500;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent1);
+    border-bottom-color: var(--accent1);
+    background: var(--bg2);
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 90px 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--accent1);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px; font-weight: 700;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 2px; background: var(--accent1); opacity: 0.4;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(22px, 3.5vw, 40px);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 16px; color: var(--text2);
+  }
+  .section-desc {
+    color: var(--text); font-size: 15px;
+    line-height: 1.8; max-width: 700px; margin-bottom: 50px;
+  }
+
+  /* ─── BG ALT ─── */
+  .bg-alt {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 90px 24px;
+  }
+  .bg-alt-inner { max-width: 1200px; margin: 0 auto; }
+  .bg-alt3 {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 90px 24px;
+  }
+
+  /* ─── INTRO CARDS ─── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .intro-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .intro-grid { grid-template-columns: 1fr; } }
+  .intro-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(163,98,108,0.05);
+  }
+  .intro-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent1); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .intro-card:hover { border-color: var(--accent1); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(163,98,108,0.12); }
+  .intro-card:hover::before { opacity: 1; }
+  .intro-card .icon {
+    width: 42px; height: 42px; border-radius: 8px;
+    background: var(--bg2); color: var(--accent1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px; border: 1px solid var(--border);
+  }
+  .intro-card h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px; font-weight: 700;
+    margin-bottom: 10px; color: var(--text2);
+  }
+  .intro-card p { font-size: 14px; line-height: 1.8; color: var(--text); }
+
+  /* ─── DEMO GRID ─── */
+  .demo-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  @media (max-width: 700px) { .demo-grid { grid-template-columns: 1fr 1fr; } }
+  .demo-cell {
+    background: var(--surface); padding: 28px 20px;
+    text-align: center; transition: background 0.3s;
+  }
+  .demo-cell:hover { background: var(--surface2); }
+  .demo-cell .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--accent1); display: block;
+    line-height: 1; margin-bottom: 6px;
+  }
+  .demo-cell .key {
+    font-size: 11px; color: var(--text3);
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+  }
+  .demo-cell .sub {
+    font-size: 12px; color: var(--text); margin-top: 5px; line-height: 1.4;
+  }
+
+  /* ─── FUSION TYPE CARDS ─── */
+  .type-tabs {
+    display: flex; gap: 2px;
+    background: var(--border); border-radius: 8px;
+    overflow: hidden; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    flex: 1; padding: 13px 10px;
+    background: var(--surface); border: none;
+    color: var(--text3); font-size: 13px;
+    font-family: 'Inter','Noto Sans TC',sans-serif;
+    cursor: pointer; transition: all 0.2s; font-weight: 500;
+    white-space: nowrap; min-width: 80px;
+  }
+  .tab-btn.active { background: var(--accent1); color: white; font-weight: 600; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+  .type-detail {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 36px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+  }
+  @media (max-width: 700px) { .type-detail { grid-template-columns: 1fr; } }
+  .type-detail h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--accent1); margin-bottom: 12px;
+  }
+  .type-detail .en { font-size: 13px; color: var(--text3); font-weight: 500; margin-bottom: 20px; letter-spacing: 1px; }
+  .type-detail p { font-size: 15px; line-height: 1.85; color: var(--text); margin-bottom: 16px; }
+  .type-stat-row {
+    display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap;
+    background: var(--bg2); padding: 16px 20px;
+    border-radius: 6px; border: 1px solid var(--border);
+  }
+  .type-stat { text-align: center; }
+  .type-stat .sv {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; color: var(--accent1); font-weight: 700; display: block;
+  }
+  .type-stat .sk {
+    font-size: 11px; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+  }
+
+  /* ─── SVG DIAGRAM ─── */
+  .diagram-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 24px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 280px;
+  }
+  .diagram-wrap svg { width: 100%; max-width: 380px; }
+
+  /* ─── IMAGING TABLE ─── */
+  .img-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden; font-size: 14px;
+  }
+  .img-table th {
+    padding: 14px 20px; background: var(--bg2);
+    color: var(--text2); font-size: 12px;
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; border-bottom: 2px solid var(--border); text-align: left;
+  }
+  .img-table td {
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    color: var(--text); line-height: 1.6;
+  }
+  .img-table tr:last-child td { border-bottom: none; }
+  .img-table td:first-child { color: var(--text2); font-weight: 600; background: rgba(250,238,240,0.3); white-space: nowrap; }
+  .img-table tr:hover td { background: rgba(163,98,108,0.03); }
+
+  /* ─── BADGES ─── */
+  .badge {
+    display: inline-block; padding: 3px 10px;
+    border-radius: 4px; font-size: 12px; font-weight: 600;
+  }
+  .badge-good { background: rgba(124,168,125,0.15); color: #4e8250; border: 1px solid rgba(124,168,125,0.3); }
+  .badge-poor { background: rgba(201,106,106,0.15); color: #a14545; border: 1px solid rgba(201,106,106,0.3); }
+  .badge-warn { background: rgba(224,159,125,0.15); color: #c67d5e; border: 1px solid rgba(224,159,125,0.3); }
+  .badge-info { background: rgba(163,98,108,0.1); color: var(--accent1); border: 1px solid rgba(163,98,108,0.3); }
+
+  /* ─── CASE TABLE ─── */
+  .case-table-wrap { overflow-x: auto; margin-top: 40px; border-radius: 8px; border: 1px solid var(--border); }
+  .case-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface); font-size: 13px; min-width: 900px;
+  }
+  .case-table th {
+    padding: 14px 16px; background: var(--bg3);
+    color: var(--text2); font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700; border-bottom: 2px solid var(--border); text-align: left;
+    white-space: nowrap;
+  }
+  .case-table td {
+    padding: 13px 16px; border-bottom: 1px solid var(--border);
+    color: var(--text); vertical-align: middle;
+  }
+  .case-table tr:last-child td { border-bottom: none; }
+  .case-table tr:hover td { background: rgba(163,98,108,0.04); }
+  .case-table td:first-child { font-weight: 700; color: var(--accent1); text-align: center; }
+
+  /* ─── BARS ─── */
+  .bar-list { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+  .bar-row { display: grid; grid-template-columns: 160px 1fr 50px; align-items: center; gap: 16px; }
+  @media (max-width: 550px) { .bar-row { grid-template-columns: 100px 1fr 40px; } }
+  .b-label { font-size: 14px; color: var(--text); text-align: right; font-weight: 500; }
+  .b-track { height: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+  .b-fill { height: 100%; border-radius: 4px; width: 0; transition: width 1.3s cubic-bezier(0.16,1,0.3,1); }
+  .b-pct { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--accent1); text-align: right; font-weight: 700; }
+
+  /* ─── MECH CARDS ─── */
+  .mech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 700px) { .mech-grid { grid-template-columns: 1fr; } }
+  .mech-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px; transition: all 0.3s;
+    cursor: pointer; position: relative;
+    box-shadow: 0 2px 8px rgba(163,98,108,0.05);
+  }
+  .mech-card::after {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 8px; border: 2px solid transparent; transition: border-color 0.3s;
+  }
+  .mech-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(163,98,108,0.1); }
+  .mech-card.active::after { border-color: var(--accent1); }
+  .mech-card .m-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; color: rgba(163,98,108,0.15);
+    font-weight: 700; line-height: 1; margin-bottom: 12px;
+  }
+  .mech-card.active .m-num { color: rgba(163,98,108,0.4); }
+  .mech-card h3 { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text2); }
+  .mech-card p { font-size: 14px; color: var(--text); line-height: 1.7; }
+  .mech-detail {
+    margin-top: 28px;
+    background: var(--surface); border: 2px solid rgba(163,98,108,0.2);
+    border-radius: 8px; padding: 32px; display: none;
+    box-shadow: 0 4px 12px rgba(163,98,108,0.08);
+  }
+  .mech-detail.active { display: block; animation: fadeIn 0.3s ease; }
+  .mech-detail h4 { font-family: 'Noto Serif TC', serif; color: var(--accent1); font-size: 20px; font-weight: 700; margin-bottom: 14px; border-bottom: 1px dashed var(--border); padding-bottom: 12px; }
+  .mech-detail p { font-size: 15px; line-height: 1.9; color: var(--text); }
+  .mech-detail ul { margin: 14px 0 0 20px; }
+  .mech-detail li { font-size: 14px; line-height: 1.8; color: var(--text); margin-bottom: 6px; }
+
+  /* ─── DIFF CARDS ─── */
+  .diff-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .diff-grid { grid-template-columns: 1fr; } }
+  .diff-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 24px; display: flex; gap: 16px;
+    transition: all 0.3s; box-shadow: 0 2px 8px rgba(163,98,108,0.05);
+  }
+  .diff-card:hover { border-color: rgba(163,98,108,0.4); background: var(--bg2); transform: translateY(-2px); }
+  .diff-card .dc-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; border: 1px solid var(--border); background: var(--bg2); }
+  .diff-card .dc-body h4 { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text2); }
+  .diff-card .dc-body p { font-size: 13.5px; color: var(--text); line-height: 1.7; }
+
+  /* ─── PEARLS ─── */
+  .pearls-list { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+  .pearl-item {
+    display: flex; gap: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px; align-items: flex-start;
+    transition: all 0.3s; box-shadow: 0 2px 8px rgba(163,98,108,0.04);
+  }
+  .pearl-item:hover { border-color: rgba(163,98,108,0.4); background: var(--bg2); transform: translateY(-2px); }
+  .pearl-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; color: rgba(163,98,108,0.25);
+    font-weight: 700; line-height: 1; flex-shrink: 0; min-width: 48px;
+  }
+  .pearl-body h4 { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
+  .pearl-body p { font-size: 14.5px; line-height: 1.8; color: var(--text); }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: var(--border); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg2); padding: 60px 24px;
+    text-align: center; font-size: 14px;
+    color: var(--text3); border-top: 1px solid var(--border);
+  }
+  .f-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--text2); margin-bottom: 12px; }
+
+  /* ─── REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ─── KEYFRAMES ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scrollDot {
+    0% { top: 6px; opacity: 1; }
+    100% { top: 18px; opacity: 0; }
+  }
+
+  /* ─── FLOW DIAGRAM ─── */
+  .flow-wrap {
+    display: flex; align-items: center;
+    justify-content: center; gap: 0;
+    flex-wrap: wrap; margin: 40px 0 20px;
+  }
+  .flow-node {
+    background: var(--surface); border: 2px solid var(--border);
+    border-radius: 8px; padding: 18px 22px;
+    text-align: center; min-width: 130px;
+    transition: all 0.3s; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(163,98,108,0.05);
+  }
+  .flow-node:hover {
+    border-color: var(--accent1);
+    box-shadow: 0 0 20px rgba(163,98,108,0.2);
+    transform: translateY(-2px);
+  }
+  .flow-node .n-icon { font-size: 28px; margin-bottom: 6px; }
+  .flow-node .n-title { font-size: 14px; color: var(--text2); font-weight: 700; }
+  .flow-node .n-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .flow-arrow {
+    width: 40px; height: 3px;
+    background: linear-gradient(90deg, var(--border), var(--accent1), var(--border));
+    flex-shrink: 0; position: relative;
+  }
+  .flow-arrow::after {
+    content: '▶'; position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; color: var(--accent1);
+  }
+
+  /* ─── INFO BOX ─── */
+  .info-box {
+    background: rgba(163,98,108,0.06);
+    border: 1px solid rgba(163,98,108,0.2);
+    border-left: 4px solid var(--accent1);
+    border-radius: 6px; padding: 20px 24px;
+    margin: 24px 0; font-size: 14.5px; line-height: 1.8; color: var(--text);
+  }
+  .info-box strong { color: var(--text2); }
+
+  /* ─── 2-COL LAYOUT ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ─── QUOTE ─── */
+  .quote-block {
+    border-left: 3px solid var(--accent3);
+    padding: 16px 24px;
+    background: var(--bg2);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    font-size: 15px; line-height: 1.8; color: var(--text2);
+    margin: 20px 0;
+  }
+
+  /* ─── CONGENITAL BOX ─── */
+  .congenital-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+  }
+  .congenital-box h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--text2); margin-bottom: 12px;
+  }
+  .congenital-box p { font-size: 14px; line-height: 1.8; color: var(--text); }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="banner-wrapper">
+    <img src="https://i.imgur.com/UjjErEs.png" alt="愛叮寶犬貓影像專科醫院">
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Journal of Feline Medicine &amp; Surgery · 2023 · Case Series</div>
+    <h1 class="hero-title">
+      貓咪<span class="tib">腎臟異位</span>與<span class="tib">融合</span><br>影像學特徵分析
+    </h1>
+    <p class="hero-subtitle">
+      Imaging Features of Renal Ectopia and Fusion in 13 Cats<br>
+      Slinkard et al. · 多中心回顧性病例系列 · 六個國際機構
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num" data-target="13">0</span>
+        <span class="label">病例數</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="5">0</span>
+        <span class="label">參與機構</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="9">0</span>
+        <span class="label">中位年齡（歲）</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="12">0</span>
+        <span class="label">超音波可用</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    向下捲動
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-item" data-target="sec-intro">🔬 背景</div>
+  <div class="nav-item" data-target="sec-demo">📊 病例概況</div>
+  <div class="nav-item" data-target="sec-types">🫘 融合類型</div>
+  <div class="nav-item" data-target="sec-imaging">📡 影像特徵</div>
+  <div class="nav-item" data-target="sec-cases">📋 病例列表</div>
+  <div class="nav-item" data-target="sec-clinical">🏥 臨床要點</div>
+  <div class="nav-item" data-target="sec-diff">⚡ 鑑別診斷</div>
+  <div class="nav-item" data-target="sec-pearls">💡 臨床珍珠</div>
+</nav>
+
+<!-- ─── 1. 背景介紹 ─── -->
+<section id="sec-intro">
+  <div class="section-label">Background</div>
+  <h2 class="section-title">腎臟融合異常：定義與分類</h2>
+  <p class="section-desc">
+    腎臟融合是獸醫學中罕見的先天性泌尿道畸形，在人類醫學中則相對常見。本文依據人類 McDonald 分類系統（1957）並配合動物解剖方位調整，描述三大融合類型及其細分。
+  </p>
+
+  <div class="intro-grid">
+    <div class="intro-card reveal">
+      <div class="icon">🐎</div>
+      <h3>馬蹄形腎（Horseshoe Kidney）</h3>
+      <p>兩個獨立腎臟分別位於脊柱兩側，由尾極在中線形成峽部相連，呈 U 形。為人類最常見融合異常，佔 90%。在貓的獸醫文獻中極為罕見，本系列僅 1 例。</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="icon">✖️</div>
+      <h3>交叉融合腎異位（CFRE）</h3>
+      <p>異位腎越過中線並與對側正位腎部分融合。為人類第二常見融合類型，男性佔多數，左腎最常為異位腎。本系列 11/13 例屬此類型。依形態可細分為塊狀、碟狀、尾側異位、L 形等。</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="icon">🥞</div>
+      <h3>骨盆融合腎（Pancake Kidney）</h3>
+      <p>兩腎完全融合於骨盆腔，形成扁平腎臟，具兩條短輸尿管。為人類最罕見的融合類型。貓的獸醫文獻先前僅有 1 篇病例報告，本系列新增 1 例。</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="icon">🔍</div>
+      <h3>研究目的</h3>
+      <p>本多中心回顧性研究收集 2005–2021 年六個機構的病例，系統性描述貓腎臟異位與融合的超音波、X 光及 CT 影像特徵，並採用人類分類系統進行解剖型態分類。</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="icon">🌍</div>
+      <h3>參與機構</h3>
+      <p>美國塔夫茨大學（Tufts）、義大利波隆那 Portoni Rossi、西班牙巴塞隆納大學、英國 Dick White Referrals、德國吉森大學、奧地利維也納獸醫大學——六國際機構聯合。</p>
+    </div>
+    <div class="intro-card reveal">
+      <div class="icon">📖</div>
+      <h3>先前文獻</h3>
+      <p>貓的 CFRE 先前僅有 4 篇病例報告，其中 3 例為偶發發現，1 例伴有多尿、多飲及腎衰竭。僅 1 篇描述骨盆融合腎，1 篇描述馬蹄形腎。本研究為迄今最大規模病例系列。</p>
+    </div>
+  </div>
+
+  <div class="info-box reveal" style="margin-top:40px;">
+    <strong>📌 McDonald 分類系統（調整版）：</strong> 塊狀腎（Lump）、碟狀腎（Disc）、尾側異位（Caudal ectopia）、顱側異位（Superior ectopia）、乙狀腎（Sigmoid/S-shaped）、L 形腎（L-shaped）。本研究因貓人解剖方位差異，以「尾側異位」取代人類的「下側交叉融合」（Inferior ectopia）。
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── 2. 病例概況 ─── -->
+<div class="bg-alt" id="sec-demo">
+  <div class="bg-alt-inner">
+    <div class="section-label">Demographics &amp; Signalment</div>
+    <h2 class="section-title">13 例貓咪病例概況</h2>
+    <p class="section-desc">本系列共 13 隻貓，中位年齡 9 歲（範圍 1–13 歲），涵蓋多種品種與臨床表現。9 例為左側至右側融合，4 例為右側至左側融合。</p>
+
+    <div class="demo-grid reveal">
+      <div class="demo-cell">
+        <span class="val">13</span>
+        <span class="key">總病例數</span>
+        <span class="sub">多中心回顧</span>
+      </div>
+      <div class="demo-cell">
+        <span class="val">9♂ / 4♀</span>
+        <span class="key">性別分布</span>
+        <span class="sub">去勢公 / 絕育母</span>
+      </div>
+      <div class="demo-cell">
+        <span class="val">9歲</span>
+        <span class="key">中位年齡</span>
+        <span class="sub">範圍 1–13 歲</span>
+      </div>
+      <div class="demo-cell">
+        <span class="val">6種</span>
+        <span class="key">品種數</span>
+        <span class="sub">以 DSH 最多（6/13）</span>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top: 60px;">
+      <div>
+        <h3 class="section-title" style="font-size:22px; margin-bottom:24px;">🐱 臨床症狀分布</h3>
+        <p style="font-size:14px; color:var(--text3); margin-bottom:12px;">（佔 13 例之百分比）</p>
+        <div class="bar-list" id="symptom-bars">
+          <div class="bar-row">
+            <span class="b-label">食慾不振</span>
+            <div class="b-track"><div class="b-fill" data-w="31" style="background:linear-gradient(90deg,var(--accent1),var(--accent3));"></div></div>
+            <span class="b-pct">31%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">嗜睡</span>
+            <div class="b-track"><div class="b-fill" data-w="31" style="background:linear-gradient(90deg,var(--accent1),var(--accent3));"></div></div>
+            <span class="b-pct">31%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">發燒</span>
+            <div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+            <span class="b-pct">15%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">腹痛</span>
+            <div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+            <span class="b-pct">15%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">體重減輕</span>
+            <div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+            <span class="b-pct">15%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">嘔吐</span>
+            <div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+            <span class="b-pct">15%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">排尿困難</span>
+            <div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--purple),rgba(168,129,175,0.4));"></div></div>
+            <span class="b-pct">15%</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="section-title" style="font-size:22px; margin-bottom:24px;">📡 影像模式可用性</h3>
+        <div class="bar-list">
+          <div class="bar-row">
+            <span class="b-label">超音波（US）</span>
+            <div class="b-track"><div class="b-fill" data-w="92" style="background:linear-gradient(90deg,var(--accent1),var(--accent3));"></div></div>
+            <span class="b-pct">92%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">X 光攝影</span>
+            <div class="b-track"><div class="b-fill" data-w="31" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+            <span class="b-pct">31%</span>
+          </div>
+          <div class="bar-row">
+            <span class="b-label">CT 掃描</span>
+            <div class="b-track"><div class="b-fill" data-w="23" style="background:linear-gradient(90deg,var(--green),rgba(124,168,125,0.3));"></div></div>
+            <span class="b-pct">23%</span>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;">
+          <h3 class="section-title" style="font-size:22px; margin-bottom:24px;">🫘 融合方向分布</h3>
+          <div class="bar-list">
+            <div class="bar-row">
+              <span class="b-label">左→右 融合</span>
+              <div class="b-track"><div class="b-fill" data-w="54" style="background:linear-gradient(90deg,var(--accent1),var(--accent3));"></div></div>
+              <span class="b-pct">54%</span>
+            </div>
+            <div class="bar-row">
+              <span class="b-label">右→左 融合</span>
+              <div class="b-track"><div class="b-fill" data-w="31" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div>
+              <span class="b-pct">31%</span>
+            </div>
+            <div class="bar-row">
+              <span class="b-label">中線（馬蹄形）</span>
+              <div class="b-track"><div class="b-fill" data-w="8" style="background:linear-gradient(90deg,var(--purple),rgba(168,129,175,0.4));"></div></div>
+              <span class="b-pct">8%</span>
+            </div>
+            <div class="bar-row">
+              <span class="b-label">骨盆入口</span>
+              <div class="b-track"><div class="b-fill" data-w="8" style="background:linear-gradient(90deg,var(--green),rgba(124,168,125,0.3));"></div></div>
+              <span class="b-pct">8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box reveal" style="margin-top:48px;">
+      <strong>⚡ 性別差異：</strong> 本系列 9/13（69%）為去勢公貓，與人類醫學文獻一致（CFRE 在男性中更常見）。先前貓文獻 4 例中男女各 2 例，未顯示此傾向，可能因樣本量不足。本系列為目前最大貓 CFRE 病例系列，強化了雄性可能佔多數的假設。
+    </div>
+  </div>
+</div>
+
+<!-- ─── 3. 融合類型 ─── -->
+<section id="sec-types">
+  <div class="section-label">Fusion Classification</div>
+  <h2 class="section-title">腎臟融合類型詳解</h2>
+  <p class="section-desc">依照 McDonald 分類系統（調整版），本系列 13 例共涵蓋 5 種形態類型。點選各標籤以查看詳細說明、影像特徵與示意圖。</p>
+
+  <div class="type-tabs">
+    <button class="tab-btn active" onclick="switchTypeTab('lump', this)">🟡 塊狀腎（5例）</button>
+    <button class="tab-btn" onclick="switchTypeTab('disc', this)">🟠 碟狀腎（4例）</button>
+    <button class="tab-btn" onclick="switchTypeTab('horseshoe', this)">🟢 馬蹄腎（1例）</button>
+    <button class="tab-btn" onclick="switchTypeTab('caudal', this)">🔵 尾側異位（1例）</button>
+    <button class="tab-btn" onclick="switchTypeTab('lshaped', this)">🟣 L 形腎（1例）</button>
+    <button class="tab-btn" onclick="switchTypeTab('pelvic', this)">⚪ 骨盆腎（1例）</button>
+  </div>
+
+  <div id="type-lump" class="tab-panel active">
+    <div class="type-detail reveal">
+      <div>
+        <h3>塊狀腎</h3>
+        <div class="en">Lump Kidney · 5 / 13 cases (38%)</div>
+        <p>兩腎大範圍融合，形成單一不規則腎臟腫塊，但保有<strong>兩個獨立的腎盂</strong>，方向相對（opposing each other）。這是本系列最常見的 CFRE 形態。</p>
+        <p>超音波橫切面顯示一大型不規則實質性腫塊，難以辨別兩腎交界。兩腎皮質廣泛融合，但腎盂結構可見且相對。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">5</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">38%</span><span class="sk">佔全系列</span></div>
+          <div class="type-stat"><span class="sv">CFRE</span><span class="sk">類型</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> US 橫切見單一大型腎實質腫塊；兩腎盂相對可見；皮髓質分界可能模糊；與碟狀腎的主要鑑別在於融合程度（塊狀為廣泛融合，碟狀為皮質部分融合）。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="kg1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ddb5bb" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#a3626c" stop-opacity="0.9"/>
+            </radialGradient>
+            <radialGradient id="kg2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ddb5bb" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#825159" stop-opacity="0.9"/>
+            </radialGradient>
+          </defs>
+          <!-- Fused mass -->
+          <ellipse cx="160" cy="120" rx="100" ry="80" fill="url(#kg1)" stroke="#a3626c" stroke-width="2"/>
+          <!-- Left pelvis -->
+          <ellipse cx="120" cy="120" rx="20" ry="14" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="120" y="125" text-anchor="middle" font-size="9" fill="#a3626c" font-weight="bold">L Pelvis</text>
+          <!-- Right pelvis -->
+          <ellipse cx="200" cy="120" rx="20" ry="14" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="200" y="125" text-anchor="middle" font-size="9" fill="#a3626c" font-weight="bold">R Pelvis</text>
+          <!-- Midline dashed -->
+          <line x1="160" y1="40" x2="160" y2="200" stroke="#e6c8cc" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="160" y="220" text-anchor="middle" font-size="10" fill="#825159">中線</text>
+          <text x="160" y="30" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">塊狀腎 (Lump Kidney)</text>
+          <!-- L R labels -->
+          <text x="60" y="120" font-size="14" fill="#e09f7d" font-weight="bold">L</text>
+          <text x="250" y="120" font-size="14" fill="#e09f7d" font-weight="bold">R</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="type-disc" class="tab-panel">
+    <div class="type-detail reveal">
+      <div>
+        <h3>碟狀腎</h3>
+        <div class="en">Disc Kidney · 4 / 13 cases (31%)</div>
+        <p>兩腎在<strong>各自內側（中線側）皮質</strong>部分融合，保留各自獨立的腎盂，兩腎盂相對。融合程度少於塊狀腎，兩腎仍可辨別輪廓。</p>
+        <p>CT 顯影後背側重組影像：腎臟結構偏向右側，兩腎沿尾側皮質緣部分融合，兩個輸尿管（白箭）及腎盂（黑星）均可辨認。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">4</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">31%</span><span class="sk">佔全系列</span></div>
+          <div class="type-stat"><span class="sv">CFRE</span><span class="sk">類型</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> 兩腎各自形態尚可辨別；融合面位於內側皮質；CT 顯影後可清楚見兩條獨立輸尿管；腎盂相對但分離。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left kidney -->
+          <ellipse cx="115" cy="120" rx="65" ry="52" fill="#ddb5bb" fill-opacity="0.7" stroke="#a3626c" stroke-width="2"/>
+          <ellipse cx="100" cy="120" rx="18" ry="12" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="100" y="125" text-anchor="middle" font-size="8" fill="#a3626c" font-weight="bold">L Pelvis</text>
+          <!-- Right kidney -->
+          <ellipse cx="205" cy="120" rx="65" ry="52" fill="#c2848e" fill-opacity="0.7" stroke="#825159" stroke-width="2"/>
+          <ellipse cx="220" cy="120" rx="18" ry="12" fill="#fdf6f7" stroke="#825159" stroke-width="1.5"/>
+          <text x="220" y="125" text-anchor="middle" font-size="8" fill="#825159" font-weight="bold">R Pelvis</text>
+          <!-- Fusion zone highlight -->
+          <ellipse cx="160" cy="120" rx="12" ry="40" fill="#a3626c" fill-opacity="0.25" stroke="#a3626c" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="160" y="175" text-anchor="middle" font-size="8" fill="#a3626c">融合帶</text>
+          <!-- Midline -->
+          <line x1="160" y1="40" x2="160" y2="205" stroke="#e6c8cc" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="160" y="218" text-anchor="middle" font-size="10" fill="#825159">中線</text>
+          <text x="160" y="28" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">碟狀腎 (Disc Kidney)</text>
+          <text x="55" y="120" font-size="14" fill="#e09f7d" font-weight="bold">L</text>
+          <text x="265" y="120" font-size="14" fill="#e09f7d" font-weight="bold">R</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="type-horseshoe" class="tab-panel">
+    <div class="type-detail reveal">
+      <div>
+        <h3>馬蹄形腎</h3>
+        <div class="en">Horseshoe Kidney · 1 / 13 cases</div>
+        <p>兩個<strong>各自獨立的腎臟分別位於脊柱兩側</strong>，由尾極在中線形成正常腎實質峽部相連，整體呈 U 形或馬蹄形。</p>
+        <p>CT 橫切面：兩腎分別位於後腔靜脈（CVC）與降結腸（腹側）、主動脈（背側）之間。矢狀面 MIP 重組顯示腎臟將後腔靜脈和降結腸向腹側推移。峽部由正常腎實質構成，有別於纖維性峽部（人類常見）。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">1</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">中線</span><span class="sk">位置</span></div>
+          <div class="type-stat"><span class="sv">CT</span><span class="sk">確診</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> 人類中最常見融合異常；貓文獻先前僅 1 例報告（Story 1943）；本系列 CT 確診：峽部為正常腎實質；兩腎臟將 CVC 及降結腸腹側推移。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left kidney -->
+          <ellipse cx="100" cy="100" rx="50" ry="65" fill="#ddb5bb" fill-opacity="0.8" stroke="#a3626c" stroke-width="2"/>
+          <!-- Right kidney -->
+          <ellipse cx="220" cy="100" rx="50" ry="65" fill="#c2848e" fill-opacity="0.8" stroke="#825159" stroke-width="2"/>
+          <!-- Isthmus -->
+          <rect x="100" y="148" width="120" height="22" rx="11" fill="#a3626c" fill-opacity="0.55" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="160" y="163" text-anchor="middle" font-size="9" fill="white" font-weight="bold">峽部 (Isthmus)</text>
+          <!-- Midline -->
+          <line x1="160" y1="30" x2="160" y2="195" stroke="#e6c8cc" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="160" y="210" text-anchor="middle" font-size="10" fill="#825159">中線</text>
+          <text x="160" y="25" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">馬蹄形腎 (Horseshoe)</text>
+          <!-- Pelves -->
+          <ellipse cx="100" cy="95" rx="16" ry="11" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="100" y="99" text-anchor="middle" font-size="7" fill="#a3626c" font-weight="bold">L Pelvis</text>
+          <ellipse cx="220" cy="95" rx="16" ry="11" fill="#fdf6f7" stroke="#825159" stroke-width="1.5"/>
+          <text x="220" y="99" text-anchor="middle" font-size="7" fill="#825159" font-weight="bold">R Pelvis</text>
+          <text x="48" y="100" font-size="14" fill="#e09f7d" font-weight="bold">L</text>
+          <text x="265" y="100" font-size="14" fill="#e09f7d" font-weight="bold">R</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="type-caudal" class="tab-panel">
+    <div class="type-detail reveal">
+      <div>
+        <h3>尾側異位</h3>
+        <div class="en">Caudal Ectopia · 1 / 13 cases</div>
+        <p>異位腎較小，位於正位腎的尾側，兩腎分別以各自的顱極和尾極相融合。相當於人類分類中的「下側交叉融合（Inferior ectopia）」，因貓的解剖方位差異而改稱尾側異位。</p>
+        <p>此型在人類是最常見的 CFRE 類型，但在本貓系列中僅 1 例，顯示貓與人的發生頻率分布有所不同。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">1</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">左→右</span><span class="sk">融合方向</span></div>
+          <div class="type-stat"><span class="sv">CT+US</span><span class="sk">影像</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> 異位腎較小（CT 白箭）；位於正位腎（黑箭）尾側；顱極-尾極相接融合；膀胱可見（星號）；CT 清楚呈現兩條獨立輸尿管（黑箭）。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Orthotopic kidney (larger, cranial) -->
+          <ellipse cx="180" cy="90" rx="55" ry="70" fill="#ddb5bb" fill-opacity="0.8" stroke="#a3626c" stroke-width="2"/>
+          <text x="180" y="78" text-anchor="middle" font-size="9" fill="#75474d" font-weight="bold">正位腎</text>
+          <ellipse cx="180" cy="92" rx="16" ry="11" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="180" y="96" text-anchor="middle" font-size="7" fill="#a3626c" font-weight="bold">Pelvis</text>
+          <!-- Ectopic kidney (smaller, caudal) -->
+          <ellipse cx="180" cy="185" rx="38" ry="50" fill="#c2848e" fill-opacity="0.7" stroke="#825159" stroke-width="2"/>
+          <text x="180" y="175" text-anchor="middle" font-size="9" fill="#75474d" font-weight="bold">異位腎（小）</text>
+          <ellipse cx="180" cy="188" rx="13" ry="9" fill="#fdf6f7" stroke="#825159" stroke-width="1.5"/>
+          <text x="180" y="192" text-anchor="middle" font-size="7" fill="#825159" font-weight="bold">Pelvis</text>
+          <!-- Fusion zone -->
+          <ellipse cx="180" cy="148" rx="22" ry="9" fill="#a3626c" fill-opacity="0.4" stroke="#a3626c" stroke-width="1.5"/>
+          <!-- Midline -->
+          <line x1="160" y1="20" x2="160" y2="245" stroke="#e6c8cc" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="160" y="255" text-anchor="middle" font-size="10" fill="#825159">中線</text>
+          <text x="160" y="18" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">尾側異位 (Caudal Ectopia)</text>
+          <text x="90" y="100" font-size="10" fill="#e09f7d" font-weight="bold">Cr ↑</text>
+          <text x="90" y="200" font-size="10" fill="#e09f7d" font-weight="bold">Cd ↓</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="type-lshaped" class="tab-panel">
+    <div class="type-detail reveal">
+      <div>
+        <h3>L 形腎</h3>
+        <div class="en">L-Shaped Kidney · 1 / 13 cases</div>
+        <p>異位腎呈橫向方向，其顱極與正位腎的尾極相融合。兩個腎盂<strong>方向不同</strong>（非相對），是與塊狀腎和碟狀腎的主要鑑別特徵。</p>
+        <p>超音波橫切面：可見兩個方向不同的腎盂（箭號），右腎僅可見其尾極橫切面（星號），而尾側腎則以矢狀面呈現。整體形成 L 形外觀。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">1</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">右→左</span><span class="sk">融合方向</span></div>
+          <div class="type-stat"><span class="sv">US</span><span class="sk">影像</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> 關鍵鑑別特徵：兩腎盂方向不同（非相對）；異位腎橫向排列；超音波須多方向掃查才能完整評估形態；是本系列中形態最特殊的一型。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Vertical kidney (right/orthotopic) -->
+          <ellipse cx="185" cy="100" rx="45" ry="75" fill="#ddb5bb" fill-opacity="0.8" stroke="#a3626c" stroke-width="2"/>
+          <ellipse cx="175" cy="105" rx="16" ry="11" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="175" y="109" text-anchor="middle" font-size="7" fill="#a3626c" font-weight="bold">R Pelvis</text>
+          <!-- Horizontal kidney (ectopic/left) -->
+          <ellipse cx="118" cy="178" rx="75" ry="38" fill="#c2848e" fill-opacity="0.7" stroke="#825159" stroke-width="2"/>
+          <ellipse cx="110" cy="172" rx="14" ry="9" fill="#fdf6f7" stroke="#825159" stroke-width="1.5"/>
+          <text x="110" y="176" text-anchor="middle" font-size="7" fill="#825159" font-weight="bold">L Pelvis</text>
+          <!-- Fusion point -->
+          <circle cx="175" cy="168" r="12" fill="#a3626c" fill-opacity="0.35" stroke="#a3626c" stroke-width="1.5"/>
+          <!-- L-shape indicator -->
+          <path d="M 185 175 L 185 200 L 70 200" stroke="#a3626c" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+          <text x="160" y="215" text-anchor="middle" font-size="9" fill="#a3626c">L 形輪廓</text>
+          <!-- Midline -->
+          <line x1="160" y1="20" x2="160" y2="240" stroke="#e6c8cc" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="160" y="18" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">L 形腎 (L-Shaped Kidney)</text>
+          <text x="50" y="90" font-size="12" fill="#e09f7d" font-weight="bold">L</text>
+          <text x="255" y="90" font-size="12" fill="#e09f7d" font-weight="bold">R</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="type-pelvic" class="tab-panel">
+    <div class="type-detail reveal">
+      <div>
+        <h3>骨盆腎（煎餅腎）</h3>
+        <div class="en">Pelvic Kidney / Pancake Kidney · 1 / 13 cases</div>
+        <p>融合腎臟異位於骨盆腔，位於膀胱尾側。本例同時具有塊狀腎的形態特徵（廣泛融合＋兩腎盂融合），並具交叉異位和骨盆腔異位雙重特徵。</p>
+        <p>此例為本系列 7 號病例，就診主訴包括食慾不振、嗜睡、排尿困難、腹部膨大及腹腔腫塊觸診。腎臟位於骨盆腔左側。本案無 CT 資料，故無法追蹤輸尿管走向。</p>
+        <div class="type-stat-row">
+          <div class="type-stat"><span class="sv">1</span><span class="sk">病例數</span></div>
+          <div class="type-stat"><span class="sv">骨盆腔</span><span class="sk">位置</span></div>
+          <div class="type-stat"><span class="sv">US+X光</span><span class="sk">影像</span></div>
+        </div>
+        <div class="info-box" style="margin-top:20px; font-size:14px;">
+          <strong>🔍 影像重點：</strong> 先前貓文獻（Hebel 2020）記錄一例 S 形骨盆腔融合腎，輸尿管跨越中線。標準骨盆融合腎（Kubihal 定義）輸尿管短而不跨中線。本例缺乏 CT 資料，無法確認輸尿管路徑。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pelvic cavity outline -->
+          <ellipse cx="160" cy="140" rx="130" ry="90" fill="none" stroke="#e6c8cc" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text x="160" y="52" text-anchor="middle" font-size="9" fill="#a3626c">骨盆腔</text>
+          <!-- Fused pelvic kidney (flat/pancake) -->
+          <ellipse cx="160" cy="155" rx="90" ry="55" fill="#ddb5bb" fill-opacity="0.75" stroke="#a3626c" stroke-width="2"/>
+          <ellipse cx="130" cy="158" rx="20" ry="13" fill="#fdf6f7" stroke="#a3626c" stroke-width="1.5"/>
+          <text x="130" y="162" text-anchor="middle" font-size="7" fill="#a3626c" font-weight="bold">L Pelvis</text>
+          <ellipse cx="192" cy="158" rx="20" ry="13" fill="#fdf6f7" stroke="#825159" stroke-width="1.5"/>
+          <text x="192" y="162" text-anchor="middle" font-size="7" fill="#825159" font-weight="bold">R Pelvis</text>
+          <!-- Bladder above -->
+          <ellipse cx="160" cy="88" rx="32" ry="22" fill="#e09f7d" fill-opacity="0.4" stroke="#c67d5e" stroke-width="1.5"/>
+          <text x="160" y="92" text-anchor="middle" font-size="9" fill="#c67d5e" font-weight="bold">膀胱</text>
+          <!-- Label -->
+          <text x="160" y="25" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">骨盆腎 (Pelvic/Pancake Kidney)</text>
+          <!-- Ureters -->
+          <line x1="130" y1="145" x2="140" y2="110" stroke="#a3626c" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <line x1="192" y1="145" x2="180" y2="110" stroke="#a3626c" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="160" y="225" text-anchor="middle" font-size="10" fill="#825159">※ 位於膀胱尾側</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 4. 影像特徵 ─── -->
+<div class="bg-alt3" id="sec-imaging">
+  <div class="bg-alt-inner">
+    <div class="section-label">Imaging Features</div>
+    <h2 class="section-title">各影像模式之特徵與表現</h2>
+    <p class="section-desc">本系列以超音波為最主要影像工具（12/13），X 光 4 例，CT 3 例。三種模式各有優勢，CT 提供最完整的解剖細節。</p>
+
+    <div class="mech-grid">
+      <div class="mech-card active" onclick="selectImgMode(0)">
+        <div class="m-num">US</div>
+        <h3>🔊 超音波（Ultrasonography）</h3>
+        <p>12/13 病例可用，能識別並分類所有融合類型，是主要影像診斷工具。</p>
+      </div>
+      <div class="mech-card" onclick="selectImgMode(1)">
+        <div class="m-num">X光</div>
+        <h3>📷 X 光攝影（Radiography）</h3>
+        <p>4 例可用，可見腎臟正常位置缺如及腹部軟組織不透明腫塊。</p>
+      </div>
+      <div class="mech-card" onclick="selectImgMode(2)">
+        <div class="m-num">CT</div>
+        <h3>🖥️ 電腦斷層（CT）</h3>
+        <p>3 例（顯影前後），提供最完整的輸尿管追蹤及血管評估資訊。</p>
+      </div>
+      <div class="mech-card" onclick="selectImgMode(3)">
+        <div class="m-num">↗</div>
+        <h3>⚡ 伴隨異常</h3>
+        <p>2/13 例發現其他先天性異常，顯示腎臟融合可能與其他胚胎發育異常並存。</p>
+      </div>
+    </div>
+
+    <div id="img-detail-0" class="mech-detail active">
+      <h4>🔊 超音波影像特徵</h4>
+      <p>超音波在 12/13 病例中可用，並在所有可用病例中成功識別及分類融合類型。然而，在任何病例中均無法評估<strong>腎臟血管構造</strong>及<strong>輸尿管開口位置</strong>。</p>
+      <ul>
+        <li><strong>皮髓質分界減少（Reduced corticomedullary distinction）：</strong> 8/12 例（67%）——最常見 US 異常，提示慢性腎病可能伴隨。</li>
+        <li><strong>皮質回音增強（Increased cortical echogenicity）：</strong> 6/12 例（50%）——與慢性腎病超音波表現一致。</li>
+        <li><strong>腎盂擴張（Pyelectasia）：</strong> 6/12 例（50%）——可能為繼發性尿路梗阻或解剖異常所致。</li>
+        <li><strong>融合類型辨別：</strong> 塊狀腎→大型不規則均質腫塊；碟狀腎→兩腎輪廓可辨，中央融合帶；L 形腎→兩個方向不同的腎盂為關鍵特徵。</li>
+      </ul>
+    </div>
+
+    <div id="img-detail-1" class="mech-detail">
+      <h4>📷 X 光攝影特徵</h4>
+      <p>X 光在 4 例中可用，診斷能力有限但可提供初步線索：</p>
+      <ul>
+        <li><strong>正常腎臟位置缺如：</strong> 可見腎臟正常位置（腎窩）無典型腎臟軟組織不透明影。</li>
+        <li><strong>異位軟組織腫塊：</strong> 2/4 例見右側軟組織不透明腫塊（偏離正常位置）。</li>
+        <li><strong>馬蹄形腎（1/4）：</strong> 可見融合腎位於中線。</li>
+        <li><strong>骨盆腔融合腎（1/4）：</strong> 融合腎位於骨盆入口，偏左側。</li>
+        <li><strong>臨床意義：</strong> 當 X 光無法在正常位置見到腎臟，應將腎臟異位與融合列為腹腔軟組織腫塊的鑑別診斷之一。</li>
+      </ul>
+    </div>
+
+    <div id="img-detail-2" class="mech-detail">
+      <h4>🖥️ CT 影像特徵</h4>
+      <p>3 例有顯影前後 CT 可用，CT 提供最完整的解剖資訊：</p>
+      <ul>
+        <li><strong>輸尿管追蹤：</strong> 所有 CT 病例均可評估輸尿管，確認兩條輸尿管均在膀胱正確位置開口。異位腎的輸尿管越過中線並在正常位置植入膀胱。</li>
+        <li><strong>血管評估：</strong> 每對融合腎均可辨認兩條腎動脈及兩條腎靜脈，血管構造未受融合影響。</li>
+        <li><strong>馬蹄形腎（CT 確診）：</strong> 橫切面顯示兩腎位於脊柱兩側，以正常腎實質峽部相連（非纖維性）；矢狀面 MIP 重組顯示腎臟將 CVC 及降結腸腹側推移。</li>
+        <li><strong>碟狀腎（CT 確認）：</strong> 顯影後背側重組清楚顯示部分皮質融合及兩個獨立輸尿管。</li>
+        <li><strong>WW/WL 設定：</strong> 文獻使用 WW=400, WL=40（腹部窗）。</li>
+      </ul>
+    </div>
+
+    <div id="img-detail-3" class="mech-detail">
+      <h4>⚡ 伴隨先天性異常（2/13 例）</h4>
+      <p>本系列中，2/13（15%）病例發現伴隨腎臟融合的其他先天性畸形，支持胚胎期多重器官系統發育異常的假設：</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px;">
+        <div class="congenital-box">
+          <h4>📍 病例 6：奇靜脈延續（Azygous continuation）</h4>
+          <p>後腔靜脈節段性缺如（segmental aplasia），椎旁靜脈擴張，奇靜脈作為後腔靜脈的延續代償。這是目前文獻第一個貓後腔靜脈奇靜脈延續合併腎融合的病例報告。此先天性異常在人類和犬均有記載，通常為偶發發現。</p>
+        </div>
+        <div class="congenital-box">
+          <h4>📍 病例 11：胸膜心包橫膈膜疝（PPDH）</h4>
+          <p>心包橫膈膜疝在超過 2 歲的貓中是最常見的中線先天性異常之一。Reimer 等（2004）評估了 66 例貓 PPDH，記錄了伴隨先天性異常但不包含 CFRE。本例為腎融合伴 PPDH 的首次報告。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 5. 病例列表 ─── -->
+<section id="sec-cases">
+  <div class="section-label">Case Series Table</div>
+  <h2 class="section-title">13 例完整病例列表</h2>
+  <p class="section-desc">以下為所有病例的信號、主訴、影像模式及分類資訊。DSH=家貓短毛，DMH=家貓中毛，DLH=家貓長毛，ESH=異國短毛，BSH=英國短毛，MC=去勢公，FS=絕育母。</p>
+
+  <div class="case-table-wrap reveal">
+    <table class="case-table">
+      <thead>
+        <tr>
+          <th>病例</th>
+          <th>品種</th>
+          <th>年齡</th>
+          <th>性別</th>
+          <th>主要主訴</th>
+          <th>US</th>
+          <th>X光</th>
+          <th>CT</th>
+          <th>類型</th>
+          <th>亞型</th>
+          <th>位置</th>
+          <th>其他先天異常</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>DSH</td>
+          <td>4.5歲</td>
+          <td>FS</td>
+          <td>食慾不振、排尿困難、發燒</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>碟狀腎</td>
+          <td>左→右</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>DLH</td>
+          <td>6歲</td>
+          <td>MC</td>
+          <td>腹痛、血腹</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>塊狀腎</td>
+          <td>左→右</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>DSH</td>
+          <td>13歲</td>
+          <td>MC</td>
+          <td>體重減輕、食慾下降（10天）、肺結節</td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td>馬蹄形腎</td>
+          <td>馬蹄形</td>
+          <td>中線</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Persian</td>
+          <td>9歲</td>
+          <td>MC</td>
+          <td>嘔吐、血便、白血球減少、腹痛</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>碟狀腎</td>
+          <td>左→右</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>DSH</td>
+          <td>1歲</td>
+          <td>FS</td>
+          <td>嗜睡、發燒</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>塊狀腎</td>
+          <td>右→左</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>ESH</td>
+          <td>9歲</td>
+          <td>MC</td>
+          <td>下頷肉瘤分期、Cr 升高</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td>CFRE</td>
+          <td>碟狀腎</td>
+          <td>左→右</td>
+          <td>⚡ 奇靜脈延續（CVC aplasia）</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Unknown</td>
+          <td>12歲</td>
+          <td>MC</td>
+          <td>食慾不振、嗜睡、排尿困難、腹脹、腹腔腫塊觸診</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>骨盆腎</td>
+          <td>骨盆/塊狀</td>
+          <td>骨盆腔（左）</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Persian mix</td>
+          <td>5歲</td>
+          <td>FS</td>
+          <td>血尿、排尿困難、尿失禁可能</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td>CFRE</td>
+          <td>尾側異位</td>
+          <td>左→右</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>DMH</td>
+          <td>14歲</td>
+          <td>MC</td>
+          <td>體重減輕、食慾下降</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>塊狀腎</td>
+          <td>右→左</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>DSH</td>
+          <td>5歲</td>
+          <td>FS</td>
+          <td>嗜睡、嘔吐、食慾不振（2天）</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>塊狀腎</td>
+          <td>左→右</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>DSH</td>
+          <td>10歲</td>
+          <td>MC</td>
+          <td>極度嗜睡</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>碟狀腎</td>
+          <td>左→右</td>
+          <td>⚡ 胸膜心包橫膈膜疝（PPDH）</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>DSH</td>
+          <td>5歲</td>
+          <td>MC</td>
+          <td>健康檢查觸及腎臟腫大</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>塊狀腎</td>
+          <td>右→左</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>BSH</td>
+          <td>11歲</td>
+          <td>MC</td>
+          <td>急性胰臟炎轉介</td>
+          <td><span class="badge badge-good">✓</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td><span class="badge badge-poor">✗</span></td>
+          <td>CFRE</td>
+          <td>L 形腎</td>
+          <td>右→左</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box reveal" style="margin-top:32px;">
+    <strong>💡 重點提示：</strong> 病例 12（DSH 5 歲公）因<strong>健康檢查觸診發現腎臟腫大</strong>才診斷，為本系列典型「偶發發現」案例。病例 6（ESH 9 歲公）因其他疾病（下頷肉瘤分期）進行影像學檢查時發現，同為偶發性發現合併腎功能輕度異常（Cr 升高）。
+  </div>
+</section>
+
+<!-- ─── 6. 臨床要點 ─── -->
+<div class="bg-alt" id="sec-clinical">
+  <div class="bg-alt-inner">
+    <div class="section-label">Clinical Significance</div>
+    <h2 class="section-title">臨床意義與討論重點</h2>
+    <p class="section-desc">腎臟融合在貓是否導致腎功能障礙仍不確定，多數病例可能為偶發發現。以下分析本系列的腎功能狀態及與人類醫學的比較。</p>
+
+    <div class="mech-grid">
+      <div class="mech-card active" onclick="selectClinMode(0)">
+        <div class="m-num">01</div>
+        <h3>腎功能狀態</h3>
+        <p>本系列僅 1 例有顯著氮質血症（BUN &gt;130, Cr 8.6），另 2 例有輕度氮質血症。</p>
+      </div>
+      <div class="mech-card" onclick="selectClinMode(1)">
+        <div class="m-num">02</div>
+        <h3>超音波的角色</h3>
+        <p>超音波是貓腎臟型態評估最實用的影像工具，本系列主力。</p>
+      </div>
+      <div class="mech-card" onclick="selectClinMode(2)">
+        <div class="m-num">03</div>
+        <h3>CT 的優勢</h3>
+        <p>CT 是唯一能完整評估輸尿管走向與腎臟血管構造的影像模式。</p>
+      </div>
+      <div class="mech-card" onclick="selectClinMode(3)">
+        <div class="m-num">04</div>
+        <h3>比較人類文獻</h3>
+        <p>人類 CFRE 最常見為「下側交叉融合」，在貓中罕見。融合方向以左→右居多（兩者均如此）。</p>
+      </div>
+    </div>
+
+    <div id="clin-detail-0" class="mech-detail active">
+      <h4>腎功能狀態分析</h4>
+      <p>由於本研究的回顧性、多中心性質及缺乏完整病史和臨床病理資料，作者無法確定氮質血症的原因（腎前性/腎性/腎後性），也無法確認是否為真正的腎功能不全。</p>
+      <ul style="margin-top:16px;">
+        <li><strong>顯著氮質血症：</strong> 1/13（BUN &gt;130, Cr 8.6）</li>
+        <li><strong>輕度氮質血症：</strong> 另 2 例有輕度腎功能指數升高</li>
+        <li><strong>人類比較：</strong> CFRE 在人類通常為偶發發現，罕見導致腎功能不全；更常見的合併症為腎盂腎炎、反覆尿路感染、腎結石、輸尿管逆流、水腎及腎臟腫瘤。</li>
+        <li><strong>Sarhan 等（2021）：</strong> 人類 CFRE 患者隨訪中，14% 發展為慢性腎病。貓的長期預後仍未知。</li>
+      </ul>
+    </div>
+
+    <div id="clin-detail-1" class="mech-detail">
+      <h4>超音波在腎融合診斷中的價值與限制</h4>
+      <p>超音波在 12/13 病例中可用，並成功識別所有病例的融合類型，是本系列的主力影像工具。慢性腎病常見 US 表現（皮質回音增強、皮髓質分界減少）亦見於本系列多數病例。</p>
+      <ul style="margin-top:16px;">
+        <li><strong>優點：</strong> 即時、非侵入性、可評估腎臟位置與融合形態</li>
+        <li><strong>主要限制：</strong> 無法評估腎臟血管解剖及輸尿管開口位置</li>
+        <li><strong>US 異常比率：</strong> 皮髓質分界減少 8/12（67%）；皮質回音增強 6/12（50%）；腎盂擴張 6/12（50%）</li>
+        <li><strong>注意：</strong> US 無法確定性排除並存的腎臟疾病，建議結合臨床病理資料判讀</li>
+      </ul>
+    </div>
+
+    <div id="clin-detail-2" class="mech-detail">
+      <h4>CT 在腎融合評估中的優勢</h4>
+      <p>3 例有完整顯影前後 CT 系列，提供了 US 無法得到的關鍵資訊：</p>
+      <ul style="margin-top:16px;">
+        <li><strong>輸尿管完整追蹤：</strong> 所有 CT 病例均確認兩條輸尿管在膀胱正確位置植入。異位腎的輸尿管越過中線後在正常位置植入。</li>
+        <li><strong>血管評估：</strong> 每對融合腎均識別兩條腎動脈及兩條腎靜脈（血管構造未受影響）</li>
+        <li><strong>人類參考：</strong> 人類 CFRE 很少影響輸尿管；罕見單一輸尿管或腎靜脈；同時具單一輸尿管和腎靜脈者極少（Khanduri 2019）</li>
+        <li><strong>臨床意義：</strong> 術前若需了解精確解剖構造（如腎臟手術計畫），CT 是必要的影像模式</li>
+      </ul>
+    </div>
+
+    <div id="clin-detail-3" class="mech-detail">
+      <h4>貓與人類 CFRE 的比較</h4>
+      <div style="overflow-x:auto; margin-top:16px;">
+        <table class="img-table" style="min-width:500px;">
+          <thead><tr><th>特徵</th><th>人類文獻</th><th>本貓系列</th></tr></thead>
+          <tbody>
+            <tr><td>最常見亞型</td><td>下側交叉融合（Inferior）</td><td>塊狀腎（Lump）5/13</td></tr>
+            <tr><td>融合方向</td><td>左→右居多</td><td>左→右居多（7/11 CFRE）</td></tr>
+            <tr><td>性別分布</td><td>男性較多</td><td>公貓較多（9/13, 69%）</td></tr>
+            <tr><td>輸尿管影響</td><td>通常不受影響</td><td>CT 確認不受影響</td></tr>
+            <tr><td>腎臟血管</td><td>各一對動靜脈常見</td><td>CT 均見各 2 條動靜脈</td></tr>
+            <tr><td>臨床表現</td><td>常為偶發發現</td><td>多有其他就診原因</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 7. 鑑別診斷 ─── -->
+<section id="sec-diff">
+  <div class="section-label">Differential Diagnosis</div>
+  <h2 class="section-title">鑑別診斷與混淆因素</h2>
+  <p class="section-desc">腎臟融合異位可能與多種腹腔病灶混淆，特別是在 X 光上僅見「腎臟正常位置缺如＋異常軟組織腫塊」時。以下列出重要鑑別診斷。</p>
+
+  <div class="diff-grid">
+    <div class="diff-card reveal">
+      <div class="dc-icon">🔴</div>
+      <div class="dc-body">
+        <h4>腎臟腫瘤（Renal Neoplasia）</h4>
+        <p>大型腎臟腫塊（如腎細胞癌、淋巴瘤）可類似融合腎外觀。鑑別重點：腎融合保有正常腎臟結構（皮髓質分層、腎盂可辨），腫瘤通常有回音不均或侵犯跡象。</p>
+        <span class="badge badge-poor" style="margin-top:12px;">高度鑑別</span>
+      </div>
+    </div>
+    <div class="diff-card reveal">
+      <div class="dc-icon">🟠</div>
+      <div class="dc-body">
+        <h4>腎上腺腫瘤（Adrenal Mass）</h4>
+        <p>位置與腎臟融合可能重疊，特別是在腎臟正常位置消失時。腎上腺腫瘤通常可與腎臟分離，且多有高皮質醇症等臨床症狀。</p>
+        <span class="badge badge-warn" style="margin-top:12px;">中度鑑別</span>
+      </div>
+    </div>
+    <div class="diff-card reveal">
+      <div class="dc-icon">🟡</div>
+      <div class="dc-body">
+        <h4>淋巴結腫大（Lymphadenopathy）</h4>
+        <p>腸系膜或腹腔淋巴結腫大可形成腹腔腫塊，但通常多發且腎臟可在正常位置找到。超音波可有效鑑別。</p>
+        <span class="badge badge-warn" style="margin-top:12px;">中度鑑別</span>
+      </div>
+    </div>
+    <div class="diff-card reveal">
+      <div class="dc-icon">🟢</div>
+      <div class="dc-body">
+        <h4>腸系膜腫塊（Mesenteric Mass）</h4>
+        <p>腸系膜腫瘤或肉芽腫可類似腹腔軟組織腫塊。超音波可追蹤腎臟起源，顯示腎臟結構性特徵（皮質、腎盂）以鑑別。</p>
+        <span class="badge badge-good" style="margin-top:12px;">通常可鑑別</span>
+      </div>
+    </div>
+    <div class="diff-card reveal">
+      <div class="dc-icon">🔵</div>
+      <div class="dc-body">
+        <h4>子宮蓄膿 / 子宮腫瘤（Uterine Pathology）</h4>
+        <p>僅適用於未絕育母貓。子宮蓄膿或子宮腫瘤可形成大型腹腔腫塊，但超音波可見子宮起源，且腎臟通常在正常位置。</p>
+        <span class="badge badge-good" style="margin-top:12px;">超音波可鑑別</span>
+      </div>
+    </div>
+    <div class="diff-card reveal">
+      <div class="dc-icon">🟣</div>
+      <div class="dc-body">
+        <h4>脾臟腫瘤（Splenic Mass）</h4>
+        <p>大型脾臟腫塊可佔據大部分腹腔，類似腎臟融合的位置。超音波可追蹤其與脾臟的連續性，且可見脾血管走向。</p>
+        <span class="badge badge-good" style="margin-top:12px;">通常可鑑別</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box reveal" style="margin-top:40px;">
+    <strong>🔑 診斷流程建議：</strong> 當超音波見腹腔腫塊且腎臟不在正常位置時，應仔細評估（1）是否存在正常腎臟結構（皮髓質分層、腎盂回聲）；（2）是否有兩個獨立的腎盂（判斷是否為融合腎）；（3）是否可見輸尿管起源。CT 顯影可提供最明確的解剖學資訊，特別是在 US 無法確診的情況下。
+  </div>
+</section>
+
+<!-- ─── 8. 臨床珍珠 ─── -->
+<div class="bg-alt3" id="sec-pearls">
+  <div class="bg-alt-inner">
+    <div class="section-label">Clinical Pearls &amp; Key Takeaways</div>
+    <h2 class="section-title">臨床珍珠：影像科醫師重點提示</h2>
+    <p class="section-desc">基於本研究及人類文獻，整理以下 8 條實用臨床影像珍珠，供貓科影像評估使用。</p>
+
+    <div class="pearls-list">
+      <div class="pearl-item reveal">
+        <div class="pearl-num">01</div>
+        <div class="pearl-body">
+          <h4>超音波是第一線影像工具，但有其限制</h4>
+          <p>超音波可成功識別並分類所有類型的腎臟融合（本系列 12/12 成功），但無法評估腎臟血管解剖或確認輸尿管開口位置。在任何 US 病例中均無法取得這些資訊——需要 CT 才能完整評估。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">02</div>
+        <div class="pearl-body">
+          <h4>腎臟正常位置空虛是重要的 X 光線索</h4>
+          <p>當 X 光顯示腎窩無腎臟影，同時腹腔其他位置見軟組織不透明腫塊，應將腎臟異位與融合列入鑑別診斷。超音波可作為後續確認工具。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">03</div>
+        <div class="pearl-body">
+          <h4>塊狀腎與碟狀腎的鑑別關鍵</h4>
+          <p>兩者外觀相似（均為最常見的 CFRE 亞型），鑑別關鍵在於<strong>融合程度</strong>：塊狀腎為廣泛融合形成單一不規則腫塊，兩腎盂相對；碟狀腎為部分皮質融合，兩腎輪廓仍可辨別，融合僅在內側皮質面。CT 顯影後重組影像對鑑別有助。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">04</div>
+        <div class="pearl-body">
+          <h4>L 形腎的關鍵鑑別特徵：腎盂方向不同</h4>
+          <p>L 形腎與塊狀腎、碟狀腎的最主要鑑別：<strong>兩個腎盂方向不同（非相對）</strong>。超音波須多方向掃查才能完整評估，因不同切面呈現不同腎臟橫截面（一腎以矢狀面呈現，另一腎僅可見其尾極橫切面）。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">05</div>
+        <div class="pearl-body">
+          <h4>左→右融合為最常見方向</h4>
+          <p>本系列 7/11 CFRE 病例（64%）為左腎異位至右側並與右腎融合，與人類 CFRE 文獻（左腎最常異位）一致。4 例為右→左融合。馬蹄形腎位於中線，骨盆腎位於骨盆腔。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">06</div>
+        <div class="pearl-body">
+          <h4>腎融合可能是偶發發現，但也可合併臨床症狀</h4>
+          <p>本系列多數病例有其他就診原因（食慾不振、嗜睡等），腎融合本身可能是偶發發現。然而 1/13 有顯著氮質血症，2/13 有輕度氮質血症。是否為腎融合直接導致腎功能異常，需排除其他原因。目前貓的長期預後資料尚不足。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">07</div>
+        <div class="pearl-body">
+          <h4>注意其他先天性異常的可能</h4>
+          <p>2/13（15%）病例伴隨其他先天性異常（後腔靜脈奇靜脈延續、PPDH），提示腎臟融合可能是廣泛胚胎期發育異常的一部分。發現腎融合時，建議仔細評估其他器官系統是否有先天性異常，尤其是血管和心臟。</p>
+        </div>
+      </div>
+      <div class="pearl-item reveal">
+        <div class="pearl-num">08</div>
+        <div class="pearl-body">
+          <h4>公貓比例偏高，與人類文獻一致</h4>
+          <p>本系列 9/13（69%）為去勢公貓，與人類 CFRE 男性較多見的趨勢一致。先前 4 例貓文獻（男女各 2）因樣本小無法呈現此趨勢。本研究是目前最大規模的貓腎融合系列，初步支持此性別差異，但仍需更多資料確認。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block reveal" style="margin-top:40px;">
+      「腎臟融合在貓可能為偶發發現，但仍需進一步研究以確定其臨床意義。貓的腎融合形態特徵與人類文獻相似，超音波是有效的一線影像工具。」
+      <br><br><em>— Slinkard et al., J Feline Med Surg, 2023</em>
+    </div>
+
+    <div style="margin-top:60px; padding:36px; background:var(--surface); border:1px solid var(--border); border-radius:8px;">
+      <div class="section-label" style="margin-bottom:20px;">Reference</div>
+      <h3 style="font-family:'Noto Serif TC',serif; font-size:20px; color:var(--text2); margin-bottom:16px;">核心文獻資訊</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; font-size:14px; color:var(--text);">
+        <div>
+          <p><strong style="color:var(--text2);">作者：</strong> Powell T Slinkard, Augstina Anson, Swan Specchi, Maria Frau Tascon, Laura Muñiz-Moris, Dominique Penninck, Nele Eley Ondreka</p>
+          <p style="margin-top:12px;"><strong style="color:var(--text2);">標題：</strong> Imaging features of renal ectopia and fusion in 13 cats</p>
+          <p style="margin-top:12px;"><strong style="color:var(--text2);">期刊：</strong> Journal of Feline Medicine and Surgery</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text2);">DOI：</strong> 10.1177/1098612X231196810</p>
+          <p style="margin-top:12px;"><strong style="color:var(--text2);">接受日期：</strong> 2023 年 8 月 3 日</p>
+          <p style="margin-top:12px;"><strong style="color:var(--text2);">研究期間：</strong> 2005–2021 年</p>
+          <p style="margin-top:12px;"><strong style="color:var(--text2);">開放取用：</strong> Creative Commons CC BY-NC 4.0</p>
+        </div>
+      </div>
+      <p style="margin-top:16px; font-size:13px; color:var(--text3);">本研究摘要於 2022 年美國獸醫放射線學院（ACVR）年度學術會議（Reno, Nevada）發表。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-title">貓腎臟異位與融合影像學特徵分析</div>
+  <div>Imaging Features of Renal Ectopia and Fusion in 13 Cats</div>
+  <div style="margin-top:12px; color:var(--text3);">
+    核心文獻：Slinkard et al. (2023) J Feline Med Surg — 13 例貓腎臟融合異常之多中心回顧性病例系列<br>
+    McDonald 分類系統（1957）— 腎臟融合形態分類依據
+  </div>
+  <div style="margin-top:16px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text3); font-weight:600;">
+    愛叮寶犬貓影像專科醫院 · atinsight.vet
+  </div>
+</footer>
+
+<script>
+// ─── HERO CANVAS ───
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, branches = [];
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', () => { resize(); branches = []; initBranches(); });
+
+function Branch(x, y, angle, len, depth) {
+  this.x=x; this.y=y; this.angle=angle; this.len=len; this.depth=depth;
+  this.progress=0; this.speed=0.005+Math.random()*0.004;
+  this.children=[]; this.done=false; this.alpha=0.12+Math.random()*0.1;
+  this.spawned=false; this.budRadius=2+Math.random()*2;
+}
+
+function initBranches() {
+  for(let i=0;i<8;i++){
+    const x=Math.random()*W;
+    const y=H*0.3+Math.random()*H*0.6;
+    const angle=-Math.PI/2+(Math.random()-0.5)*1.2;
+    const len=70+Math.random()*80;
+    branches.push(new Branch(x,y,angle,len,0));
+  }
+}
+initBranches();
+
+function drawBranch(b){
+  const ex=b.x+Math.cos(b.angle)*b.len*b.progress;
+  const ey=b.y+Math.sin(b.angle)*b.len*b.progress;
+  const lw=Math.max(0.3,1.5-b.depth*0.4);
+  ctx.beginPath(); ctx.moveTo(b.x,b.y); ctx.lineTo(ex,ey);
+  ctx.strokeStyle=`rgba(163,98,108,${b.alpha})`; ctx.lineWidth=lw; ctx.stroke();
+  if(b.progress>=1&&!b.spawned&&b.depth<4){
+    b.spawned=true;
+    const spread=0.35+b.depth*0.05;
+    for(let i=0;i<2;i++){
+      const na=b.angle+(i===0?-spread:spread)+(Math.random()-0.5)*0.2;
+      const nl=b.len*(0.58+Math.random()*0.15);
+      const child=new Branch(ex,ey,na,nl,b.depth+1);
+      b.children.push(child); branches.push(child);
+    }
+  }
+  if(b.progress>=1&&b.depth>=4){
+    ctx.beginPath(); ctx.arc(ex,ey,b.budRadius,0,Math.PI*2);
+    ctx.fillStyle=`rgba(221,181,187,${b.alpha*1.5})`; ctx.fill();
+  }
+  b.children.forEach(drawBranch);
+}
+
+function tick(){
+  ctx.clearRect(0,0,W,H);
+  const grad=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*0.7);
+  grad.addColorStop(0,'rgba(252,231,235,0.5)');
+  grad.addColorStop(1,'rgba(253,246,247,0.0)');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+  branches.forEach(b=>{
+    if(!b.done){b.progress=Math.min(1,b.progress+b.speed); if(b.progress>=1)b.done=true;}
+    drawBranch(b);
+  });
+  if(branches.length>200)branches.splice(0,100);
+  if(branches.filter(b=>!b.done).length<4)initBranches();
+  requestAnimationFrame(tick);
+}
+tick();
+
+// ─── COUNTERS ───
+function animateCounter(el){
+  const target=parseFloat(el.dataset.target);
+  let start=0; const duration=1800; const startTime=performance.now();
+  function step(now){
+    const t=Math.min((now-startTime)/duration,1);
+    const ease=1-Math.pow(1-t,3);
+    const val=start+(target-start)*ease;
+    el.textContent=Math.round(val).toString();
+    if(t<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counters=document.querySelectorAll('span[data-target]');
+const heroObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){counters.forEach(animateCounter);heroObs.disconnect();}});
+},{threshold:0.5});
+heroObs.observe(document.getElementById('hero'));
+
+// ─── REVEAL ───
+const reveals=document.querySelectorAll('.reveal');
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});
+},{threshold:0.05,rootMargin:'0px 0px -30px 0px'});
+reveals.forEach(r=>revealObs.observe(r));
+
+// ─── BARS ───
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.b-fill').forEach(b=>{b.style.width=b.dataset.w+'%';});
+      barObs.disconnect();
+    }
+  });
+},{threshold:0.2});
+const barSection=document.getElementById('sec-demo');
+if(barSection)barObs.observe(barSection);
+
+// ─── TYPE TABS ───
+function switchTypeTab(id, btn){
+  document.querySelectorAll('[id^="type-"]').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.type-tabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('type-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── IMAGING MODE ───
+function selectImgMode(i){
+  document.querySelectorAll('.mech-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('[id^="img-detail-"]').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.mech-card')[i].classList.add('active');
+  document.getElementById('img-detail-'+i).classList.add('active');
+}
+
+// ─── CLINICAL MODE ───
+function selectClinMode(i){
+  const cards=document.querySelectorAll('#sec-clinical .mech-card');
+  const details=document.querySelectorAll('[id^="clin-detail-"]');
+  cards.forEach(c=>c.classList.remove('active'));
+  details.forEach(d=>d.classList.remove('active'));
+  cards[i].classList.add('active');
+  details[i].classList.add('active');
+}
+
+// ─── NAV ───
+const sectionIds=['sec-intro','sec-demo','sec-types','sec-imaging','sec-cases','sec-clinical','sec-diff','sec-pearls'];
+const navItems=document.querySelectorAll('.nav-item');
+function updateNav(){
+  let current=sectionIds[0];
+  sectionIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<120)current=id;
+  });
+  navItems.forEach(item=>item.classList.toggle('active',item.dataset.target===current));
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+navItems.forEach(item=>{
+  item.addEventListener('click',()=>{
+    const tgt=document.getElementById(item.dataset.target);
+    if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+// ─── PROGRESS ───
+const progressBar=document.getElementById('progress-bar');
+window.addEventListener('scroll',()=>{
+  const total=document.body.scrollHeight-window.innerHeight;
+  progressBar.style.width=(window.scrollY/total*100)+'%';
+},{passive:true});
+</script>
+</body>
+</html>
