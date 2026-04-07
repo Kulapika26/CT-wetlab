@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Wetlab 文獻庫 - 愛叮寶犬貓影像專科醫院</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/5qr0W3z.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
+            color: #5d4037;
+            background: linear-gradient(135deg, #f7f2f3 0%, #f0e6e8 100%);
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #e0b8be 0%, #d4a5ab 50%, #c89297 100%);
+            color: white;
+            padding: 0.6rem 0;
+            box-shadow: 0 2px 20px rgba(224, 184, 190, 0.3);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0.3rem;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 0.45rem 0.9rem;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-menu a:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+        .nav-menu a.active { background: rgba(255,255,255,0.25); }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ── Banner ── */
+        .banner-bar {
+            background: #ddb5bb;
+            text-align: center;
+            padding: 12px 24px;
+        }
+        .banner-bar img {
+            width: 80%;
+            max-width: 860px;
+            height: auto;
+            display: inline-block;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(160deg, #f7f2f3 0%, #fce7eb 60%, #f0e6e8 100%);
+            border-bottom: 1px solid rgba(224,184,190,0.3);
+            padding: 3.5rem 2rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(224,184,190,0.25), transparent 70%);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(200,146,151,0.18), transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(163,98,108,0.1);
+            border: 1px solid rgba(163,98,108,0.25);
+            color: #a3626c;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 20px;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #a3626c, #c89297);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .hero p {
+            color: #6d4c41;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.85;
+        }
+
+        /* ── Main ── */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+        }
+
+        /* ── Controls ── */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.8rem;
+            border: 2px solid rgba(224,184,190,0.4);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            background: white;
+            transition: all 0.3s;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #5d4037;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #e0b8be;
+            box-shadow: 0 0 0 3px rgba(224,184,190,0.2);
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c89297;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.55rem 1.1rem;
+            border: 2px solid #e0b8be;
+            background: white;
+            color: #c89297;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.88rem;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #e0b8be, #c89297);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(200,146,151,0.35);
+        }
+
+        /* ── Stats ── */
+        .stats {
+            background: white;
+            padding: 1.3rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 16px rgba(224,184,190,0.12);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid rgba(224,184,190,0.15);
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c89297;
+            display: block;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #8d6e63;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(224,184,190,0.3);
+        }
+
+        /* ── Section label ── */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #c89297;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(224,184,190,0.5), transparent);
+        }
+
+        /* ── Article Cards ── */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.6rem;
+            margin-bottom: 2.5rem;
+        }
+        .article-card {
+            background: white;
+            border-radius: 18px;
+            padding: 1.7rem;
+            box-shadow: 0 6px 24px rgba(224,184,190,0.15);
+            transition: all 0.3s;
+            border: 1px solid rgba(224,184,190,0.12);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 36px rgba(200,146,151,0.25);
+            border-color: rgba(224,184,190,0.4);
+        }
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e0b8be, #c89297);
+        }
+
+        /* category badge */
+        .article-category {
+            background: linear-gradient(45deg, #e0b8be, #c89297);
+            color: white;
+            padding: 0.3rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.9rem;
+            align-self: flex-start;
+            letter-spacing: 0.5px;
+        }
+        /* body system color overrides */
+        .article-card[data-sys="Abdomen"] .article-category { background: linear-gradient(45deg, #c8a87d, #b8956a); }
+        .article-card[data-sys="Thorax"]  .article-category { background: linear-gradient(45deg, #7db8c8, #5a9fb5); }
+        .article-card[data-sys="MSK"]     .article-category { background: linear-gradient(45deg, #a8c87d, #8ab55a); }
+        .article-card[data-sys="Spine"]   .article-category { background: linear-gradient(45deg, #b87daa, #9a5a8e); }
+        .article-card[data-sys="Skull and brain"] .article-category { background: linear-gradient(45deg, #7d9ac8, #5a7ab5); }
+
+        .article-num {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(200,146,151,0.12);
+            line-height: 1;
+        }
+        .article-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: #5d4037;
+            line-height: 1.45;
+        }
+        .article-en-title {
+            font-size: 0.78rem;
+            color: #a08070;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            font-style: italic;
+        }
+        .article-description {
+            color: #6d4c41;
+            margin-bottom: 1.1rem;
+            line-height: 1.65;
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.82rem;
+            color: #aaa;
+            flex-wrap: wrap;
+        }
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .article-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+        .tag {
+            background: rgba(224,184,190,0.18);
+            color: #c89297;
+            padding: 0.18rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-weight: 500;
+        }
+
+        /* ── Link buttons ── */
+        .article-links {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: auto;
+        }
+        .article-link {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.65rem 0.8rem;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.83rem;
+        }
+        .link-summary {
+            background: linear-gradient(45deg, #e0b8be, #c89297);
+            color: white;
+        }
+        .link-summary:hover {
+            background: linear-gradient(45deg, #c89297, #a3626c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(200,146,151,0.4);
+        }
+        .link-note {
+            background: white;
+            color: #c89297;
+            border: 2px solid #e0b8be;
+        }
+        .link-note:hover {
+            background: rgba(224,184,190,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200,146,151,0.2);
+        }
+        .link-disabled {
+            background: #f5f0f0;
+            color: #ccc;
+            border: 2px solid #eee;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* ── Pagination ── */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .pagination button {
+            padding: 0.65rem 1rem;
+            border: 2px solid #e0b8be;
+            background: white;
+            color: #c89297;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-family: 'Noto Sans TC', sans-serif;
+            min-width: 42px;
+        }
+        .pagination button:hover, .pagination button.active {
+            background: linear-gradient(135deg, #e0b8be, #c89297);
+            color: white;
+            border-color: transparent;
+        }
+        .pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+        .pagination span { color: #bbb; padding: 0 4px; }
+
+        /* ── Loading / No results ── */
+        .loading, .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #c89297;
+        }
+        .loading i { font-size: 2rem; animation: spin 1s linear infinite; }
+        .no-results i { font-size: 3rem; color: #e0c8cc; margin-bottom: 1rem; display: block; }
+        .no-results h3 { color: #8d6e63; margin-bottom: 0.5rem; }
+        .no-results p { color: #aaa; font-size: 0.9rem; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* ── Footer ── */
+        footer {
+            background: white;
+            border-top: 1px solid rgba(224,184,190,0.3);
+            padding: 2.5rem;
+            text-align: center;
+            color: #8d6e63;
+            font-size: 0.88rem;
+            line-height: 1.8;
+        }
+        footer strong {
+            display: block;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1rem;
+            color: #6d4c41;
+            margin-bottom: 0.4rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: linear-gradient(135deg, #e0b8be, #c89297);
+                flex-direction: column;
+                gap: 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                z-index: 1000;
+            }
+            .nav-menu.show { display: flex; }
+            .nav-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .nav-menu a { display: block; padding: 1rem 2rem; border-radius: 0; }
+            .nav-menu a:hover { background: rgba(255,255,255,0.15); transform: none; }
+            .articles-grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .filter-buttons { justify-content: center; }
+            .stat-divider { display: none; }
+            .banner-bar img { width: 95%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo">愛叮寶犬貓影像專科醫院</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <nav>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home">首頁</a></li>
+                <li><a href="index.html#about">關於我們</a></li>
+                <li><a href="index.html#team">醫療團隊</a></li>
+                <li><a href="index.html#services">服務項目</a></li>
+                <li><a href="vet-column.html">獸醫師專欄</a></li>
+                <li><a href="ct-wetlab.html" class="active">CT Wetlab</a></li>
+                <li><a href="index.html#contact">聯絡我們</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ── Banner ── -->
+<div class="banner-bar">
+    <img src="https://i.imgur.com/UjjErEs.png" alt="愛叮寶犬貓影像專科醫院">
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+    <div class="hero-badge">CT Wetlab · 文獻庫</div>
+    <h1>CT Wetlab 文獻總覽</h1>
+    <p>小動物電腦斷層影像學課程精選文獻 · 每篇附互動式摘要與雙語筆記</p>
+</div>
+
+<!-- ── Main ── -->
+<main class="main-content">
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="搜尋文獻標題、關鍵字、作者..." id="searchInput">
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">全部</button>
+            <button class="filter-btn" data-category="Abdomen">腹部</button>
+            <button class="filter-btn" data-category="Thorax">胸腔</button>
+            <button class="filter-btn" data-category="MSK">骨骼肌肉</button>
+            <button class="filter-btn" data-category="Spine">脊椎</button>
+            <button class="filter-btn" data-category="Skull and brain">頭顱腦部</button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-number" id="totalArticles">0</span>
+            <span class="stat-label">收錄文獻</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number" id="filteredArticles">0</span>
+            <span class="stat-label">目前顯示</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number" id="statSummary">0</span>
+            <span class="stat-label">互動摘要</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number" id="statNote">0</span>
+            <span class="stat-label">雙語筆記</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number" id="lastUpdate">—</span>
+            <span class="stat-label">最後更新</span>
+        </div>
+    </div>
+
+    <div class="section-label"><i class="fas fa-book-open"></i> 文獻列表</div>
+
+    <!-- Loading -->
+    <div class="loading" id="loadingState">
+        <i class="fas fa-spinner"></i>
+        <p style="margin-top:1rem; color:#c89297;">載入文獻中...</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="articles-grid" id="articlesGrid" style="display:none;"></div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults" style="display:none;">
+        <i class="fas fa-search"></i>
+        <h3>沒有找到符合的文獻</h3>
+        <p>請嘗試其他關鍵字或類別</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+    <strong>愛叮寶犬貓影像專科醫院 · CT Wetlab 文獻庫</strong>
+    ATinsight Veterinary Diagnostic Imaging Specialty Center · atinsight.vet
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+//  文獻資料庫
+//  每筆格式：
+//    id, title, enTitle, description, category (解剖部位),
+//    tags, year, authors, journal,
+//    summaryUrl (互動頁), noteUrl (雙語筆記頁)
+//  summaryUrl / noteUrl 填 null 表示「製作中」
+// ═══════════════════════════════════════════════
+const articlesData = [
+
+    // ── 已完成 ────────────────────────────────────
+    {
+        id: 1,
+        title: "貓腎臟異位與融合 13 例影像特徵",
+        enTitle: "Imaging features of renal ectopia and fusion in 13 cats",
+        description: "多中心回顧性病例系列，描述貓腎臟異位與融合的超音波、X 光及 CT 影像特徵，依 McDonald 分類系統分型，含塊狀腎、碟狀腎、馬蹄形腎等亞型。",
+        category: "Abdomen",
+        tags: ["腎臟", "先天異常", "CFRE", "US", "CT"],
+        year: 2023,
+        authors: "Slinkard et al.",
+        journal: "J Feline Med Surg",
+        summaryUrl: "Abdomen/Imaging features of renal ectopia and fusion in 13 cats/summary.html",
+        noteUrl: "Abdomen/Imaging features of renal ectopia and fusion in 13 cats/note.html"
+    },
+    // ── 製作中（2–39）────────────────────────────
+    { id: 2,  title: "文獻 02（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 3,  title: "文獻 03（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 4,  title: "文獻 04（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 5,  title: "文獻 05（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 6,  title: "文獻 06（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 7,  title: "文獻 07（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 8,  title: "文獻 08（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 9,  title: "文獻 09（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 10, title: "文獻 10（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 11, title: "文獻 11（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Thorax",         tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 12, title: "文獻 12（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Thorax",         tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 13, title: "文獻 13（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Thorax",         tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 14, title: "文獻 14（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "MSK",            tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 15, title: "文獻 15（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "MSK",            tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 16, title: "文獻 16（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "MSK",            tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 17, title: "文獻 17（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 18, title: "文獻 18（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 19, title: "文獻 19（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 20, title: "文獻 20（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 21, title: "文獻 21（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 22, title: "文獻 22（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 23, title: "文獻 23（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 24, title: "文獻 24（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 25, title: "文獻 25（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 26, title: "文獻 26（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 27, title: "文獻 27（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 28, title: "文獻 28（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 29, title: "文獻 29（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 30, title: "文獻 30（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Thorax",         tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 31, title: "文獻 31（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Thorax",         tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 32, title: "文獻 32（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "MSK",            tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 33, title: "文獻 33（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "MSK",            tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 34, title: "文獻 34（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 35, title: "文獻 35（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Spine",          tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 36, title: "文獻 36（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 37, title: "文獻 37（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 38, title: "文獻 38（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Skull and brain", tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true },
+    { id: 39, title: "文獻 39（製作中）", enTitle: "", description: "本篇文獻正在整理中，敬請期待。", category: "Abdomen",        tags: ["製作中"], year: null, authors: "", journal: "", summaryUrl: null, noteUrl: null, pending: true }
+];
+// removed duplicate
+const _unused = [
+    {
+        id: 28,
+        title: "文獻 28（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Abdomen",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 29,
+        title: "文獻 29（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Abdomen",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 30,
+        title: "文獻 30（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Thorax",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 31,
+        title: "文獻 31（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "MSK",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 32,
+        title: "文獻 32（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Spine",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 33,
+        title: "文獻 33（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Skull and brain",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 34,
+        title: "文獻 34（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Abdomen",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 35,
+        title: "文獻 35（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Abdomen",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 36,
+        title: "文獻 36（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Thorax",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 37,
+        title: "文獻 37（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "MSK",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 38,
+        title: "文獻 38（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Spine",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    },
+    {
+        id: 39,
+        title: "文獻 39（製作中）",
+        enTitle: "",
+        description: "本篇文獻正在整理中，敬請期待。",
+        category: "Skull and brain",
+        tags: ["製作中"],
+        year: null,
+        authors: "",
+        journal: "",
+        summaryUrl: null,
+        noteUrl: null,
+        pending: true
+    }
+]; // end _unused
+
+// ── Category label map ────────────────────────
+const categoryLabel = {
+    'Abdomen':        '腹部',
+    'Thorax':         '胸腔',
+    'MSK':            '骨骼肌肉',
+    'Spine':          '脊椎',
+    'Skull and brain':'頭顱腦部'
+};
+
+// ── Global state ──────────────────────────────
+let filteredArticles = [...articlesData];
+let currentPage = 1;
+const articlesPerPage = 9;
+let currentCategory = 'all';
+let searchTerm = '';
+
+// ── Init ──────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        filteredArticles = [...articlesData];
+        updateStats();
+        renderArticles();
+        renderPagination();
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('articlesGrid').style.display = 'grid';
+    }, 600);
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', e => {
+        searchTerm = e.target.value.toLowerCase();
+        filterArticles();
+    });
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentCategory = e.target.dataset.category;
+            filterArticles();
+        });
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navMenu   = document.getElementById('navMenu');
+    mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+        const icon = mobileBtn.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.nav-container')) {
+            navMenu.classList.remove('show');
+            const icon = mobileBtn.querySelector('i');
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        }
+    });
+});
+
+function filterArticles() {
+    filteredArticles = articlesData.filter(a => {
+        const matchCat = currentCategory === 'all' || a.category === currentCategory;
+        const matchSearch = !searchTerm ||
+            a.title.toLowerCase().includes(searchTerm) ||
+            a.enTitle.toLowerCase().includes(searchTerm) ||
+            a.description.toLowerCase().includes(searchTerm) ||
+            (a.authors && a.authors.toLowerCase().includes(searchTerm)) ||
+            (a.journal && a.journal.toLowerCase().includes(searchTerm)) ||
+            a.tags.some(t => t.toLowerCase().includes(searchTerm));
+        return matchCat && matchSearch;
+    });
+    currentPage = 1;
+    updateStats();
+    renderArticles();
+    renderPagination();
+}
+
+function updateStats() {
+    document.getElementById('totalArticles').textContent   = articlesData.length;
+    document.getElementById('filteredArticles').textContent = filteredArticles.length;
+    const withSummary = articlesData.filter(a => a.summaryUrl).length;
+    const withNote    = articlesData.filter(a => a.noteUrl).length;
+    document.getElementById('statSummary').textContent = withSummary;
+    document.getElementById('statNote').textContent    = withNote;
+    // Last updated = newest non-pending
+    const years = articlesData.filter(a => a.year).map(a => a.year);
+    document.getElementById('lastUpdate').textContent = years.length ? Math.max(...years) : '—';
+}
+
+function renderArticles() {
+    const grid      = document.getElementById('articlesGrid');
+    const noResults = document.getElementById('noResults');
+
+    if (filteredArticles.length === 0) {
+        grid.style.display = 'none';
+        noResults.style.display = 'block';
+        return;
+    }
+    grid.style.display = 'grid';
+    noResults.style.display = 'none';
+
+    const start = (currentPage - 1) * articlesPerPage;
+    const slice = filteredArticles.slice(start, start + articlesPerPage);
+
+    grid.innerHTML = slice.map(a => {
+        const catLabel = categoryLabel[a.category] || a.category;
+        const isPending = !!a.pending;
+
+        const summaryBtn = a.summaryUrl
+            ? `<a href="${a.summaryUrl}" target="_blank" class="article-link link-summary">
+                 <i class="fas fa-chart-bar"></i> 互動摘要
+               </a>`
+            : `<span class="article-link link-disabled">
+                 <i class="fas fa-clock"></i> 摘要製作中
+               </span>`;
+
+        const noteBtn = a.noteUrl
+            ? `<a href="${a.noteUrl}" target="_blank" class="article-link link-note">
+                 <i class="fas fa-book"></i> 雙語筆記
+               </a>`
+            : `<span class="article-link link-disabled">
+                 <i class="fas fa-clock"></i> 筆記製作中
+               </span>`;
+
+        const metaStr = [
+            a.authors ? `<span><i class="fas fa-user"></i> ${a.authors}</span>` : '',
+            a.journal  ? `<span><i class="fas fa-journal-whills"></i> ${a.journal}</span>` : '',
+            a.year     ? `<span><i class="fas fa-calendar"></i> ${a.year}</span>` : ''
+        ].filter(Boolean).join('');
+
+        return `
+        <div class="article-card${isPending ? ' pending' : ''}" data-sys="${a.category}">
+            <div class="article-num">${String(a.id).padStart(2,'0')}</div>
+            <div class="article-category">${catLabel}</div>
+            <h3 class="article-title">${a.title}</h3>
+            ${a.enTitle ? `<div class="article-en-title">${a.enTitle}</div>` : ''}
+            <p class="article-description">${a.description}</p>
+            ${metaStr ? `<div class="article-meta">${metaStr}</div>` : ''}
+            <div class="article-tags">${a.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            <div class="article-links">
+                ${summaryBtn}
+                ${noteBtn}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderPagination() {
+    const pagination  = document.getElementById('pagination');
+    const totalPages  = Math.ceil(filteredArticles.length / articlesPerPage);
+    if (totalPages <= 1) { pagination.innerHTML = ''; return; }
+
+    let html = `<button onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>
+                  <i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        if (i===1 || i===totalPages || (i>=currentPage-1 && i<=currentPage+1)) {
+            html += `<button onclick="changePage(${i})" ${i===currentPage?'class="active"':''}>${i}</button>`;
+        } else if (i===currentPage-2 || i===currentPage+2) {
+            html += '<span>…</span>';
+        }
+    }
+    html += `<button onclick="changePage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>
+               <i class="fas fa-chevron-right"></i></button>`;
+    pagination.innerHTML = html;
+}
+
+function changePage(page) {
+    const total = Math.ceil(filteredArticles.length / articlesPerPage);
+    if (page < 1 || page > total) return;
+    currentPage = page;
+    renderArticles();
+    renderPagination();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
