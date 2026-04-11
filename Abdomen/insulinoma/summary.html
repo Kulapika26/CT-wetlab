@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>犬胰島素瘤雙期CT血管攝影影像特徵</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/5qr0W3z.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf6f7;--bg2:#faeef0;--bg3:#fce7eb;--surface:#fff;--border:#e6c8cc;--accent1:#a3626c;--accent2:#825159;--accent3:#ddb5bb;--warm:#e09f7d;--warm2:#c67d5e;--green:#7ca87d;--red:#c96a6a;--text:#4a4a4a;--text2:#75474d;--text3:#825159;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans TC',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:#faeef0;}::-webkit-scrollbar-thumb{background:#ddb5bb;border-radius:4px;}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent1),var(--warm));z-index:999;width:0;transition:width .1s;}
+.banner-wrapper{background:var(--accent3);width:100%;padding:14px 24px;text-align:center;box-shadow:0 2px 12px rgba(163,98,108,.12);}
+.banner-wrapper img{width:80%;max-width:860px;height:auto;display:inline-block;border:none;box-shadow:none;}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:80px 24px 60px;}
+#hero-canvas{position:absolute;inset:0;z-index:0;}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1100px;margin-top:80px;}
+.hero-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent1);border:1px solid rgba(163,98,108,.3);background:rgba(255,255,255,.6);display:inline-block;padding:6px 18px;border-radius:2px;margin-bottom:28px;animation:fadeUp .8s .1s ease both;}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:clamp(24px,4.5vw,56px);font-weight:900;line-height:1.2;letter-spacing:-1px;margin-bottom:14px;color:var(--text2);animation:fadeUp .9s .2s ease both;}
+.hero-title .hl{color:var(--accent1);position:relative;}
+.hero-title .hl::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent1),transparent);}
+.hero-subtitle{font-size:clamp(12px,1.6vw,15px);color:var(--text);max-width:680px;line-height:1.85;margin:0 auto 40px;animation:fadeUp 1s .3s ease both;}
+.hero-stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .4s ease both;}
+.hero-stat{text-align:center;background:rgba(255,255,255,.75);padding:14px 20px;border-radius:8px;border:1px solid var(--border);backdrop-filter:blur(8px);}
+.hero-stat .num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--accent1);line-height:1;display:block;}
+.hero-stat .label{font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:3px;font-weight:600;}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3);font-size:11px;letter-spacing:3px;text-transform:uppercase;animation:fadeUp 1s .6s ease both;}
+.scroll-arrow{width:20px;height:30px;border:1px solid var(--text3);border-radius:10px;position:relative;}
+.scroll-arrow::after{content:'';width:4px;height:4px;background:var(--text3);border-radius:50%;position:absolute;top:6px;left:50%;transform:translateX(-50%);animation:scrollDot 1.5s infinite;}
+nav{position:sticky;top:0;z-index:100;background:rgba(253,246,247,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:center;height:52px;overflow-x:auto;gap:0;}
+nav::-webkit-scrollbar{display:none;}
+@media(max-width:1000px){nav{justify-content:flex-start;}}
+.nav-item{padding:0 13px;height:100%;display:flex;align-items:center;font-size:12px;letter-spacing:.3px;color:var(--text3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0;font-weight:500;}
+.nav-item:hover,.nav-item.active{color:var(--accent1);border-bottom-color:var(--accent1);background:var(--bg2);}
+section{padding:72px 24px;max-width:1200px;margin:0 auto;}
+.bg-alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;}
+.bg-alt3{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;}
+.inner{max-width:1200px;margin:0 auto;}
+.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent1);margin-bottom:14px;display:flex;align-items:center;gap:12px;font-weight:700;}
+.section-label::after{content:'';flex:1;max-width:60px;height:2px;background:var(--accent1);opacity:.4;}
+.section-title{font-family:'Noto Serif TC',serif;font-size:clamp(20px,3.2vw,34px);font-weight:700;line-height:1.2;margin-bottom:14px;color:var(--text2);}
+.section-desc{color:var(--text);font-size:14.5px;line-height:1.85;max-width:720px;margin-bottom:40px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.info-box{background:rgba(163,98,108,.06);border:1px solid rgba(163,98,108,.2);border-left:4px solid var(--accent1);border-radius:6px;padding:16px 20px;margin:18px 0;font-size:13.5px;line-height:1.8;}
+.warn-box{background:rgba(224,159,125,.07);border:1px solid rgba(224,159,125,.3);border-left:4px solid var(--warm);border-radius:6px;padding:16px 20px;margin:18px 0;font-size:13.5px;line-height:1.8;}
+.success-box{background:rgba(124,168,125,.07);border:1px solid rgba(124,168,125,.3);border-left:4px solid var(--green);border-radius:6px;padding:16px 20px;margin:18px 0;font-size:13.5px;line-height:1.8;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;transition:all .3s;box-shadow:0 2px 8px rgba(163,98,108,.05);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent1);opacity:0;transition:opacity .3s;}
+.card:hover{border-color:var(--accent1);transform:translateY(-3px);box-shadow:0 8px 20px rgba(163,98,108,.12);}
+.card:hover::before{opacity:1;}
+.card .icon{width:38px;height:38px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;border:1px solid var(--border);}
+.card h3{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text2);}
+.card p{font-size:13px;line-height:1.75;color:var(--text);}
+/* two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+@media(max-width:800px){.two-col{grid-template-columns:1fr;}}
+/* diagram wrap */
+.diagram-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:center;min-height:220px;}
+.diagram-wrap svg{width:100%;max-width:380px;}
+/* demo grid */
+.demo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;}
+@media(max-width:700px){.demo-grid{grid-template-columns:1fr 1fr;}}
+.demo-cell{background:var(--surface);padding:22px 14px;text-align:center;transition:background .3s;}
+.demo-cell:hover{background:var(--bg2);}
+.demo-cell .val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--accent1);display:block;line-height:1;margin-bottom:4px;}
+.demo-cell .key{font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;font-weight:600;}
+.demo-cell .sub{font-size:11.5px;color:var(--text);margin-top:3px;line-height:1.4;}
+/* attenuation flow */
+.atten-flow{display:flex;gap:0;align-items:stretch;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.atten-phase{flex:1;padding:20px 14px;text-align:center;position:relative;}
+.atten-phase:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--accent1);z-index:2;}
+.atten-phase .ph-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:8px;color:var(--text3);}
+.atten-phase .ph-val{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;color:var(--text2);}
+.atten-phase .ph-pct{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--accent1);display:block;margin:4px 0;}
+.ph-pre{background:rgba(163,98,108,.05);}
+.ph-art{background:rgba(163,98,108,.12);}
+.ph-ven{background:rgba(163,98,108,.07);}
+/* bar list */
+.bar-list{display:flex;flex-direction:column;gap:11px;margin-top:20px;}
+.bar-row{display:grid;grid-template-columns:170px 1fr 55px;align-items:center;gap:12px;}
+@media(max-width:550px){.bar-row{grid-template-columns:100px 1fr 40px;}}
+.b-label{font-size:13px;color:var(--text);text-align:right;font-weight:500;}
+.b-track{height:9px;background:var(--surface);border:1px solid var(--border);border-radius:5px;overflow:hidden;}
+.b-fill{height:100%;border-radius:4px;width:0;transition:width 1.3s cubic-bezier(.16,1,.3,1);}
+.b-pct{font-family:'Playfair Display',serif;font-size:14px;color:var(--accent1);text-align:right;font-weight:700;}
+/* tabs */
+.tabs{display:flex;gap:2px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;flex-wrap:wrap;}
+.tab-btn{flex:1;padding:11px 8px;background:var(--surface);border:none;color:var(--text3);font-size:12.5px;font-family:'Inter','Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;font-weight:500;white-space:nowrap;min-width:70px;}
+.tab-btn.active{background:var(--accent1);color:#fff;font-weight:700;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeIn .3s ease;}
+/* mech cards */
+.mech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:700px){.mech-grid{grid-template-columns:1fr;}}
+.mech-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;cursor:pointer;transition:all .3s;box-shadow:0 2px 8px rgba(163,98,108,.05);position:relative;}
+.mech-card::after{content:'';position:absolute;inset:0;border-radius:8px;border:2px solid transparent;transition:border-color .3s;}
+.mech-card.active::after{border-color:var(--accent1);}
+.mech-card .m-num{font-family:'Playfair Display',serif;font-size:40px;color:rgba(163,98,108,.15);font-weight:700;line-height:1;margin-bottom:8px;}
+.mech-card.active .m-num{color:rgba(163,98,108,.4);}
+.mech-card h3{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;margin-bottom:6px;color:var(--text2);}
+.mech-card p{font-size:13px;color:var(--text);line-height:1.7;}
+.mech-detail{margin-top:22px;background:var(--surface);border:2px solid rgba(163,98,108,.2);border-radius:8px;padding:26px;display:none;box-shadow:0 4px 12px rgba(163,98,108,.08);}
+.mech-detail.active{display:block;animation:fadeIn .3s ease;}
+.mech-detail h4{font-family:'Noto Serif TC',serif;color:var(--accent1);font-size:18px;font-weight:700;margin-bottom:12px;border-bottom:1px dashed var(--border);padding-bottom:10px;}
+.mech-detail p{font-size:14px;line-height:1.9;color:var(--text);margin-bottom:10px;}
+.mech-detail ul{margin:8px 0 12px 18px;}
+.mech-detail li{font-size:13.5px;line-height:1.8;color:var(--text);margin-bottom:4px;}
+/* diff cards */
+.diff-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;display:flex;gap:14px;transition:all .3s;box-shadow:0 2px 8px rgba(163,98,108,.05);margin-bottom:12px;}
+.diff-card:hover{border-color:rgba(163,98,108,.4);background:var(--bg2);}
+.diff-card .dc-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid var(--border);background:var(--bg2);}
+.diff-card h4{font-family:'Noto Serif TC',serif;font-size:14.5px;font-weight:700;margin-bottom:5px;color:var(--text2);}
+.diff-card p{font-size:13px;color:var(--text);line-height:1.7;}
+/* pearls */
+.pearls-list{display:flex;flex-direction:column;gap:13px;margin-top:32px;}
+.pearl-item{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:22px;align-items:flex-start;transition:all .3s;box-shadow:0 2px 8px rgba(163,98,108,.04);}
+.pearl-item:hover{border-color:rgba(163,98,108,.4);background:var(--bg2);transform:translateY(-2px);}
+.pearl-num{font-family:'Playfair Display',serif;font-size:32px;color:rgba(163,98,108,.2);font-weight:700;line-height:1;flex-shrink:0;min-width:44px;}
+.pearl-body h4{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;color:var(--text2);margin-bottom:7px;}
+.pearl-body p{font-size:13.5px;line-height:1.8;color:var(--text);}
+/* badge */
+.badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:11.5px;font-weight:600;}
+.badge-good{background:rgba(124,168,125,.15);color:#4e8250;border:1px solid rgba(124,168,125,.3);}
+.badge-warn{background:rgba(224,159,125,.15);color:#c67d5e;border:1px solid rgba(224,159,125,.3);}
+.badge-info{background:rgba(163,98,108,.1);color:var(--accent1);border:1px solid rgba(163,98,108,.3);}
+/* CT table */
+.ct-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:13px;}
+.ct-table th{padding:11px 16px;background:var(--bg2);color:var(--text2);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--border);text-align:left;}
+.ct-table td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.6;}
+.ct-table tr:last-child td{border-bottom:none;}
+.ct-table td:first-child{color:var(--text2);font-weight:600;background:rgba(250,238,240,.3);}
+.ct-table tr:hover td{background:rgba(163,98,108,.04);}
+.quote-block{border-left:3px solid var(--accent3);padding:14px 20px;background:var(--bg2);border-radius:0 6px 6px 0;font-style:italic;font-size:14px;line-height:1.85;color:var(--text2);margin:18px 0;}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px;text-align:center;font-size:13px;color:var(--text3);line-height:1.8;}
+.f-title{font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;color:var(--text2);margin-bottom:8px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scrollDot{0%{top:6px;opacity:1;}100%{top:18px;opacity:0;}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="banner-wrapper" style="position:absolute;top:0;left:0;width:100%;z-index:10;">
+    <img src="https://i.imgur.com/UjjErEs.png" alt="愛叮寶犬貓影像專科醫院">
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">J Small Anim Pract · Vol 62 · July 2021 · Coss et al.</div>
+    <h1 class="hero-title">犬<span class="hl">胰島素瘤</span><br>雙期 CT 血管攝影影像特徵</h1>
+    <p class="hero-subtitle">The Appearance of Canine Insulinoma on Dual Phase<br>Computed Tomographic Angiography</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num" data-target="35">0</span><span class="label">總病例數</span></div>
+      <div class="hero-stat"><span class="num" data-target="21">0</span><span class="label">病理確診</span></div>
+      <div class="hero-stat"><span class="num" data-target="94">0</span><span class="label">動脈期敏感度 (%)</span></div>
+      <div class="hero-stat"><span class="num" data-target="89">0</span><span class="label">術前定位準確率 (%)</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-arrow"></div>向下捲動</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-item" data-target="sec-intro">🔬 背景</div>
+  <div class="nav-item" data-target="sec-demo">📊 病例概況</div>
+  <div class="nav-item" data-target="sec-types">🔴 CT 顯影類型</div>
+  <div class="nav-item" data-target="sec-features">📡 影像特徵</div>
+  <div class="nav-item" data-target="sec-illus">🖼️ 影像圖解</div>
+  <div class="nav-item" data-target="sec-clinical">🏥 臨床意義</div>
+  <div class="nav-item" data-target="sec-diff">⚡ 鑑別診斷</div>
+  <div class="nav-item" data-target="sec-pearls">💡 臨床珍珠</div>
+</nav>
+
+<!-- 1. 背景 -->
+<section id="sec-intro">
+  <div class="section-label">Background</div>
+  <h2 class="section-title">犬胰島素瘤：定義與診斷挑戰</h2>
+  <p class="section-desc">胰島素瘤（insulinoma）是源自胰臟 β 細胞的功能性內分泌腫瘤，不受調控地持續分泌胰島素，造成反覆低血糖發作。CT 血管攝影（CTA）是目前最廣泛使用的術前診斷和定位工具。</p>
+
+  <div class="card-grid reveal">
+    <div class="card"><div class="icon">🧬</div><h3>病理機制</h3><p>β 細胞腫瘤持續分泌胰島素、體抑素、升糖素、胃泌素及胰多肽等激素，無視低血糖的正常抑制回饋，造成嚴重症狀性低血糖。</p></div>
+    <div class="card"><div class="icon">🐕</div><h3>流行病學</h3><p>好發於體重 &gt;25 kg 的中大型犬，平均診斷年齡 8.5–10 歲。犬的胰島素瘤通常具攻擊性生物行為，轉移率約 45%，最常見轉移至腹腔淋巴結及肝臟。</p></div>
+    <div class="card"><div class="icon">⚡</div><h3>臨床表現</h3><p>症狀間歇性且進行性——虛弱、暈厥、癲癇發作，可由興奮、禁食或運動誘發。低血糖可能為間歇性，反覆血糖檢測可能難以捕捉。</p></div>
+    <div class="card"><div class="icon">🔭</div><h3>診斷方式</h3><p>確診需組織病理，臨床診斷須有低血糖合併不適當升高的血胰島素。CT 血管攝影是最廣泛使用的術前評估工具，超音波受限於操作者經驗及小病灶遮蔽問題。</p></div>
+    <div class="card"><div class="icon">📊</div><h3>研究背景</h3><p>現有犬胰島素瘤 CTA 文獻量極少，且結果分歧——動脈期高密度比率從 22.2% 到 81.8% 不等。本研究為迄今最大規模（35 例），使用 bolus tracking 技術採集動脈期。</p></div>
+    <div class="card"><div class="icon">🎯</div><h3>研究目的</h3><p>進一步評估犬胰島素瘤在雙期 CTA 的影像特徵，釐清文獻分歧，並確認 CTA 術前腫瘤定位是否與手術結果一致，作為外科規劃依據。</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 2. 病例概況 -->
+<div class="bg-alt" id="sec-demo">
+  <div class="inner">
+    <div class="section-label">Demographics</div>
+    <h2 class="section-title">35 例病例概況</h2>
+    <p class="section-desc">英國 Bristol 大學 Langford Vets 轉診醫院，2012–2017 年間，34 隻犬共 35 次 CTA 研究（1 隻接受兩次掃描）。</p>
+
+    <div class="demo-grid reveal">
+      <div class="demo-cell"><span class="val">35</span><span class="key">CTA研究</span><span class="sub">34隻犬</span></div>
+      <div class="demo-cell"><span class="val">8.79</span><span class="key">平均年齡（歲）</span><span class="sub">範圍 3–14 歲</span></div>
+      <div class="demo-cell"><span class="val">21.1</span><span class="key">平均體重（kg）</span><span class="sub">範圍 3.3–47.4 kg</span></div>
+      <div class="demo-cell"><span class="val">60%♀</span><span class="key">性別</span><span class="sub">絕育母19、去勢公11</span></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3 class="section-title" style="font-size:20px;margin-bottom:18px;">🐾 品種分布</h3>
+        <div class="bar-list" id="breed-bars">
+          <div class="bar-row"><span class="b-label">🏆 Jack Russell Terrier</span><div class="b-track"><div class="b-fill" data-w="18" style="background:linear-gradient(90deg,var(--accent1),var(--accent3));"></div></div><span class="b-pct">6隻</span></div>
+          <div class="bar-row"><span class="b-label">混種犬</span><div class="b-track"><div class="b-fill" data-w="15" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div><span class="b-pct">5隻</span></div>
+          <div class="bar-row"><span class="b-label">拳師犬 Boxer</span><div class="b-track"><div class="b-fill" data-w="12" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div><span class="b-pct">4隻</span></div>
+          <div class="bar-row"><span class="b-label">英卡 Springer Spaniel</span><div class="b-track"><div class="b-fill" data-w="12" style="background:linear-gradient(90deg,var(--warm2),var(--warm));"></div></div><span class="b-pct">4隻</span></div>
+          <div class="bar-row"><span class="b-label">邊境牧羊犬</span><div class="b-track"><div class="b-fill" data-w="6" style="background:linear-gradient(90deg,var(--green),rgba(124,168,125,.3));"></div></div><span class="b-pct">2隻</span></div>
+          <div class="bar-row"><span class="b-label">拉布拉多</span><div class="b-track"><div class="b-fill" data-w="6" style="background:linear-gradient(90deg,var(--green),rgba(124,168,125,.3));"></div></div><span class="b-pct">2隻</span></div>
+        </div>
+        <div class="info-box" style="margin-top:18px;font-size:13px;">
+          <strong>⚡ JRT 過度代表：</strong> JRT 佔本院犬隻患者 3.92%，但佔本研究 16.7%（6/34）。同一研究機構另一 27 隻犬研究也報告 JRT 為最多品種，提示可能存在先前未被認識的品種傾向。
+        </div>
+      </div>
+      <div>
+        <h3 class="section-title" style="font-size:20px;margin-bottom:18px;">📋 診斷確認方式</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;gap:16px;align-items:center;">
+            <span style="font-family:'Playfair Display',serif;font-size:36px;color:var(--accent1);font-weight:700;flex-shrink:0;">21</span>
+            <div><strong style="color:var(--text2);display:block;margin-bottom:4px;">組織病理確診</strong><p style="font-size:13px;color:var(--text);line-height:1.6;">手術切除活檢，全部確認為胰島素瘤</p></div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;gap:16px;align-items:center;">
+            <span style="font-family:'Playfair Display',serif;font-size:36px;color:var(--warm);font-weight:700;flex-shrink:0;">14</span>
+            <div><strong style="color:var(--text2);display:block;margin-bottom:4px;">臨床診斷（無手術）</strong><p style="font-size:13px;color:var(--text);line-height:1.6;">低血糖 + 不適當高胰島素 + 臨床影像符合，全部病例均有此血液參數組合</p></div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:18px;font-size:13px;">
+          <strong>💉 CT 掃描方案：</strong> 16 切面多偵測器 CT（Siemens SOMATOM Emotion 16）；600 mg I/kg Iopamidol（Niopam 300, 1–3 mL/s）；<strong>Bolus tracking 技術</strong>採集動脈期及靜脈期（優於先前研究的預設 15/30 秒固定時序）。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. CT 顯影類型 -->
+<section id="sec-types">
+  <div class="section-label">Enhancement Patterns</div>
+  <h2 class="section-title">雙期 CTA 顯影強度型態</h2>
+  <p class="section-desc">胰島素瘤的富血管特性使其在動脈期出現特徵性的高密度顯影（vascular blush），但各期顯影強度的組合型態多樣，以下為本研究的完整分布。</p>
+
+  <!-- Three-phase flow -->
+  <div style="margin-bottom:40px;" class="reveal">
+    <h3 class="section-title" style="font-size:19px;margin-bottom:18px;">最常見兩種型態（合計 78.8%）</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div style="background:var(--surface);border:2px solid var(--accent1);border-radius:10px;padding:16px;text-align:center;margin-bottom:10px;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--accent1);font-weight:700;">42.4%</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">型態一（最常見）</div>
+        </div>
+        <div class="atten-flow">
+          <div class="atten-phase ph-pre"><div class="ph-label">顯影前</div><div class="ph-val">等密度</div></div>
+          <div class="atten-phase ph-art"><div class="ph-label">動脈期</div><span class="ph-pct">↑</span><div class="ph-val">高密度</div></div>
+          <div class="atten-phase ph-ven"><div class="ph-label">靜脈期</div><span class="ph-pct">↑</span><div class="ph-val">高密度</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--surface);border:2px solid var(--warm);border-radius:10px;padding:16px;text-align:center;margin-bottom:10px;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--warm);font-weight:700;">36.4%</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">型態二</div>
+        </div>
+        <div class="atten-flow">
+          <div class="atten-phase ph-pre"><div class="ph-label">顯影前</div><div class="ph-val">等密度</div></div>
+          <div class="atten-phase ph-art"><div class="ph-label">動脈期</div><span class="ph-pct">↑</span><div class="ph-val">高密度</div></div>
+          <div class="atten-phase ph-ven"><div class="ph-label">靜脈期</div><span class="ph-pct">→</span><div class="ph-val">等密度</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full table -->
+  <div class="reveal">
+    <h3 class="section-title" style="font-size:19px;margin-bottom:16px;">完整顯影型態分布（Table 1）</h3>
+    <div style="overflow-x:auto;">
+      <table class="ct-table">
+        <thead><tr><th>顯影前</th><th>動脈期</th><th>靜脈期</th><th>病例數</th><th>百分比</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>等密度</td><td>⬆️ 高密度</td><td>⬆️ 高密度</td><td>14</td><td><span class="badge badge-info">42.4%</span></td><td>最常見型態</td></tr>
+          <tr><td>等密度</td><td>⬆️ 高密度</td><td>→ 等密度</td><td>12</td><td><span class="badge badge-info">36.4%</span></td><td>動脈期 washout</td></tr>
+          <tr><td>等密度</td><td>→ 等密度</td><td>→ 等密度</td><td>2</td><td>6.1%</td><td>僅靠形態變形偵測</td></tr>
+          <tr><td>等密度</td><td>⬇️ 低密度</td><td>→ 等密度</td><td>2</td><td>6.1%</td><td>非典型</td></tr>
+          <tr><td>低密度</td><td>⬆️ 高密度</td><td>→ 等密度</td><td>1</td><td>3.0%</td><td>—</td></tr>
+          <tr><td>等密度</td><td>⬇️ 低密度</td><td>⬇️ 低密度</td><td>1</td><td>3.0%</td><td>—</td></tr>
+          <tr><td>等密度</td><td>⬇️ 低密度†</td><td>⬆️ 高密度</td><td>1</td><td>3.0%</td><td>†rim enhancement</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box" style="margin-top:16px;font-size:13px;">
+      <strong>📌 總計動脈期高密度（hyperattenuation）：27/33 = 81.8%</strong>（確診 21 例中：20/21 = 95.2%）。動脈期低密度：4/33（12.1%）。動脈期等密度：2/33（僅憑胰臟形態變形偵測）。
+    </div>
+  </div>
+</section>
+
+<!-- 4. 影像特徵 -->
+<div class="bg-alt3" id="sec-features">
+  <div class="inner">
+    <div class="section-label">CT Features</div>
+    <h2 class="section-title">CT 影像特徵詳解</h2>
+    <p class="section-desc">以下四個面向涵蓋胰島素瘤的完整 CT 影像特徵，包含病灶大小、形態學、邊界及轉移評估。</p>
+
+    <div class="mech-grid">
+      <div class="mech-card active" onclick="selectFeat(0)"><div class="m-num">01</div><h3>病灶大小與形態</h3><p>中位數 13 mm，18.2% 超過 20 mm；多數造成胰臟形態明顯變形。</p></div>
+      <div class="mech-card" onclick="selectFeat(1)"><div class="m-num">02</div><h3>動脈期：關鍵診斷期</h3><p>動脈期高密度敏感性 94.0%；所有顯影異常病灶均在動脈期最清楚可見。</p></div>
+      <div class="mech-card" onclick="selectFeat(2)"><div class="m-num">03</div><h3>邊界與其他特徵</h3><p>約半數邊界清楚，半數邊界不清；無囊性變化或礦化。</p></div>
+      <div class="mech-card" onclick="selectFeat(3)"><div class="m-num">04</div><h3>轉移評估</h3><p>21/35 懷疑轉移；肝臟最常見（15例）；淋巴結轉移可能在 CTA 上漏診。</p></div>
+    </div>
+
+    <div id="feat-detail-0" class="mech-detail active">
+      <h4>病灶大小與胰臟形態變形</h4>
+      <p>35 例中 33 例發現胰臟結節或腫塊（1 隻有兩個獨立病灶）。病灶大小呈非正態分佈，中位數 13 mm（IQR 10–18 mm），最小 3.5 mm，最大 44 mm。</p>
+      <ul>
+        <li><strong>18.2% 超過 20 mm</strong>（最小及最大病灶均經病理確診）</li>
+        <li><strong>26/33（78.8%）造成胰臟形態明顯變形</strong>——比人類（僅偶發）高得多，可能因犬胰臟較纖細</li>
+        <li>人類胰島素瘤 &gt;20 mm 僅佔 10%，犬幾乎是兩倍，提示犬的腫瘤生長更快速或臨床症狀發現較晚</li>
+        <li><strong>2 例病灶在所有期均等密度</strong>，僅憑形態變形識別——提示非顯影 CT 仍有價值（特別在有顯影劑禁忌症時）</li>
+      </ul>
+    </div>
+
+    <div id="feat-detail-1" class="mech-detail">
+      <h4>動脈期：胰島素瘤診斷的核心</h4>
+      <p>本研究中，每一個在任何顯影期出現密度變化的病灶，均在動脈期最清楚可見。動脈期高密度的整體敏感性為 94.0%，與人類文獻（86.1%，Liu et al. 2009）相近。</p>
+      <ul>
+        <li><strong>Bolus tracking vs 固定時序：</strong>先前研究使用固定的注射後 15 和 30 秒時序，本研究使用 bolus tracking 技術，被認為是更精確的採集方法，可能提升動脈期高密度的偵測率</li>
+        <li>胰島素瘤的「vascular blush」（血管暈染）可能短暫，固定時序容易錯過最佳採集窗口</li>
+        <li><strong>2 例動脈期 rim enhancement（周邊環形增強）</strong>：推測與早期動脈期採集有關（增強由周邊向中央發展，過早採集呈環形）</li>
+        <li>先前文獻動脈期高密度率：22.2%（Fukushima 2015）至 47.1%（Buishand 2018）——本研究 81.8% 支持「動脈期高密度為主要特徵」的傳統觀念</li>
+      </ul>
+    </div>
+
+    <div id="feat-detail-2" class="mech-detail">
+      <h4>邊界特徵與其他 CT 所見</h4>
+      <p>邊界評估：18/33（54.5%）邊界清楚；15/33（45.5%）邊界不清。人類胰島素瘤多數邊界清楚——犬邊界較不清楚，提示犬的腫瘤具更強的局部浸潤性生長。</p>
+      <ul>
+        <li><strong>無囊性變化或礦化</strong>（33 例全部）。人類胰島素瘤偶見囊性變化；礦化見於人類胰臟內分泌腫瘤（約 20%），尤其惡性者——犬完全缺如，進一步說明人犬物種差異</li>
+        <li>無囊性變化的可能機制：富血管化隨腫瘤生長，提供充分血供，防止中心壞死（Balci & Semelka 2001）</li>
+        <li><strong>2 例無胰臟病灶：</strong>1 例為術後復查（僅見肝臟轉移）；1 例僅見異常淋巴結（術後確認為 insulinoma 轉移，原發灶未找到）</li>
+      </ul>
+    </div>
+
+    <div id="feat-detail-3" class="mech-detail">
+      <h4>轉移評估與限制</h4>
+      <p>21/35（60%）CTA 懷疑有轉移（肝臟、腹腔淋巴結和/或腸繫膜）。肝臟最常見（15 例），14 例同時有胰臟病灶。</p>
+      <ul>
+        <li><strong>肝臟結節動脈期增強型態：</strong>14 例中 10 例（71.4%）與胰臟病灶相同 → 3 例手術確認為肝臟轉移；4 例增強型態不同 → 1 例手術後肝臟活檢無轉移</li>
+        <li><strong>CTA 漏診淋巴結轉移：</strong>2 例淋巴結轉移在術前 CTA 上不可見，僅手術探查後病理確認——CTA 對淋巴結微轉移的敏感性有限</li>
+        <li>中老年犬的良性結節性肝增生（benign nodular hyperplasia）很常見，需與轉移鑑別</li>
+        <li>儘管近半接受手術的病例有轉移跡象，手術仍被認為是合理治療選項，臨床分期不是主要預後因素（Caywood 1988）</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 影像圖解（SVG 手繪） -->
+<section id="sec-illus">
+  <div class="section-label">Illustrated Diagrams</div>
+  <h2 class="section-title">CT 影像特徵示意圖解</h2>
+  <p class="section-desc">以下三幅 SVG 圖解模擬原論文三張 CT 影像特徵，以橫切面示意圖呈現胰島素瘤的典型 CT 表現。</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('illus1',this)">圖 1 — 胰臟形態變形</button>
+    <button class="tab-btn" onclick="switchTab('illus2',this)">圖 2 — 三期顯影序列</button>
+    <button class="tab-btn" onclick="switchTab('illus3',this)">圖 3 — 邊界對比</button>
+  </div>
+
+  <!-- Fig 1: Pancreas shape deformation -->
+  <div id="tab-illus1" class="tab-panel active">
+    <div class="two-col">
+      <div>
+        <h3 class="section-title" style="font-size:19px;margin-bottom:14px;">胰臟形態變形（Deformation of Pancreatic Shape）</h3>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">26/33（78.8%）的胰臟病灶造成胰臟外形可辨別的局部膨出或輪廓變形（紅色箭頭所示），即使在顯影前等密度時期也可據此識別。</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">動脈期橫切面影像：腫瘤局部突出（向外膨隆）改變胰臟原本的細長形態。2 例僅靠此形態特徵被偵測，因為這些病灶在所有顯影期均等密度。</p>
+        <div class="info-box" style="font-size:13px;">
+          <strong>💡 臨床意義：</strong> 非顯影 CT 仍有診斷潛力——若病灶造成明顯形態變形，即使等密度也可被識別。當顯影劑有禁忌症時，非顯影期評估值得重視。
+        </div>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#0d0d1a"/></radialGradient>
+            <radialGradient id="panc" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5d8a7d" stop-opacity="0.9"/><stop offset="100%" stop-color="#3d6a5d"/></radialGradient>
+            <radialGradient id="tumor1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e09f7d" stop-opacity="1"/><stop offset="100%" stop-color="#c67d5e"/></radialGradient>
+          </defs>
+          <!-- CT background -->
+          <rect width="340" height="260" fill="url(#bg1)" rx="8"/>
+          <!-- CT window label -->
+          <text x="12" y="22" font-size="9" fill="#888">Arterial Phase — Transverse</text>
+          <!-- Vertebra -->
+          <ellipse cx="170" cy="188" rx="22" ry="16" fill="#e0e0e0" fill-opacity="0.9"/>
+          <text x="170" y="193" text-anchor="middle" font-size="8" fill="#333" font-weight="bold">Vert.</text>
+          <!-- Aorta -->
+          <circle cx="148" cy="175" r="10" fill="#c0392b" fill-opacity="0.85"/>
+          <text x="148" y="179" text-anchor="middle" font-size="7" fill="white" font-weight="bold">Ao</text>
+          <!-- CVC -->
+          <ellipse cx="195" cy="175" rx="12" ry="9" fill="#2980b9" fill-opacity="0.7"/>
+          <text x="195" y="179" text-anchor="middle" font-size="7" fill="white" font-weight="bold">CVC</text>
+          <!-- Pancreas body — normal elongated -->
+          <path d="M 60 135 Q 100 125 140 132 Q 160 135 170 130 Q 200 128 240 135 Q 260 140 275 148" stroke="#5d8a7d" stroke-width="14" fill="none" stroke-linecap="round" stroke-opacity="0.85"/>
+          <!-- Tumor bulge — deforming shape -->
+          <ellipse cx="195" cy="125" rx="26" ry="20" fill="url(#tumor1)" fill-opacity="0.95" stroke="#e09f7d" stroke-width="1.5"/>
+          <!-- Arrow indicating deformation -->
+          <line x1="195" y1="103" x2="195" y2="112" stroke="#a3626c" stroke-width="2" marker-end="url(#arrowR)"/>
+          <text x="195" y="97" text-anchor="middle" font-size="9" fill="#a3626c" font-weight="bold">▲ 外凸膨隆</text>
+          <!-- Red arrowheads at margins -->
+          <polygon points="172,118 168,126 176,126" fill="#a3626c"/>
+          <polygon points="218,118 214,126 222,126" fill="#a3626c"/>
+          <!-- Labels -->
+          <text x="105" y="122" font-size="9" fill="#7cb8a8">胰臟</text>
+          <text x="195" y="128" text-anchor="middle" font-size="8" fill="white" font-weight="bold">腫瘤</text>
+          <text x="170" y="250" text-anchor="middle" font-size="10" fill="#aaa">Fig 1 示意：胰臟輪廓局部外凸（紅箭頭）</text>
+          <defs><marker id="arrowR" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#a3626c"/></marker></defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fig 2: Three-phase series -->
+  <div id="tab-illus2" class="tab-panel">
+    <div class="two-col">
+      <div>
+        <h3 class="section-title" style="font-size:19px;margin-bottom:14px;">三期顯影序列（最常見型態：等密度→高密度→高密度）</h3>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">論文 Fig 2 顯示同一橫切面位置的三張連續影像：顯影前（等密度，腫瘤幾乎不可見）→ 動脈期（高密度，腫瘤明顯亮化）→ 靜脈期（持續高密度）。</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">此型態（等密度→高密度→高密度）佔 42.4%，是最常見的顯影組合，反映胰島素瘤的富血管性質（rich vascularity）。</p>
+        <div class="success-box" style="font-size:13px;">
+          <strong>✅ 動脈期是關鍵：</strong> 每一個在任何期次出現密度差異的病灶，在動脈期均最清楚可見。動脈期敏感性 94.0%。
+        </div>
+      </div>
+      <div class="diagram-wrap" style="padding:8px;">
+        <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg_pre" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#0d0d1a"/></radialGradient>
+            <radialGradient id="tpre" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3a5e52"/><stop offset="100%" stop-color="#2a4840"/></radialGradient>
+            <radialGradient id="tart" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5c494"/><stop offset="100%" stop-color="#e09f7d"/></radialGradient>
+            <radialGradient id="tven" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e8a87c"/><stop offset="100%" stop-color="#d08055"/></radialGradient>
+          </defs>
+          <!-- Three panels -->
+          <!-- Pre-contrast -->
+          <rect x="4" y="4" width="108" height="170" fill="url(#bg_pre)" rx="4"/>
+          <text x="58" y="18" text-anchor="middle" font-size="8" fill="#aaa">顯影前</text>
+          <ellipse cx="58" cy="90" rx="30" ry="22" fill="#3a5e52" fill-opacity="0.8"/>
+          <ellipse cx="58" cy="90" rx="16" ry="12" fill="url(#tpre)" fill-opacity="0.7"/>
+          <text x="58" y="95" text-anchor="middle" font-size="7" fill="#aaa">等密度</text>
+          <text x="58" y="164" text-anchor="middle" font-size="8" fill="#666">腫瘤不易辨別</text>
+          <!-- Arrow 1 -->
+          <text x="122" y="94" font-size="18" fill="#a3626c">→</text>
+          <!-- Arterial phase -->
+          <rect x="134" y="4" width="108" height="170" fill="url(#bg_pre)" rx="4"/>
+          <text x="188" y="18" text-anchor="middle" font-size="8" fill="#aaa">動脈期</text>
+          <ellipse cx="188" cy="90" rx="30" ry="22" fill="#3a5e52" fill-opacity="0.8"/>
+          <ellipse cx="188" cy="90" rx="16" ry="12" fill="url(#tart)" fill-opacity="1"/>
+          <circle cx="188" cy="90" r="2" fill="white" fill-opacity="0.6"/>
+          <text x="188" y="95" text-anchor="middle" font-size="7" fill="#333" font-weight="bold">高密度</text>
+          <text x="188" y="164" text-anchor="middle" font-size="8" fill="#e09f7d" font-weight="bold">★ 最清楚</text>
+          <!-- Arrow 2 -->
+          <text x="252" y="94" font-size="18" fill="#a3626c">→</text>
+          <!-- Venous phase -->
+          <rect x="264" y="4" width="90" height="170" fill="url(#bg_pre)" rx="4"/>
+          <text x="309" y="18" text-anchor="middle" font-size="8" fill="#aaa">靜脈期</text>
+          <ellipse cx="309" cy="90" rx="25" ry="19" fill="#3a5e52" fill-opacity="0.8"/>
+          <ellipse cx="309" cy="90" rx="14" ry="10" fill="url(#tven)" fill-opacity="0.9"/>
+          <text x="309" y="95" text-anchor="middle" font-size="7" fill="#555">高密度</text>
+          <text x="309" y="164" text-anchor="middle" font-size="8" fill="#c67d5e">持續增強</text>
+          <!-- Bottom label -->
+          <text x="180" y="190" text-anchor="middle" font-size="9" fill="#888">Fig 2 示意：三期顯影（等密度 → 高密度 → 高密度，42.4% 最常見型態）</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fig 3: Well vs poorly marginated -->
+  <div id="tab-illus3" class="tab-panel">
+    <div class="two-col">
+      <div>
+        <h3 class="section-title" style="font-size:19px;margin-bottom:14px;">邊界對比：清楚邊界 vs 不清楚邊界</h3>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">論文 Fig 3 並列兩張動脈期橫切面：左圖（紅星）為邊界清楚的胰島素瘤，外緣平滑，與周邊胰臟組織邊界明確；右圖（紅箭頭）為邊界不清楚的胰島素瘤，外緣不規則，向周邊浸潤。</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--text);margin-bottom:14px;">本研究：18/33（54.5%）清楚邊界；15/33（45.5%）不清楚邊界。人類胰島素瘤多數邊界清楚，犬的不清楚比率明顯較高，提示更強的局部侵襲性生長。</p>
+        <div class="warn-box" style="font-size:13px;">
+          <strong>⚠️ 臨床意義：</strong> 不清楚邊界提示局部浸潤，可能影響手術切除的完整性評估，但本研究並未分析邊界與預後的關係。
+        </div>
+      </div>
+      <div class="diagram-wrap" style="padding:8px;">
+        <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bgd" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#0d0d1a"/></radialGradient>
+            <radialGradient id="twm" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0c080"/><stop offset="100%" stop-color="#e09f7d"/></radialGradient>
+            <radialGradient id="tpm" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d4857c"/><stop offset="100%" stop-color="#b86a62"/></radialGradient>
+          </defs>
+          <!-- Left panel: well marginated -->
+          <rect x="4" y="4" width="156" height="170" fill="url(#bgd)" rx="4"/>
+          <text x="82" y="18" text-anchor="middle" font-size="9" fill="#7cb8a8">邊界清楚（Well Marginated）</text>
+          <!-- Pancreas -->
+          <ellipse cx="82" cy="95" rx="55" ry="30" fill="#3a5e52" fill-opacity="0.7"/>
+          <!-- Well marginated tumor: smooth round -->
+          <ellipse cx="82" cy="90" rx="20" ry="18" fill="url(#twm)" fill-opacity="0.95" stroke="#e09f7d" stroke-width="2"/>
+          <!-- Star marker -->
+          <text x="82" y="94" text-anchor="middle" font-size="16" fill="#a3626c">★</text>
+          <text x="82" y="160" text-anchor="middle" font-size="8" fill="#7cb8a8">平滑外緣，邊界明確</text>
+          <!-- Arrow down to label -->
+          <line x1="82" y1="109" x2="82" y2="128" stroke="#a3626c" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="82" y="140" text-anchor="middle" font-size="7" fill="#e09f7d">明顯高密度</text>
+
+          <!-- Right panel: poorly marginated -->
+          <rect x="174" y="4" width="160" height="170" fill="url(#bgd)" rx="4"/>
+          <text x="254" y="18" text-anchor="middle" font-size="9" fill="#e09f7d">邊界不清楚（Poorly Marginated）</text>
+          <!-- Pancreas -->
+          <ellipse cx="254" cy="95" rx="58" ry="30" fill="#3a5e52" fill-opacity="0.7"/>
+          <!-- Poorly marginated: irregular edges -->
+          <path d="M254,73 C265,70 272,75 275,85 C278,95 274,103 265,108 C255,113 243,110 238,102 C232,93 235,80 244,74 Z" fill="url(#tpm)" fill-opacity="0.9" stroke="#c96a6a" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Arrowheads around margins -->
+          <text x="230" y="84" font-size="10" fill="#a3626c">◄</text>
+          <text x="274" y="84" font-size="10" fill="#a3626c">►</text>
+          <text x="254" y="66" text-anchor="middle" font-size="10" fill="#a3626c">▲</text>
+          <text x="254" y="118" text-anchor="middle" font-size="10" fill="#a3626c">▼</text>
+          <text x="254" y="140" text-anchor="middle" font-size="7" fill="#e09f7d">不規則外緣，浸潤性</text>
+          <text x="254" y="160" text-anchor="middle" font-size="8" fill="#c96a6a">邊界模糊</text>
+
+          <!-- Bottom label -->
+          <text x="170" y="190" text-anchor="middle" font-size="9" fill="#888">Fig 3 示意：清楚邊界（★）vs 不清楚邊界（▲▼◄►）</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 臨床意義 -->
+<div class="bg-alt" id="sec-clinical">
+  <div class="inner">
+    <div class="section-label">Clinical Significance</div>
+    <h2 class="section-title">臨床意義與術前規劃</h2>
+    <p class="section-desc">本研究最重要的臨床貢獻在於提供目前最大規模的犬胰島素瘤 CTA 資料，並確認 CTA 對術前病灶定位的準確性。</p>
+
+    <!-- Pancreas location table -->
+    <h3 class="section-title" style="font-size:20px;margin-bottom:16px;">胰臟腫瘤解剖位置分布（Table 2）</h3>
+    <div style="overflow-x:auto;margin-bottom:32px;">
+      <table class="ct-table">
+        <thead><tr><th>胰臟位置</th><th>右葉遠端</th><th>右葉近端</th><th>體/右葉近端</th><th>體部</th><th>體/左葉近端</th><th>左葉近端</th><th>左葉遠端</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>病例數</td>
+            <td>7</td><td>2</td><td>1</td><td>5</td><td>0</td><td>2</td>
+            <td style="background:rgba(163,98,108,.12);color:var(--accent1);font-weight:700;font-size:16px;">17 ⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Location SVG diagram -->
+    <div class="two-col">
+      <div>
+        <div class="success-box">
+          <strong>✅ 術前定位準確率：89%（17/19）</strong><br>
+          19 例手術報告有記錄解剖位置，17 例與 CTA 完全一致。2 例不一致：1 例 CTA 定位體部，手術報告左葉；1 例 CTA 定位體部至近端左葉，手術報告體部至近端右葉。
+        </div>
+        <div class="info-box" style="margin-top:16px;font-size:13px;">
+          <strong>💡 相較其他定位方式：</strong> 體抑素受體核子醫學掃描（somatostatin-receptor scintigraphy）在犬的定位準確率僅 20%（Garden 2005）。CTA 遠優於此。
+        </div>
+        <div class="warn-box" style="font-size:13px;">
+          <strong>⚠️ CTA 漏診：</strong> 2 例 CTA 未見胰臟病灶（1例術後復查見肝轉移；1 例僅見異常淋巴結，手術確認為轉移性胰島素瘤）。沒有任何手術發現的胰臟病灶在 CTA 上完全不可見。
+        </div>
+      </div>
+      <!-- Pancreas anatomy SVG -->
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pancGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ddb5bb" stop-opacity="0.8"/>
+              <stop offset="50%" stop-color="#c2848e" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#a3626c" stop-opacity="0.8"/>
+            </linearGradient>
+          </defs>
+          <!-- Title -->
+          <text x="170" y="18" text-anchor="middle" font-size="11" fill="#75474d" font-weight="bold">胰臟位置與病例分布</text>
+          <!-- Pancreas shape -->
+          <path d="M 30 120 Q 50 100 80 108 Q 110 115 140 108 Q 160 103 175 108 Q 195 113 220 108 Q 255 100 290 115 Q 310 123 320 130" stroke="url(#pancGrad)" stroke-width="28" fill="none" stroke-linecap="round"/>
+          <!-- Dividers for regions -->
+          <line x1="80" y1="88" x2="80" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <line x1="130" y1="88" x2="130" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <line x1="160" y1="88" x2="160" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <line x1="200" y1="88" x2="200" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <line x1="250" y1="88" x2="250" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <line x1="290" y1="88" x2="290" y2="138" stroke="white" stroke-width="1" stroke-dasharray="3,2" stroke-opacity="0.5"/>
+          <!-- Region labels -->
+          <text x="55" y="158" text-anchor="middle" font-size="8" fill="#75474d">右遠端</text>
+          <text x="55" y="170" text-anchor="middle" font-size="10" fill="#a3626c" font-weight="bold">n=7</text>
+          <text x="105" y="158" text-anchor="middle" font-size="8" fill="#75474d">右近端</text>
+          <text x="105" y="170" text-anchor="middle" font-size="10" fill="#a3626c">n=2</text>
+          <text x="145" y="158" text-anchor="middle" font-size="8" fill="#75474d">體/右近</text>
+          <text x="145" y="170" text-anchor="middle" font-size="10" fill="#a3626c">n=1</text>
+          <text x="180" y="158" text-anchor="middle" font-size="8" fill="#75474d">體部</text>
+          <text x="180" y="170" text-anchor="middle" font-size="10" fill="#a3626c">n=5</text>
+          <text x="225" y="158" text-anchor="middle" font-size="8" fill="#ccc">體/左近</text>
+          <text x="225" y="170" text-anchor="middle" font-size="10" fill="#999">n=0</text>
+          <text x="270" y="158" text-anchor="middle" font-size="8" fill="#75474d">左近端</text>
+          <text x="270" y="170" text-anchor="middle" font-size="10" fill="#a3626c">n=2</text>
+          <text x="310" y="158" text-anchor="middle" font-size="8" fill="#75474d">⭐左遠端</text>
+          <text x="310" y="170" text-anchor="middle" font-size="12" fill="#a3626c" font-weight="bold">n=17</text>
+          <!-- Arrow to left distal -->
+          <path d="M 280 185 Q 305 185 310 178" stroke="#a3626c" stroke-width="1.5" fill="none" marker-end="url(#arrowP)"/>
+          <text x="250" y="195" font-size="8" fill="#a3626c">最常見！(50%)</text>
+          <!-- Right/Left labels -->
+          <text x="35" y="115" font-size="11" fill="#e09f7d" font-weight="bold">右葉</text>
+          <text x="290" y="107" font-size="11" fill="#e09f7d" font-weight="bold">左葉</text>
+          <text x="165" y="95" text-anchor="middle" font-size="9" fill="#fff">體部</text>
+          <!-- Duodenum -->
+          <text x="12" y="130" font-size="8" fill="#888" transform="rotate(-15,12,130)">十二指腸</text>
+          <defs><marker id="arrowP" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#a3626c"/></marker></defs>
+          <text x="170" y="212" text-anchor="middle" font-size="9" fill="#999">左葉遠端最常見（17/34，50%）</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 鑑別診斷 -->
+<section id="sec-diff">
+  <div class="section-label">Differential Diagnosis</div>
+  <h2 class="section-title">鑑別診斷與陷阱</h2>
+  <p class="section-desc">胰島素瘤的 CTA 需與其他胰臟病灶及腹腔腫塊鑑別，同時需警惕幾個常見的影像診斷陷阱。</p>
+
+  <div class="diff-card reveal"><div class="dc-icon">🫀</div><div><h4>肝臟轉移 vs 良性結節性肝增生</h4><p>中老年犬的良性肝結節性增生（benign nodular hyperplasia）非常常見，可與轉移性結節混淆。若肝臟結節的動脈期增強型態與胰臟病灶一致（本研究 71.4%），轉移可能性較高，但仍需病理確認。</p></div></div>
+  <div class="diff-card reveal"><div class="dc-icon">🔵</div><div><h4>等密度胰島素瘤（全程等密度）</h4><p>2/33（6.1%）病灶在所有期次均等密度，僅憑胰臟形態變形識別。類似的等密度小病灶若未造成形態變形，CTA 將呈假陰性——這是本技術的根本限制。</p></div></div>
+  <div class="diff-card reveal"><div class="dc-icon">🔴</div><div><h4>胰臟其他腫瘤</h4><p>腺癌（adenocarcinoma）、其他胰臟內分泌腫瘤（如胃泌素瘤）也可出現胰臟腫塊。鑑別需結合臨床低血糖 + 不適當高胰島素的生化依據，影像單獨無法確診胰島素瘤。</p></div></div>
+  <div class="diff-card reveal"><div class="dc-icon">⚡</div><div><h4>動脈期採集時序的影響</h4><p>「vascular blush」可能非常短暫。使用固定 15/30 秒時序可能錯過峰值，導致高密度假陰性（先前研究報告高密度率僅 22.2–47.1%）。本研究採用 bolus tracking 時序，被認為是更準確的採集方法。</p></div></div>
+  <div class="diff-card reveal"><div class="dc-icon">🟡</div><div><h4>Rim enhancement（周邊環形增強）</h4><p>2 例呈動脈期周邊環形增強。推測為過早採集動脈期——增強由周邊向中央發展，過早採集呈環形而非均勻高密度。此表現本身無法鑑別良惡性。</p></div></div>
+  <div class="diff-card reveal"><div class="dc-icon">🩺</div><div><h4>淋巴結轉移 vs 其他淋巴結腫大</h4><p>2 例術後病理確認的淋巴結轉移在術前 CTA 上不可見，說明 CTA 對微小淋巴結轉移敏感性有限。即使術前 CTA 未見淋巴結轉移，術中仍應常規取樣評估。</p></div></div>
+</section>
+
+<!-- 8. 臨床珍珠 -->
+<div class="bg-alt3" id="sec-pearls">
+  <div class="inner">
+    <div class="section-label">Clinical Pearls</div>
+    <h2 class="section-title">影像診斷臨床珍珠</h2>
+    <p class="section-desc">基於本研究及相關文獻，整理 7 條犬胰島素瘤 CTA 診斷的實用臨床珍珠。</p>
+
+    <div class="pearls-list">
+      <div class="pearl-item reveal"><div class="pearl-num">01</div><div class="pearl-body"><h4>動脈期高密度是最主要特徵，率達 81.8%——文獻分歧主要源於採集時序</h4><p>本研究（bolus tracking）動脈期高密度 81.8%，動脈期敏感性 94.0%。先前低報告率（22.2–47.1%）很可能是固定時序採集錯過了短暫的血管暈染峰值。採用 bolus tracking 技術可最大化動脈期偵測率。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">02</div><div class="pearl-body"><h4>胰臟形態變形是等密度病灶的唯一線索——非顯影期仍值得評估</h4><p>78.8% 的病灶造成胰臟形態變形，包括 2 例全程等密度病灶僅靠此特徵被偵測。在顯影劑有禁忌症時（腎功能不全等），非顯影 CT 評估胰臟輪廓仍有診斷潛力。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">03</div><div class="pearl-body"><h4>每一個在任何期次出現密度變化的病灶，均在動脈期最清楚可見</h4><p>動脈期是識別胰島素瘤的核心期次，不可省略。即使病灶在靜脈期顯示等密度，也必定在動脈期曾有密度差異。動脈期圖像品質和時序精確性至關重要。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">04</div><div class="pearl-body"><h4>CTA 術前定位準確率 89%——可作為手術規劃的可靠依據</h4><p>19 例有術中定位記錄者，17 例與 CTA 一致（89%）。不一致的 2 例位於胰臟體部/近端交界區，可能與十二指腸位置變異影響解剖定位判讀有關。仍優於核子醫學掃描（20%）。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">05</div><div class="pearl-body"><h4>Jack Russell Terrier 可能有先前未認識的品種傾向</h4><p>本研究（6/34，16.7%）及另一 27 隻犬研究均報告 JRT 為最多品種，但 JRT 在本院犬隻患者僅佔 3.92%——過度代表 4 倍以上。傳統認為胰島素瘤好發於體重 &gt;25 kg 的中大型犬，但本研究平均體重 21.1 kg，提示小型犬也應納入鑑別。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">06</div><div class="pearl-body"><h4>肝臟轉移的增強型態與胰臟病灶一致（71.4%）時轉移可能性高，但仍需病理確認</h4><p>老年犬的良性肝結節非常常見，是重要的假陽性來源。轉移確認建議手術時同步進行肝臟活檢。另，CTA 可能漏診淋巴結轉移（2 例僅術後病理確認），手術中應常規評估腹腔淋巴結。</p></div></div>
+      <div class="pearl-item reveal"><div class="pearl-num">07</div><div class="pearl-body"><h4>無囊性變化及礦化，且犬 &gt;20 mm 比率（18.2%）是人類（10%）的近兩倍</h4><p>犬的胰島素瘤生物行為明顯不同於人類：更大（&gt;20mm 比率倍增）、無礦化（人類 20%）、邊界較不清楚（45.5% 邊界不清 vs 人類多數清楚），轉移率也明顯更高（~45% vs 人類通常良性）。這些差異需避免直接套用人類文獻的影像標準。</p></div></div>
+    </div>
+
+    <div class="quote-block reveal" style="margin-top:36px;">「本研究提供了迄今最大規模的犬胰島素瘤 CTA 資料，進一步確認動脈期高密度為主要特徵，並顯示 CTA 在大多數病例中可準確預測病灶位置，作為手術規劃的依據。」<br><br><em>— Coss et al., J Small Anim Pract 62: 540–546, 2021</em></div>
+
+    <div style="margin-top:44px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+      <div class="section-label" style="margin-bottom:16px;">Reference</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:13.5px;color:var(--text);">
+        <div>
+          <p><strong style="color:var(--text2);">作者：</strong> P. Coss, O. Gilman, C. Warren-Smith, A. C. Major</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text2);">機構：</strong> Langford Vets / University of Bristol；Highcroft Veterinary Referrals, Bristol, UK</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text2);">DOI：</strong> 10.1111/jsap.13336</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text2);">期刊：</strong> Journal of Small Animal Practice</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text2);">出版：</strong> Volume 62, Issue 7, July 2021, pp. 540–546</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text2);">開放取用：</strong> CC BY 4.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-title">犬胰島素瘤雙期 CT 血管攝影影像特徵</div>
+  <div>The Appearance of Canine Insulinoma on Dual Phase Computed Tomographic Angiography</div>
+  <div style="margin-top:8px;color:var(--text3);">Coss et al. (2021) J Small Anim Pract 62: 540–546 · doi: 10.1111/jsap.13336</div>
+  <div style="margin-top:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);font-weight:600;">愛叮寶犬貓影像專科醫院 · atinsight.vet</div>
+</footer>
+
+<script>
+// Canvas branches
+const canvas=document.getElementById('hero-canvas'),ctx=canvas.getContext('2d');
+let W,H,branches=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',()=>{resize();branches=[];initBranches();});
+function Branch(x,y,a,l,d){this.x=x;this.y=y;this.angle=a;this.len=l;this.depth=d;this.progress=0;this.speed=.005+Math.random()*.004;this.children=[];this.done=false;this.alpha=.1+Math.random()*.08;this.spawned=false;this.budR=2+Math.random()*1.5;}
+function initBranches(){for(let i=0;i<8;i++)branches.push(new Branch(Math.random()*W,H*.3+Math.random()*H*.6,-Math.PI/2+(Math.random()-.5)*1.2,70+Math.random()*80,0));}
+initBranches();
+function drawBranch(b){const ex=b.x+Math.cos(b.angle)*b.len*b.progress,ey=b.y+Math.sin(b.angle)*b.len*b.progress;ctx.beginPath();ctx.moveTo(b.x,b.y);ctx.lineTo(ex,ey);ctx.strokeStyle=`rgba(163,98,108,${b.alpha})`;ctx.lineWidth=Math.max(.3,1.5-b.depth*.4);ctx.stroke();if(b.progress>=1&&!b.spawned&&b.depth<4){b.spawned=true;const s=.35+b.depth*.05;for(let i=0;i<2;i++){const c=new Branch(ex,ey,b.angle+(i===0?-s:s)+(Math.random()-.5)*.2,b.len*(.58+Math.random()*.15),b.depth+1);b.children.push(c);branches.push(c);}}if(b.progress>=1&&b.depth>=4){ctx.beginPath();ctx.arc(ex,ey,b.budR,0,Math.PI*2);ctx.fillStyle=`rgba(221,181,187,${b.alpha*1.5})`;ctx.fill();}b.children.forEach(drawBranch);}
+function tick(){ctx.clearRect(0,0,W,H);const g=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*.7);g.addColorStop(0,'rgba(252,231,235,.5)');g.addColorStop(1,'rgba(253,246,247,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);branches.forEach(b=>{if(!b.done){b.progress=Math.min(1,b.progress+b.speed);if(b.progress>=1)b.done=true;}drawBranch(b);});if(branches.length>200)branches.splice(0,100);if(branches.filter(b=>!b.done).length<4)initBranches();requestAnimationFrame(tick);}
+tick();
+
+// Counters
+function animateCounter(el){const t=parseFloat(el.dataset.target);let st=performance.now();const d=1800;function step(now){const p=Math.min((now-st)/d,1),e=1-Math.pow(1-p,3),v=t*e;el.textContent=Math.round(v).toString();if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+const counters=document.querySelectorAll('span[data-target]');
+new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)counters.forEach(animateCounter);});},{threshold:.5}).observe(document.getElementById('hero'));
+
+// Bars
+new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('.b-fill').forEach(b=>b.style.width=b.dataset.w+'%');});},{threshold:.2}).observe(document.getElementById('sec-demo'));
+
+// Reveal
+const revObs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:.05,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(r=>revObs.observe(r));
+
+// Feature tabs
+function selectFeat(i){document.querySelectorAll('.mech-card').forEach(c=>c.classList.remove('active'));document.querySelectorAll('[id^="feat-detail-"]').forEach(d=>d.classList.remove('active'));document.querySelectorAll('.mech-card')[i].classList.add('active');document.getElementById('feat-detail-'+i).classList.add('active');}
+
+// Illustration tabs
+function switchTab(id,btn){document.querySelectorAll('[id^="tab-illus"]').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
+
+// Nav
+const secIds=['sec-intro','sec-demo','sec-types','sec-features','sec-illus','sec-clinical','sec-diff','sec-pearls'];
+const navItems=document.querySelectorAll('.nav-item');
+function updateNav(){let cur=secIds[0];secIds.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<120)cur=id;});navItems.forEach(item=>item.classList.toggle('active',item.dataset.target===cur));}
+window.addEventListener('scroll',updateNav,{passive:true});
+navItems.forEach(item=>item.addEventListener('click',()=>{const t=document.getElementById(item.dataset.target);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}));
+
+// Progress
+window.addEventListener('scroll',()=>{document.getElementById('progress-bar').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';},{passive:true});
+</script>
+</body>
+</html>
