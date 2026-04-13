@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>犬胰臟胰島素瘤三期CT影像特徵</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/5qr0W3z.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── CSS 變數（對應 atinsight index.html）── */
+:root {
+  --bg:       #fdf6f7;
+  --bg2:      #faeef0;
+  --bg3:      #fce7eb;
+  --surface:  #ffffff;
+  --border:   #e6c8cc;
+  --accent1:  #a3626c;
+  --accent2:  #825159;
+  --accent3:  #ddb5bb;
+  --warm:     #e09f7d;
+  --warm2:    #c67d5e;
+  --green:    #7ca87d;
+  --text:     #4a4a4a;
+  --text2:    #75474d;
+  --text3:    #825159;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── 捲動條 ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #faeef0; }
+::-webkit-scrollbar-thumb { background: #ddb5bb; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #d1a3aa; }
+
+/* ── Body ── */
+body {
+  font-family: 'Inter', 'Noto Sans TC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* ── Banner ── */
+.site-banner {
+  background-color: var(--accent3);
+  width: 100%;
+  padding: 14px 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(163, 98, 108, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-banner img {
+  width: 80%;
+  max-width: 860px;
+  height: auto;
+  display: inline-block;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* ── Article wrapper ── */
+.article-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 52px 48px 96px;
+}
+@media (max-width: 680px) {
+  .article-wrap { padding: 36px 20px 72px; }
+  .site-banner img { width: 95%; }
+}
+
+/* ── Article header ── */
+.article-header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+}
+.article-header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 900;
+  line-height: 1.3;
+  color: var(--text2);
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.article-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent1), transparent);
+  margin-top: 10px;
+}
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 11px;
+  color: var(--accent2);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.meta-pill.accent {
+  background: rgba(163,98,108,0.08);
+  border-color: rgba(163,98,108,0.25);
+  color: var(--accent1);
+}
+
+/* ── Section headings ── */
+h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(17px, 3vw, 22px);
+  font-weight: 700;
+  color: var(--text2);
+  background: var(--bg2);
+  border-left: 4px solid var(--accent1);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 20px;
+  margin: 2.6em 0 1em;
+  letter-spacing: 0.02em;
+}
+
+h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(15px, 2.5vw, 18px);
+  font-weight: 700;
+  color: var(--accent1);
+  margin: 2em 0 0.7em;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border);
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text2);
+  margin: 1.6em 0 0.5em;
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text3);
+  margin: 1.2em 0 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Paragraphs & lists ── */
+p { margin: 0.75em 0; }
+
+ul, ol {
+  margin: 0.8em 0 0.8em 1.5em;
+  padding: 0;
+}
+li {
+  margin-bottom: 6px;
+  line-height: 1.8;
+}
+li::marker { color: var(--accent1); }
+
+/* ── Blockquote（英文原文）── */
+blockquote {
+  border-left: 3px solid var(--accent3);
+  background: var(--bg2);
+  margin: 1.2em 0;
+  padding: 14px 20px;
+  border-radius: 0 8px 8px 0;
+  color: var(--text3);
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.8;
+  position: relative;
+}
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--accent3);
+  line-height: 1;
+}
+blockquote p { margin: 0; padding-left: 12px; }
+
+/* ── Callout boxes（Obsidian [!info] / [!warning]）── */
+.callout {
+  border-radius: 8px;
+  margin: 1.4em 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(163,98,108,0.06);
+}
+.callout-title {
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.callout-info > .callout-title,
+.callout-note > .callout-title {
+  background: rgba(56, 189, 248, 0.12);
+  color: #0369a1;
+  border-bottom: 1px solid rgba(56,189,248,0.2);
+}
+.callout-warning > .callout-title,
+.callout-caution > .callout-title {
+  background: rgba(245, 158, 11, 0.12);
+  color: #92400e;
+  border-bottom: 1px solid rgba(245,158,11,0.2);
+}
+.callout-tip > .callout-title,
+.callout-important > .callout-title {
+  background: rgba(163, 98, 108, 0.1);
+  color: var(--accent1);
+  border-bottom: 1px solid rgba(163,98,108,0.18);
+}
+.callout-body {
+  padding: 16px 18px;
+  background: var(--surface);
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+.callout-body p { margin: 0.4em 0; }
+.callout-body > *:first-child { margin-top: 0; }
+.callout-body > *:last-child { margin-bottom: 0; }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4em 0;
+  font-size: 13px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(163,98,108,0.07);
+}
+thead tr {
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+}
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text2);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text);
+  line-height: 1.65;
+}
+tbody tr:nth-child(even) td { background: rgba(250,238,240,0.4); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td {
+  background: rgba(163,98,108,0.05);
+  transition: background 0.15s;
+}
+tbody td:first-child {
+  color: var(--text2);
+  font-weight: 600;
+}
+
+/* ── Images（僅限文章內容區，不影響 Banner）── */
+.article-wrap img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.8em auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(163,98,108,0.12);
+}
+
+/* ── Inline code & pre ── */
+code {
+  background: var(--bg3);
+  color: var(--accent1);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+pre {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ── HR ── */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 2.4em 0;
+}
+
+/* ── Links ── */
+a {
+  color: var(--accent1);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent3);
+  transition: color 0.15s, border-color 0.15s;
+}
+a:hover { color: var(--accent2); border-color: var(--accent2); }
+
+/* ── Strong ── */
+strong { color: var(--text2); font-weight: 700; }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 36px 48px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.8;
+}
+.site-footer strong {
+  color: var(--text2);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── Fade-in animation ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.article-wrap {
+  animation: fadeUp 0.6s ease both;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Banner ── -->
+<div class="site-banner">
+  <img src="https://i.imgur.com/UjjErEs.png" alt="愛叮寶犬貓影像專科醫院">
+</div>
+
+<!-- ── Article ── -->
+<div class="article-wrap">
+
+  <div class="article-header">
+    <h1>犬胰臟胰島素瘤三期CT影像特徵</h1>
+    <div class="article-meta"><span class="meta-pill accent">📅 2015</span><span class="meta-pill">Journal of Veterinary Medical Science</span><span class="meta-pill">🐾 [dog]</span><span class="meta-pill accent">📡 CT</span><span class="meta-pill"><a href="https://doi.org/10.1292/jvms.15-0077" target="_blank" style="border:none;color:inherit;">🔗 DOI</a></span><span class="meta-pill">Fukushima K et al.</span></div>
+  </div>
+
+  <h2>📋 基本摘要</h2>
+<h3>研究目的</h3>
+<p>本研究旨在描述犬胰臟胰島素瘤在三期 CT（triple-phase CT）的影像特徵，釐清當時文獻中樣本量不足所無法得出的結論，特別是各期顯影型態的分布規律。</p>
+<blockquote>
+<p>英文原文｜Our purpose was to clarify the characteristic findings of dogs with insulinoma on triple-phase CT.</p>
+</blockquote>
+<h3>研究設計</h3>
+<p>回溯性病例系列研究。東京大學獸醫醫療中心（VMC-UT），2005 年 4 月至 2014 年 6 月。收錄條件：（1）臨床症狀及 AIGR &gt; 30 疑似胰島素瘤；（2）接受三期 CT 且影像可重新評估；（3）組織病理確診。共 9 例符合。</p>
+<blockquote>
+<p>英文原文｜A retrospective review of the medical records from the Veterinary Medical Center at The University of Tokyo (VMC-UT) was performed from April 2005 to June 2014. Inclusion criteria were as follows: (1) Dogs that suspected pancreatic insulinoma by clinical symptoms and clinicopathological findings including increased amended insulin glucose ratio (AIGR; &gt;30); (2) Dogs underwent triple-phase CT, and these data were available for reevaluation; and (3) Dogs with histopathological confirmation of pancreatic insulinoma.</p>
+</blockquote>
+<h3>主要結果</h3>
+<p>動脈期低密度（4 例）比高密度（2 例）更為常見，挑戰既有「高密度為主」的認知。整體 5/9 例在至少一期呈低密度，4/9 例呈高密度。6/9 例動脈期最清楚，但 3/9 例在胰臟期或後期才最清楚。</p>
+<blockquote>
+<p>英文原文｜Attenuation patterns in the arterial phase indicated hypo-attenuation in 4 cases and hyper-attenuation in 2 cases. Altogether, 5 cases showed hypo and 4 cases showed hyper-attenuation in at least one phase.</p>
+</blockquote>
+<h3>臨床意義</h3>
+<p>三期 CT 優於雙期 CT，胰臟期與後期不可省略，且需熟悉犬胰島素瘤低密度等多樣影像表現。</p>
+<blockquote>
+<p>英文原文｜It is important to note that hypo-attenuation was as common as hyper-attenuation in dogs with insulinoma in triple-phase CT in at least one phase. Additionally, mass lesions were most conspicuous not only in the arterial phase but in the pancreatic and later phases in some cases. Therefore, it is important to perform triple-phase CT and notice about variable findings for the detection of canine pancreatic insulinoma.</p>
+</blockquote>
+<hr />
+<h2>🗃️ 結構化重點</h2>
+<h3>研究族群</h3>
+<p>9 例：巴哥犬、威爾斯柯基（PW）、混種犬×2、馬爾濟斯、西施犬、平毛尋回犬（FCR）、拉布拉多、玩具貴賓。絕育母犬 5 隻（SF）、去勢公犬 3 隻（CM）、未絕育公犬 1 隻（M）。中位血糖 38 mg/dL（範圍 32–50），中位胰島素 24.2 µU/mL（範圍 1.8–312），中位 AIGR 200（範圍 90–3,900）。超音波僅偵測到 2/9（22%）腫塊；CT 9/9 全部偵測。腫瘤中位最大徑 12 mm（範圍 8.5–20 mm）。腫瘤位置：左葉 5 例、右葉 3 例、胰臟體部 1 例。</p>
+<blockquote>
+<p>英文原文｜The median blood glucose and insulin levels were 38 mg/dl (range, 32–50 mg/dl) and 24.2 µU/ml (1.8–312 µU/ml), respectively. The median AIGR value was 200 (range, 90–3,900). As all 9 cases underwent abdominal ultrasonography, mass lesions were identified in 2 cases by US (22.2%). On triple-phase CT, tumors were detected in the left lobe in 5 cases, 3 cases were in the right lobe, and 1 case was in the pancreatic body. The median maximum diameter of the tumors was 12 mm (range; 9–20 mm).</p>
+</blockquote>
+<h3>CT 掃描方案</h3>
+<p>主要設備：4 切 Toshiba Asteion Super 4（8 例）；最後 1 例為 80 切 Toshiba Aquilion Prime。背臥位，全身麻醉。管旋轉速度 1 秒，切片厚度 3 mm，beam pitch 0.875。顯影劑：Iohexol（Omnipaque 300，300 mg I/mL），2 mL/kg，頸靜脈注射，5–10 秒推完。固定時序：動脈期 15 秒、胰臟期 30 秒、後期（equilibrium phase）90 秒。</p>
+<blockquote>
+<p>英文原文｜Iohexol (300 mg I/ml, Omnipaque 300) was used as the contrast medium at a dose of 2 ml/kg and was injected with a power injector over 5 to 10 sec via the jugular vein. Scan delay was fixed and set as 15 sec for the arterial phase, 30 sec for the pancreatic phase and 90 sec for the equilibrium phase after contrast medium injection started.</p>
+</blockquote>
+<h3>各期定義標準</h3>
+<p>動脈期：腹腔動脈顯影而腸系膜上靜脈（CMV）未顯影。胰臟期：CMV 顯影後。後期：胰臟期之後的期別。高 / 低密度定義：腫瘤與同期胰臟實質 HU 差值 &gt; 20 HU 為有意義差異。</p>
+<blockquote>
+<p>英文原文｜The phase was considered as the arterial phase, if there was enhancement of the arteries without enhancement of the cranial mesenteric vein. The phase was considered as the pancreatic phase, if there was enhancement of the cranial mesenteric vein. If the lesion had a different CT value in Hounsfield units (HU) (&gt;20 HU compared with the surrounding pancreatic parenchyma), we deemed it to be different.</p>
+</blockquote>
+<h3>Table 1 — 9 例臨床資料</h3>
+<table>
+<thead>
+<tr>
+<th>病例</th>
+<th>品種</th>
+<th>性別</th>
+<th>年齡</th>
+<th>體重(kg)</th>
+<th>血糖(mg/dL)</th>
+<th>胰島素(µU/mL)</th>
+<th>AIGR</th>
+<th>超音波</th>
+<th>CT位置</th>
+<th>腫瘤大小(mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>巴哥</td>
+<td>SF</td>
+<td>8y10m</td>
+<td>7.7</td>
+<td>35</td>
+<td>15.8</td>
+<td>316</td>
+<td>未偵測</td>
+<td>左葉</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>威爾斯柯基</td>
+<td>CM</td>
+<td>8y3m</td>
+<td>15.6</td>
+<td>44</td>
+<td>22.9</td>
+<td>163.6</td>
+<td>未偵測</td>
+<td>體部</td>
+<td>8.5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>混種</td>
+<td>SF</td>
+<td>7y6m</td>
+<td>11.0</td>
+<td>37</td>
+<td>13.8</td>
+<td>200</td>
+<td>未偵測</td>
+<td>右葉</td>
+<td>12</td>
+</tr>
+<tr>
+<td>4</td>
+<td>馬爾濟斯</td>
+<td>SF</td>
+<td>9y3m</td>
+<td>3.3</td>
+<td>32</td>
+<td>1.8</td>
+<td>90</td>
+<td>未偵測</td>
+<td>左葉</td>
+<td>9</td>
+</tr>
+<tr>
+<td>5</td>
+<td>西施</td>
+<td>SF</td>
+<td>11y</td>
+<td>6.6</td>
+<td>34</td>
+<td>73.9</td>
+<td>1848</td>
+<td>✅（左）</td>
+<td>左葉</td>
+<td>18</td>
+</tr>
+<tr>
+<td>6</td>
+<td>平毛尋回</td>
+<td>CM</td>
+<td>7y11m</td>
+<td>27.7</td>
+<td>45</td>
+<td>55.3</td>
+<td>368.7</td>
+<td>未偵測</td>
+<td>左葉</td>
+<td>12</td>
+</tr>
+<tr>
+<td>7</td>
+<td>混種</td>
+<td>M</td>
+<td>9y8m</td>
+<td>18.6</td>
+<td>50</td>
+<td>27.6</td>
+<td>137.8</td>
+<td>未偵測</td>
+<td>右葉</td>
+<td>12</td>
+</tr>
+<tr>
+<td>8</td>
+<td>拉布拉多</td>
+<td>CM</td>
+<td>8y9m</td>
+<td>33.0</td>
+<td>38</td>
+<td>312.0</td>
+<td>3900</td>
+<td>未偵測</td>
+<td>左葉</td>
+<td>11</td>
+</tr>
+<tr>
+<td>9</td>
+<td>玩具貴賓</td>
+<td>M</td>
+<td>11y</td>
+<td>5.8</td>
+<td>50</td>
+<td>24.2</td>
+<td>120.9</td>
+<td>✅（右）</td>
+<td>右葉</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h3>Table 2 — 9 例三期 CT 詳細資料</h3>
+<table>
+<thead>
+<tr>
+<th>病例</th>
+<th>顯影前</th>
+<th>動脈期 ★</th>
+<th>胰臟期</th>
+<th>後期</th>
+<th>均質性</th>
+<th>邊界</th>
+<th>囊殼</th>
+<th>淋巴結腫大</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>等密度</td>
+<td>⬇️低★</td>
+<td>⬇️低</td>
+<td>⬇️低</td>
+<td>均質</td>
+<td>清晰</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td>等密度</td>
+<td>⬇️低★</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>均質</td>
+<td>不清晰</td>
+<td>✅</td>
+<td>⚠️肝門（+轉移）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>等密度</td>
+<td>⬆️高★</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>均質</td>
+<td>清晰</td>
+<td>❌</td>
+<td>⚠️脾門（+動脈期）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>⬆️高★</td>
+<td>等密度</td>
+<td>均質</td>
+<td>清晰</td>
+<td>❌</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5</td>
+<td>等密度</td>
+<td>⬆️高★</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>不均質</td>
+<td>不清晰</td>
+<td>❌</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>⬆️高★</td>
+<td>均質</td>
+<td>清晰</td>
+<td>❌</td>
+<td>⚠️肝門（+後期）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>⬇️低★</td>
+<td>⬇️低</td>
+<td>均質</td>
+<td>不清晰</td>
+<td>✅</td>
+<td>⚠️肝門（−淋巴增生）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>等密度</td>
+<td>⬇️低★</td>
+<td>等密度</td>
+<td>等密度</td>
+<td>不均質</td>
+<td>不清晰</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr>
+<td>9</td>
+<td>等密度</td>
+<td>⬇️低★</td>
+<td>⬇️低</td>
+<td>等密度</td>
+<td>均質</td>
+<td>清晰</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>★ = 與胰臟實質 HU 差值最大的期別；（+）= 組織病理確認轉移；（−）= 病理確認為淋巴增生</p>
+<hr />
+<h2>💊 藥物詳解</h2>
+<p><strong>Iohexol（Omnipaque 300；Daiichi Sankyo，Tokyo）</strong>：非離子型碘化造影劑，碘濃度 300 mg I/mL。劑量 2 mL/kg，頭靜脈或頸靜脈，power injector（A-300，Nemoto Kyorindo）注射，5–10 秒推完（依體重調整注射時間）。固定時序採集：注射開始後 15 秒（動脈期）、30 秒（胰臟期）、90 秒（後期）。</p>
+<hr />
+<h2>🖼️ 圖表解析</h2>
+<div class="callout callout-info"><div class="callout-title callout-info">圖 1 — 動脈期低密度型（病例 9）</div><div class="callout-body"><p>![](Fukushima2015_images/Fig01_p4.jpeg)<br />
+病例 9（玩具貴賓，右葉，12 mm）的橫切面三期 CT 影像。<br />
+（A）顯影前：右葉胰臟（箭頭頭）位於十二指腸（箭頭）背側，腫塊不明顯。<br />
+（B）動脈期：可見清晰的低密度腫塊（箭頭頭），伴有邊緣環形顯影，邊界清晰，有囊殼。<br />
+（C）胰臟期：低密度腫塊仍可見，但逐漸模糊。<br />
+（D）後期：腫塊比早期更加不清楚。</p>
+<p>💡 此病例展示了犬胰島素瘤最重要的非典型特徵——動脈期低密度，且伴囊殼形成。</p></div></div>
+
+<div class="callout callout-warning"><div class="callout-title callout-warning">圖 2 — 動脈期高密度型（病例 3）</div><div class="callout-body"><p>![](Fukushima2015_images/Fig02_p4.jpeg)<br />
+病例 3（混種犬，右葉，12 mm）的橫切面三期 CT 影像。<br />
+（A）顯影前：右葉胰臟（箭頭頭）位於十二指腸（箭頭）背側，腫塊不明顯。<br />
+（B）動脈期：可見清晰高密度腫塊（箭頭頭），邊界清晰，無囊殼。<br />
+（C、D）胰臟期及後期：腫塊逐漸變得不明顯，難以與胰臟實質區分。</p>
+<p>💡 此病例為「典型」型態，與人類及先前犬類報告相符——動脈期富血管性高密度顯影，之後迅速退散。</p></div></div>
+
+<div class="callout callout-info"><div class="callout-title callout-info">圖 3 — 胰臟期最清楚型（病例 4）</div><div class="callout-body"><p>![](Fukushima2015_images/Fig03_p4.jpeg)<br />
+病例 4（馬爾濟斯，左葉，9 mm）的橫切面三期 CT 影像。<br />
+（A）顯影前：左葉胰臟（*）位於胃（stm）背側，有輕微隆起但不明顯（箭頭頭）。<br />
+（B）動脈期：此期腫塊無顯影增強（箭頭頭），等密度，不可辨別。<br />
+（C）胰臟期：腫塊高密度顯影，比胰臟實質更清楚（箭頭頭）——此期為最佳顯示期。<br />
+（D）後期：腫塊仍可見，但比胰臟期更模糊。</p>
+<p>⚠️ 此病例是三期 CT 必要性的最直接示範：若僅做動脈期，9 mm 腫塊將完全漏診。</p></div></div>
+
+<hr />
+<h2>🏥 臨床重點</h2>
+<h3>1️⃣ 背景：胰島素瘤是犬最常見的胰臟內分泌腫瘤</h3>
+<p>胰島素瘤以低血糖相關的臨床症狀為特徵，包括癲癇、虛弱及昏倒。確診需要組織病理；臨床診斷依賴症狀、AIGR，以及胰臟腫塊的影像可視化。超音波偵測敏感性 28–75%，受操作者依賴及各種干擾因素影響。CT 可完整評估整個胰臟，優於超音波用於腫瘤定位與術前分期。</p>
+<blockquote>
+<p>英文原文｜Insulinoma is most common pancreatic endocrine tumor in dog. Clinical signs are related to hypoglycemia including seizure, weakness and collapse. While AIGR has high sensitivity in detection of pancreatic insulinoma in dogs, AIGR shows false positive result in hypoglycemic patient without insulin secreting tumor. Therefore, visualization of a pancreatic mass lesion is quite essential.</p>
+</blockquote>
+<h3>2️⃣ 既有文獻的局限性與本研究貢獻</h3>
+<p>研究前僅 2 篇多期 CT 報告：Iseri et al. 2007（1 例，動脈期高密度）及 Mai et al. 2008（3 例，2 例高密度、1 例不確定）。樣本量過小無法得出結論。本研究以 9 例系統性描述，為當時最大規模的犬三期 CT 研究。</p>
+<blockquote>
+<p>英文原文｜In veterinary medicine, there are only 2 reports that described multi-phasic CT in dogs with insulinoma. The number of the cases was too small to draw conclusions regarding the features of multi-phasic CT in dogs with insulinoma.</p>
+</blockquote>
+<h3>3️⃣ 核心發現：動脈期低密度比高密度更常見</h3>
+<p>動脈期低密度 4 例（44%），高密度僅 2 例（22%），剩餘 3 例各在胰臟期（低密度 1、高密度 1）或後期（高密度 1）才出現顯著差異。此結果與先前報告及人類文獻（高密度為主）相反。人類低密度胰島素瘤約 13%，犬明顯更高，原因不明。</p>
+<blockquote>
+<p>英文原文｜In previous reports of multi-phasic CT findings in canine insulinoma, an enhancement pattern of hyper-attenuation in the arterial phase was dominant. However, in the present study, hypo-attenuation (4 cases) was more common than hyper-attenuation (2 cases) in the arterial phase. It has been reported that hypo-attenuation was found as an atypical enhancement pattern in 13% of human insulinoma patients. The reason why hypo-attenuation is common in canine insulinoma compared to human was unknown.</p>
+</blockquote>
+<h3>4️⃣ 低密度的病理機制假說</h3>
+<p>犬胰島素瘤的組織學特徵具高度變異性，包含侵犯周圍胰臟實質的程度、結締組織緻密化，以及纖維囊殼的有無。緻密結締組織及纖維囊殼可能減少腫瘤內血管分布，阻礙造影劑快速進入，導致低密度表現。腫瘤邊界不清晰（4/9）則可能反映侵犯程度較強。</p>
+<blockquote>
+<p>英文原文｜Pathological features including condensation of connective tissue and vascular distribution inside the lesion might be related to enhancement pattern, such as hypo or hyper attenuation, in the triple-phase CT. Additionally, invasion into the surrounding parenchyma and fibrous capsule formation might be related to image findings of margin description and presence or absence of tumor capsule.</p>
+</blockquote>
+<h3>5️⃣ 胰臟期（30秒）與後期的重要性</h3>
+<p>6/9 例（67%）在動脈期最清楚，但 3/9 例（33%）在胰臟期或後期才最清楚——其中病例 4 動脈期完全等密度，病例 6 動脈期及胰臟期均等密度直至後期才顯影。人類文獻也有報告胰臟期比動脈期更重要。CEUS 文獻亦描述犬胰島素瘤的顯影型態隨時刻急劇變化，呼應各期型態多樣的發現。</p>
+<blockquote>
+<p>英文原文｜In 6 out of 9 cases, mass lesions were most conspicuous in the arterial phase and corresponded to enhancement patterns in previous reports of dogs and humans with insulinoma. However, 3 out of 9 cases presented a conspicuous mass lesion in the pancreatic or the later phase. Therefore, multi-phasic CT is essential (triple-phase must be preferred to dual-phase) to obtain adequate image for the detection of canine insulinoma.</p>
+</blockquote>
+<h3>6️⃣ 其他 CT 特徵的多樣性</h3>
+<p>均質性顯影 7/9（78%），不均質 2/9；邊界清晰（well-defined）5/9，不清晰 4/9；囊殼形成 5/9（56%）。這些多樣的特徵與 CEUS 文獻中報告的多樣性相呼應。囊殼定義為：圍繞腫瘤的薄型曲線形高密度邊緣，與腫瘤具明顯密度差異。</p>
+<blockquote>
+<p>英文原文｜Enhancement patterns were homogenous in 7 cases and heterogeneous in 2 cases. Capsule formation was identified in 5 cases, but absent in 4 cases. These various enhancement patterns corresponded with the variable findings in the CEUS literature reported previously. It is important to note that these variable findings might be observed when we evaluate canine insulinoma on CT examinations.</p>
+</blockquote>
+<h3>7️⃣ 淋巴結評估</h3>
+<p>4/9（44%）CT 見淋巴結腫大（肝門 3 例、脾門 1 例）。2 例進行活組織切片：病例 2 確認轉移（顯影增強型態與原發灶相同）；病例 7 確認為淋巴增生（各期均無顯影增強）。1 例動脈期見高密度肝結節（疑似肝轉移），但未進行活檢。犬胰島素瘤轉移率約 45–55%，CT 評估時應常規仔細評估肝臟及腹腔淋巴結。淋巴結顯影型態與原發灶同期一致，可輔助判斷轉移可能性。</p>
+<blockquote>
+<p>英文原文｜Lymphadenopathy was detected in 4 cases on CT. One out of 2 cases with a lymph node biopsy showed histopathological evidence of insulinoma metastasis. Enhancement pattern was consistent with primary tumors and metastatic lymph nodes at the same phase. Another case was found to be lymph node hyperplasia in the histopathological evaluation; contrast enhancement was not observed in all phases.</p>
+</blockquote>
+<h3>8️⃣ CT vs 超音波：定位能力比較</h3>
+<p>三期 CT 偵測率 9/9（100%），包含 8.5 mm 的最小病灶；超音波僅偵測 2/9（22%）。CT 不受操作者技術、腹部脂肪及腸道氣體干擾，並可同時完整評估轉移狀況。</p>
+<blockquote>
+<p>英文原文｜While mass lesions in the pancreas were detected only in 2 cases by US, all of the mass lesions were detected by CT. This result corresponds to that of a previous study in which low sensitivity for the detection of canine insulinoma was reported for US. Additionally, a CT examination allows surgeons to consider surgical removal and plan the surgical procedure.</p>
+</blockquote>
+<hr />
+<h2>🔬 批判性評估</h2>
+<p><strong>研究強度</strong>：9 例全部具組織病理確診，為當時最大規模的犬三期 CT 研究。首次系統性描述三期各期的顯影型態分布，揭示低密度型態的重要性，具有直接的臨床指導意義。</p>
+<p><strong>研究限制</strong>：（1）回溯性設計；（2）樣本量仍小（n = 9），統計力不足；（3）固定時序（15/30/90 秒）——不同體重犬隻的最佳顯影時機可能不同，大型犬（如 33 kg 拉布拉多，病例 8）因注射時間較長，動脈期時機可能偏移；（4）單一判讀者（KF），未盲評；（5）體重及麻醉狀態未納入顯影型態分析；（6）部分淋巴結未進行活組織切片確認。</p>
+<blockquote>
+<p>英文原文｜By the nature of the retrospective study, triple-phase CT in the present study was performed in fixed scan delay, despite different body weight and anesthetic condition of each case. For the large breed dogs, it takes more time for injection of contrast medium than the small breed dogs. That may result in reduced intensity of CT value in the pancreatic parenchyma or the tumor lesion in the large breed dogs.</p>
+</blockquote>
+<p><strong>未解決問題</strong>：固定時序 vs bolus tracking 對動脈期高密度偵測率的影響有多大？（Coss 2021 使用 bolus tracking，動脈期高密度率達 82%，與本研究的 22% 差異懸殊。）低密度型態是否與特定組織學亞型（緻密纖維化、囊殼形成）相關？三期 CT 胰臟期的最適合採集時機為何？</p>
+<hr />
+<h2>🔗 重要參考文獻</h2>
+<ul>
+<li>Iseri T et al. (2007) Dynamic CT of the pancreas in normal dogs and a dog with insulinoma. <em>Vet Radiol Ultrasound</em> 48:328–331</li>
+<li>Mai W &amp; Cáceres AV (2008) Dual-phase CTA in three dogs with pancreatic insulinoma. <em>Vet Radiol Ultrasound</em> 49:141–148</li>
+<li>Fidler JL et al. (2003) Preoperative detection of pancreatic insulinomas on multiphasic helical CT. <em>AJR</em> 181:775–780</li>
+<li>Goutal CM et al. (2012) Insulinoma in dogs: a review. <em>JAAHA</em> 48:151–163</li>
+<li>Nakamura K et al. (2015) Contrast-enhanced ultrasonographic findings in three dogs with pancreatic insulinoma. <em>Vet Radiol Ultrasound</em> 56:55–62</li>
+<li>Robben JH et al. (2005) Comparison of US, CT, and SPECT for detection and localization of canine insulinoma. <em>J Vet Intern Med</em> 19:15–22</li>
+<li>Buishand FO et al. (2010) Clinico-pathological criteria and Ki67 index as prognostic indicators in canine insulinoma. <em>Vet J</em> 185:62–67</li>
+<li>Fukushima K et al. (2012) CT characteristics of primary hepatic mass lesions in dogs. <em>Vet Radiol Ultrasound</em> 53:252–257</li>
+</ul>
+<hr />
+<h2>💬 筆記</h2>
+<ul>
+<li>本研究與 Coss 2021 合讀時，動脈期高密度率差異（22% vs 82%）最可能源於掃描方案差異（固定時序 vs bolus tracking），而非真實族群差異。臨床上建議採用 bolus tracking 以確保捕捉到動脈期峰值。</li>
+<li>三期 CT 標準協議：顯影前 + 動脈期（15 秒或 bolus tracking）+ 胰臟期（30 秒或 CMV 顯影後）+ 後期（90 秒）。</li>
+<li>胰臟期的定義依據腸系膜上靜脈（cranial mesenteric vein）顯影，而非固定時間，此功能性定義更為準確。</li>
+<li>囊殼形成（5/9，56%）是潛在的輔助診斷特徵，低密度 + 囊殼組合應高度懷疑胰島素瘤。</li>
+<li>淋巴結顯影型態與原發灶同期一致可作為轉移的輔助 CT 指標，但病理確認仍不可或缺。</li>
+</ul>
+<hr />
+<h2>❓ 問題</h2>
+<ol>
+<li>為何本研究動脈期低密度比例（44%）遠高於 Coss 2021（12%）？固定時序是主要原因嗎？若改用 bolus tracking，結果是否會趨近 Coss 2021？</li>
+<li>低密度型態是否可透過組織學亞型（囊殼有無、纖維化程度、腫瘤細胞密度）加以預測？</li>
+<li>囊殼形成與低密度顯影的相關性是否具有統計意義？（本研究樣本量太小無法分析）</li>
+<li>胰臟期最清楚的 2 例（病例 4、7）的生物學特徵是否有共同之處？</li>
+<li>犬胰島素瘤的後期（90 秒）高密度顯影（病例 6）是否代表特定的組織學特徵，如延遲血管化或間質洗入？</li>
+</ol>
+
+</div>
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <strong>愛叮寶犬貓影像專科醫院</strong>
+  atinsight.vet · 小動物影像診斷專科
+</footer>
+
+
+<script>
+  function sendHeight() {
+    window.parent.postMessage({ iframeHeight: document.body.scrollHeight }, '*');
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('load', sendHeight);
+    });
+  });
+</script>
+
+</body>
+</html>
