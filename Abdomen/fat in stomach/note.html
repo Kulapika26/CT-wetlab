@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>貓胃壁壁內透亮帶成因為黏膜下層脂肪</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/5qr0W3z.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── CSS 變數（對應 atinsight index.html）── */
+:root {
+  --bg:       #fdf6f7;
+  --bg2:      #faeef0;
+  --bg3:      #fce7eb;
+  --surface:  #ffffff;
+  --border:   #e6c8cc;
+  --accent1:  #a3626c;
+  --accent2:  #825159;
+  --accent3:  #ddb5bb;
+  --warm:     #e09f7d;
+  --warm2:    #c67d5e;
+  --green:    #7ca87d;
+  --text:     #4a4a4a;
+  --text2:    #75474d;
+  --text3:    #825159;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── 捲動條 ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #faeef0; }
+::-webkit-scrollbar-thumb { background: #ddb5bb; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #d1a3aa; }
+
+/* ── Body ── */
+body {
+  font-family: 'Inter', 'Noto Sans TC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* ── Banner ── */
+.site-banner {
+  background-color: var(--accent3);
+  width: 100%;
+  padding: 14px 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(163, 98, 108, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-banner img {
+  width: 80%;
+  max-width: 860px;
+  height: auto;
+  display: inline-block;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* ── Article wrapper ── */
+.article-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 52px 48px 96px;
+}
+@media (max-width: 680px) {
+  .article-wrap { padding: 36px 20px 72px; }
+  .site-banner img { width: 95%; }
+}
+
+/* ── Article header ── */
+.article-header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+}
+.article-header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 900;
+  line-height: 1.3;
+  color: var(--text2);
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.article-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent1), transparent);
+  margin-top: 10px;
+}
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 11px;
+  color: var(--accent2);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.meta-pill.accent {
+  background: rgba(163,98,108,0.08);
+  border-color: rgba(163,98,108,0.25);
+  color: var(--accent1);
+}
+
+/* ── Section headings ── */
+h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(17px, 3vw, 22px);
+  font-weight: 700;
+  color: var(--text2);
+  background: var(--bg2);
+  border-left: 4px solid var(--accent1);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 20px;
+  margin: 2.6em 0 1em;
+  letter-spacing: 0.02em;
+}
+
+h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(15px, 2.5vw, 18px);
+  font-weight: 700;
+  color: var(--accent1);
+  margin: 2em 0 0.7em;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border);
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text2);
+  margin: 1.6em 0 0.5em;
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text3);
+  margin: 1.2em 0 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Paragraphs & lists ── */
+p { margin: 0.75em 0; }
+
+ul, ol {
+  margin: 0.8em 0 0.8em 1.5em;
+  padding: 0;
+}
+li {
+  margin-bottom: 6px;
+  line-height: 1.8;
+}
+li::marker { color: var(--accent1); }
+
+/* ── Blockquote（英文原文）── */
+blockquote {
+  border-left: 3px solid var(--accent3);
+  background: var(--bg2);
+  margin: 1.2em 0;
+  padding: 14px 20px;
+  border-radius: 0 8px 8px 0;
+  color: var(--text3);
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.8;
+  position: relative;
+}
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--accent3);
+  line-height: 1;
+}
+blockquote p { margin: 0; padding-left: 12px; }
+
+/* ── Callout boxes（Obsidian [!info] / [!warning]）── */
+.callout {
+  border-radius: 8px;
+  margin: 1.4em 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(163,98,108,0.06);
+}
+.callout-title {
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.callout-info > .callout-title,
+.callout-note > .callout-title {
+  background: rgba(56, 189, 248, 0.12);
+  color: #0369a1;
+  border-bottom: 1px solid rgba(56,189,248,0.2);
+}
+.callout-warning > .callout-title,
+.callout-caution > .callout-title {
+  background: rgba(245, 158, 11, 0.12);
+  color: #92400e;
+  border-bottom: 1px solid rgba(245,158,11,0.2);
+}
+.callout-tip > .callout-title,
+.callout-important > .callout-title {
+  background: rgba(163, 98, 108, 0.1);
+  color: var(--accent1);
+  border-bottom: 1px solid rgba(163,98,108,0.18);
+}
+.callout-body {
+  padding: 16px 18px;
+  background: var(--surface);
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+.callout-body p { margin: 0.4em 0; }
+.callout-body > *:first-child { margin-top: 0; }
+.callout-body > *:last-child { margin-bottom: 0; }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4em 0;
+  font-size: 13px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(163,98,108,0.07);
+}
+thead tr {
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+}
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text2);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text);
+  line-height: 1.65;
+}
+tbody tr:nth-child(even) td { background: rgba(250,238,240,0.4); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td {
+  background: rgba(163,98,108,0.05);
+  transition: background 0.15s;
+}
+tbody td:first-child {
+  color: var(--text2);
+  font-weight: 600;
+}
+
+/* ── Images（僅限文章內容區，不影響 Banner）── */
+.article-wrap img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.8em auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(163,98,108,0.12);
+}
+
+/* ── Inline code & pre ── */
+code {
+  background: var(--bg3);
+  color: var(--accent1);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+pre {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ── HR ── */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 2.4em 0;
+}
+
+/* ── Links ── */
+a {
+  color: var(--accent1);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent3);
+  transition: color 0.15s, border-color 0.15s;
+}
+a:hover { color: var(--accent2); border-color: var(--accent2); }
+
+/* ── Strong ── */
+strong { color: var(--text2); font-weight: 700; }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 36px 48px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.8;
+}
+.site-footer strong {
+  color: var(--text2);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── Fade-in animation ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.article-wrap {
+  animation: fadeUp 0.6s ease both;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Banner ── -->
+<div class="site-banner">
+  <img src="https://i.imgur.com/UjjErEs.png" alt="愛叮寶犬貓影像專科醫院">
+</div>
+
+<!-- ── Article ── -->
+<div class="article-wrap">
+
+  <div class="article-header">
+    <h1>貓胃壁壁內透亮帶成因為黏膜下層脂肪</h1>
+    <div class="article-meta"><span class="meta-pill accent">📅 2005</span><span class="meta-pill">Veterinary Radiology & Ultrasound</span><span class="meta-pill">🐾 [cat]</span><span class="meta-pill accent">📡 radiograph</span><span class="meta-pill accent">📡 CT</span><span class="meta-pill"><a href="https://doi.org/10.1111/j.1740-8261.2005.00010.x" target="_blank" style="border:none;color:inherit;">🔗 DOI</a></span><span class="meta-pill">Heng HG et al.</span></div>
+  </div>
+
+  <h2>📋 基本摘要</h2>
+<h3>研究目的</h3>
+<p>確定貓腹部 X 光上偶見之胃壁壁內透亮帶（intramural radiolucent band）的本質，評估其在正常貓群中的盛行率，並探討與年齡、體重及相對肥胖度的關係。</p>
+<blockquote>
+<p>英文原文｜An intramural radiolucent band in the stomach wall can be seen on abdominal radiographs of cats without concurrent clinical gastrointestinal signs. A retrospective study of cats with normal abdominal radiographs and computed tomography (CT) was performed to determine the prevalence of this finding.</p>
+</blockquote>
+<h3>研究設計</h3>
+<p>三階段回溯性研究＋屍體驗證：（1）37 隻無消化道症狀之正常貓腹部 X 光回溯性評估；（2）15 隻貓腹部 CT 回溯性評估；（3）7 具近期安樂死屍體的 X 光篩選，選出 1 具進行 CT 及胃壁組織病理學檢查。機構：James L Voss Veterinary Teaching Hospital，科羅拉多州立大學（CSU）。</p>
+<blockquote>
+<p>英文原文｜A retrospective study was performed of normal feline abdominal radiographs made at James L Voss Veterinary Teaching Hospital, Colorado State University from the year 2001. The inclusion criteria for this study were cats that presented without any gastrointestinal signs and had two orthogonal radiographic views (lateral and ventrodorsal) interpreted as normal.</p>
+</blockquote>
+<h3>主要結果</h3>
+<p>X 光：13/37（35%）可見壁內透亮帶。CT：4/15（27%）見壁內低密度層，HU 值 −76 至 −118（平均 −110），層厚 1–2 mm，符合脂肪密度。組織病理學：黏膜下層確認有白色脂肪組織層。年齡、體重、相對肥胖度均與透亮帶出現無統計顯著相關。</p>
+<blockquote>
+<p>英文原文｜This gastric radiolucent band was seen in 13 of 37 (35%) radiographs. Using CT, an intramural hypoattenuating layer was detected in the stomach wall of four of 15 (27%) cats. The Hounsfield values of the hypoattenuating layers corresponded to fat, ranging from −76 to −118 with a mean of −110. This radiographic and CT finding was histologically determined to be normal fat in the gastric submucosa in one cat cadaver.</p>
+</blockquote>
+<h3>臨床意義</h3>
+<p>此壁內透亮帶為偶發性正常發現，不應與胃壁積氣（氣腫性胃炎）混淆。CT HU 值是鑑別壁內脂肪（≈ −110 HU）與壁內積氣（≈ −1000 HU）的關鍵工具。</p>
+<blockquote>
+<p>英文原文｜This band is an incidental finding and should not be confused with gas in the stomach wall.</p>
+</blockquote>
+<hr />
+<h2>🗃️ 結構化重點</h2>
+<h3>研究族群</h3>
+<p>1️⃣ <strong>X 光組</strong>：來自 194 張 2001 年 X 光影像中篩選的 37 隻貓，均無消化道症狀，兩個正交投影（腹背位＋側位）均判讀正常。記錄透亮帶所在投影及胃充盈程度。</p>
+<p>2️⃣ <strong>CT 組</strong>：1998–2002 年間，15 隻無消化道症狀之腹部 CT 貓。以十字形 ROI 測量 HU 值，以軟體卡尺測量層厚（CTw computer software）。</p>
+<p>3️⃣ <strong>屍體組</strong>：7 具近期安樂死屍體，X 光篩選出 1 具有透亮帶者，行腹部 CT 及胃壁 HE 染色組織病理。</p>
+<blockquote>
+<p>英文原文｜A retrospective evaluation was done of the cranial abdominal CT examinations of cats with no clinical signs of gastrointestinal disease at the James L Voss Veterinary Teaching Hospital, Colorado State University during the last 5 years (1998–2002).</p>
+</blockquote>
+<h3>相對肥胖度測量方法</h3>
+<p>以 X 光測量鐮狀脂肪高度（肝臟尖端至皮膚的垂直距離）除以第一腰椎（L1）椎體長度，作為相對肥胖度指標。統計方法：邏輯迴歸（logistic regression），顯著水準 P = 0.05。</p>
+<blockquote>
+<p>英文原文｜Relative obesity was assessed radiographically by estimating the ratio of the height of the falciform fat to the length of the first lumbar vertebra. The height of the falciform fat was measured from the tip of the liver to the skin in a line perpendicular to the skin.</p>
+</blockquote>
+<h3>Table 1 — 年齡、體重、肥胖度與透亮帶的關係</h3>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>有透亮帶（mean ± SD）</th>
+<th>無透亮帶（mean ± SD）</th>
+<th>Odds Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>年齡（年）</td>
+<td>8.8 ± 1.2</td>
+<td>6 ± 1</td>
+<td>1.113</td>
+</tr>
+<tr>
+<td>體重（kg）</td>
+<td>6 ± 0.4</td>
+<td>5 ± 0.3</td>
+<td>0.792</td>
+</tr>
+<tr>
+<td>相對肥胖度</td>
+<td>1.2 ± 0.29</td>
+<td>1.2 ± 0.24</td>
+<td>1.569</td>
+</tr>
+</tbody>
+</table>
+<p>→ 三項因素均未達統計顯著相關（P = 0.05）</p>
+<hr />
+<h2>💊 藥物詳解</h2>
+<p>本研究無藥物治療。CT 掃描設備：Picker PQ 2000（Universal Medical System，Bedford Hills，NY）。統計軟體：SAS software version 8（Cary，NC）。</p>
+<hr />
+<h2>🖼️ 圖表解析</h2>
+<div class="callout callout-info"><div class="callout-title callout-info">圖 1 — X 光壁內透亮帶（兩個投影）</div><div class="callout-body"><p>![](Heng2005_images/Fig1_radiograph.jpg)<br />
+（A）貓腹背位 X 光局部放大。可見胃壁內透亮帶（箭頭），走行於胃壁內，與胃腔氣體之間有軟組織密度的黏膜層隔開。<br />
+（B）左側臥位 X 光。胃壁透亮帶（箭頭）在側位也可見，見於未與其他器官重疊的胃體部。</p>
+<p>💡 腹背位可展示更大胃底與胃體面積，被周圍腹腔脂肪對比，是最易辨識透亮帶的投影。</p></div></div>
+
+<div class="callout callout-warning"><div class="callout-title callout-warning">圖 2A — CT 橫切面（屍體）</div><div class="callout-body"><p>![](Heng2005_images/Fig2A_CT.jpg)<br />
+屍體腹部 CT 橫切面，軟組織視窗。可見漿膜層與黏膜面之間的低密度層（箭頭，HU = −80），位於黏膜下層，對應脂肪密度。"Left" 標記顯示左側方向。</p>
+<p>⚠️ HU = −80 確認為脂肪，而非氣體（氣體約 −1000 HU）——此數值是鑑別壁內脂肪與氣腫性胃炎的關鍵客觀指標。</p></div></div>
+
+<div class="callout callout-info"><div class="callout-title callout-info">圖 2B — 組織病理切片（HE 染色）</div><div class="callout-body"><p>![](Heng2005_images/Fig2B_histo.jpg)<br />
+胃壁組織切片，HE 染色，× 40。雙頭箭頭顯示黏膜下層（submucosa）中明顯的脂肪層（白色脂肪組織）。脂肪層厚度不均，最厚處位於胃皺褶（rugal folds）突入胃腔之處。</p>
+<p>💡 此為本研究的金標準確認：X 光透亮帶 = CT 低密度層（HU ≈ −110）= 黏膜下層白色脂肪組織。</p></div></div>
+
+<hr />
+<h2>🏥 臨床重點</h2>
+<h3>1️⃣ 背景：兩個假說與研究動機</h3>
+<p>在正常貓的 X 光上偶見胃壁透亮帶，可見於無消化道症狀者，因此其臨床意義不明。研究前有兩種解釋：（1）壁內脂肪——黏膜下層含脂肪組織；（2）馬赫線光學效應（Mach band optical illusion）——已見於膀胱壁、腸壁、氣管壁的 X 光假象。本研究通過 CT HU 值的客觀測量及組織病理學確認，排除了光學假象，確立壁內脂肪為唯一合理解釋。</p>
+<blockquote>
+<p>英文原文｜Because of the fact that this radiolucent band can be detected in cats without any gastrointestinal signs, possible explanations for this finding include intramural fat or optical illusion. Mach line optical illusions have been associated with urinary bladder, bowel, and tracheal wall.</p>
+</blockquote>
+<h3>2️⃣ X 光盛行率與投影特性</h3>
+<p>194 張 X 光中篩選 37 隻正常貓，35%（13/37）可見胃壁壁內透亮帶。腹背位（VD）最常見（10 隻），側位（5 隻），兩者均見者 2 隻。空胃（8 隻）比充盈胃（5 隻）更易見到——因充盈時胃壁被撐張變薄，且食糜與胃壁重疊降低對比。腹背位因可展示更大面積的胃底與胃體（被腹腔脂肪對比）而最佳；側位僅在胃體部可見（此處周圍有腹腔脂肪，未與其他器官重疊）。</p>
+<blockquote>
+<p>英文原文｜The intramural radiolucent band was identified in 10 cats on the ventrodorsal view and five cats on the lateral view. The intramural radiolucent band was seen on both the ventrodorsal and lateral views in two cats. This radiolucent band was more commonly seen when the stomach was empty (eight cats) and less commonly when the stomach was ingesta-filled (five cats).</p>
+</blockquote>
+<h3>3️⃣ CT 特徵：HU 值確認脂肪本質</h3>
+<p>4/15（27%）貓在 CT 上見到位於漿膜層與黏膜面之間的壁內低密度層。HU 值 −76 至 −118（平均 −110），完全符合脂肪密度範圍（典型脂肪 HU 約 −50 至 −150）。層厚 1–2 mm。4 隻 CT 陽性貓，X 光上均（4/4）可見透亮帶；CT 陰性貓在 X 光上也均未見透亮帶——兩者完美一致。</p>
+<blockquote>
+<p>英文原文｜Four of 15 cats (27%) had an intramural hypoattenuating layer between the serosa and mucosal surface of the stomach. The Hounsfield values of the hypoattenuating layers corresponded to fat, ranging from −76 to −118 with a mean of −110. The thickness of the hypoattenuating layer ranged from 1 to 2 mm. The gastric intramural radiolucent band was seen radiographically in all four cats. The intramural radiolucent band was not seen radiographically in cats that did not have an intramural hypoattenuating layer.</p>
+</blockquote>
+<h3>4️⃣ 屍體驗證：CT + 組織病理學</h3>
+<p>7 具屍體 X 光中找到 1 具有透亮帶者。CT 顯示漿膜與黏膜面之間低密度層，HU = −80（符合脂肪）。HE 染色確認黏膜下層有明顯白色脂肪組織層，厚度不均，最厚處在胃皺褶（rugal folds）突入胃腔之處。文獻支持：Frappier（1998）描述動物黏膜下層可含白色脂肪組織；Samii et al.（1998）正常貓腹部 CT 解剖圖集 Fig 16 &amp; 18 可見相似低密度層。</p>
+<blockquote>
+<p>英文原文｜In the CT images of this cat's cadaver, there was a hypoattenuating layer located between the serosa and mucosal surface. The Hounsfield value of the hypoattenuating layer was −80, corresponding to fat. Histologically, there was an obvious layer of fat in the submucosa. This fat had variable thickness, with the thickest part located in the rugal folds where they projected into the lumen of the stomach.</p>
+</blockquote>
+<h3>5️⃣ 統計分析：無顯著相關因素</h3>
+<p>邏輯迴歸顯示年齡（OR 1.113）、體重（OR 0.792）、相對肥胖度（OR 1.569）均未達統計顯著（P = 0.05）。此意味此正常變異與貓的體型或年齡無法預測性關聯，任何體型和年齡的貓均可出現。</p>
+<blockquote>
+<p>英文原文｜Based on the odds ratios, there is no correlation between the presence of the gastric intramural radiolucent band and age, weight, or relative obesity of the cats.</p>
+</blockquote>
+<h3>6️⃣ 最重要鑑別：氣腫性胃炎 vs 壁內脂肪</h3>
+<p>壁內透亮帶的最重要鑑別診斷為氣腫性胃炎（emphysematous gastritis），一種因產氣細菌感染或其他原因造成胃壁積氣的嚴重病理狀況。兩者影像表現相似（均為壁內透亮），但 CT HU 值截然不同：脂肪 ≈ −76 至 −118；氣體 ≈ −1000。臨床症狀（氣腫性胃炎常伴全身病況）及 X 光形態（脂肪為細線狀；積氣可呈泡沫狀或不規則）也可輔助鑑別。</p>
+<blockquote>
+<p>英文原文｜Possible differential for intramural radiolucent band is emphysematous gastritis. This study supports that the intramural radiolucent band and hypoattenuating layer on CT of some normal cats corresponds to fat in the gastric submucosa. This band is an incidental finding and should not be confused with gas in the stomach wall.</p>
+</blockquote>
+<h3>7️⃣ 組織學背景</h3>
+<p>胃黏膜下層由含淋巴管及神經叢的結締組織組成（Aughey &amp; Frye 2001；Banks 1993；Kierszenbaum 2002）。動物黏膜下層含白色脂肪組織已有文獻描述（Frappier 1998），但未明確說明在哪些物種中出現。本研究為首篇在貓中以組織病理學確認此脂肪層的研究。</p>
+<blockquote>
+<p>英文原文｜The submucosal layer of the stomach of animals and humans consists of connective tissue containing lymphatics and nerve plexuses. The presence of white adipose tissue in the submucosa in animals has also been described. However, it was not stated in which species of animals this adipose tissue was identified.</p>
+</blockquote>
+<hr />
+<h2>🔬 批判性評估</h2>
+<p><strong>研究強度</strong>：三重驗證設計（X 光盛行率 + CT HU 值 + 組織病理）形成強力證據鏈。CT HU 值客觀確認了透亮帶的脂肪本質，排除光學假象及氣體。首篇以組織病理確認貓胃壁黏膜下層脂肪的研究，直接指導臨床報告解讀。</p>
+<p><strong>研究限制</strong>：（1）樣本量小：X 光組 37 隻、CT 組 15 隻，統計效力可能不足；（2）組織病理僅 1 具屍體，其他貓僅憑 HU 值推論；（3）CT 及屍體研究因經費限制只能做 7 具屍體；（4）因無消化道症狀貓不宜進行胃活檢，限制了活體組織學確認；（5）有透亮帶的貓平均年齡（8.8y）高於無透亮帶（6y），雖未達顯著，但在更大樣本中可能有意義。</p>
+<blockquote>
+<p>英文原文｜The limitation of this study was small sample size. Radiographic examination could only be performed on 7 cadavers with CT and histology examination of one because of limited funding.</p>
+</blockquote>
+<hr />
+<h2>🔗 重要參考文獻</h2>
+<ul>
+<li>Frappier BL (1998) Digestive system. In: <em>Textbook of Veterinary Histology</em>, 5th ed. Williams &amp; Wilkins, pp. 164–202</li>
+<li>Samii VF, Biller DS, Koblik PD (1998) Normal cross-sectional anatomy of the feline thorax and abdomen: comparison of CT and cadaver anatomy. <em>Vet Radiol Ultrasound</em> 39:504–511</li>
+<li>van Mook WN et al. (2002) Gas within the wall of the stomach due to emphysematous gastritis: case report and review. <em>Eur J Gastroenterol Hepatol</em> 14:1155–1160</li>
+<li>Papageoges M (2002) Visual perception and radiographic interpretation. In: Thrall DE (ed): <em>Textbook of Veterinary Diagnostic Radiology</em>, 4th ed.</li>
+<li>Lane EJ, Proto AV, Phillips TW (1976) Mach bands and density perception. <em>Radiology</em> 121:9–17</li>
+<li>Farrow CS, Green R, Shively M (1994) <em>Radiology of the cat</em>. Mosby-Year Book, p. 139</li>
+</ul>
+<hr />
+<h2>💬 筆記</h2>
+<ul>
+<li>臨床上在貓的腹部 X 光報告中遇到胃壁透亮帶時，若貓無任何消化道症狀，應優先描述為「偶發性正常變異，可能為黏膜下層脂肪」，並說明與氣腫性胃炎的鑑別依據（HU 值）。</li>
+<li>空腹狀態腹背位 X 光是顯示此透亮帶的最佳條件——臨床上若需評估此發現，建議空腹後加拍腹背位。</li>
+<li>CT 評估時應常規測量壁內低密度層的 HU 值：脂肪（−50 至 −150）vs 氣體（約 −1000）是最關鍵的鑑別指標，無需活檢。</li>
+<li>本研究的貓並非全部貓科動物均有此發現（35% X 光、27% CT），意味有相當比例的正常貓並無此層脂肪，或薄到影像上不可見。</li>
+</ul>
+<hr />
+<h2>❓ 問題</h2>
+<ol>
+<li>犬或其他物種是否也有類似的胃壁黏膜下層脂肪，在 X 光或 CT 上是否同樣可見？</li>
+<li>有透亮帶的貓平均年齡（8.8y）明顯高於無透亮帶（6y）——若樣本量足夠，是否可能達到統計顯著，提示脂肪隨年齡增厚？</li>
+<li>黏膜下層脂肪的功能意義為何？是否與胃的特定生理功能（如緩衝皺褶彎曲應力）有關？</li>
+<li>超音波能否辨識此黏膜下層脂肪？（文獻中未提及）如可，其迴音性如何？</li>
+<li>在有胃腸道疾病（如炎症性腸病、胃腫瘤）的貓中，此黏膜下層脂肪是否可能消失或改變，有鑑別診斷輔助意義？</li>
+</ol>
+
+</div>
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <strong>愛叮寶犬貓影像專科醫院</strong>
+  atinsight.vet · 小動物影像診斷專科
+</footer>
+
+
+<script>
+  function sendHeight() {
+    window.parent.postMessage({ iframeHeight: document.body.scrollHeight }, '*');
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('load', sendHeight);
+    });
+  });
+</script>
+
+</body>
+</html>
