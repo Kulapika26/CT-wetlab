@@ -59,7 +59,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans TC',s
 .scroll-arrow::after{content:'';width:4px;height:4px;background:var(--text3);border-radius:50%;position:absolute;top:6px;left:50%;transform:translateX(-50%);animation:scrollDot 1.5s infinite;}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(253,246,247,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:center;height:54px;overflow-x:auto;gap:0;}
+nav{background:rgba(253,246,247,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:center;height:54px;overflow-x:auto;gap:0;}
 nav::-webkit-scrollbar{display:none;}
 @media(max-width:900px){nav{justify-content:flex-start;}}
 .nav-item{padding:0 15px;height:100%;display:flex;align-items:center;font-size:12.5px;letter-spacing:.5px;color:var(--text3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0;font-weight:500;}
